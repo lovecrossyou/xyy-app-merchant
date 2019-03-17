@@ -35,11 +35,33 @@
 			"style": {
 				"navigationBarTitleText": "管理"
 			}
+		}, {
+			"path": "pages/shop/shopinfo",
+			"style": {
+				"navigationBarTitleText": "店铺"
+			}
+		}, {
+			"path": "pages/address/chooseAddress",
+			"style": {
+				"navigationBarTitleText": "选择地址"
+			}
+		},
+		 {
+			"path": "pages/address/addAddress",
+			"style": {
+				"navigationBarTitleText": "添加地址"
+			}
+		},
+		 {
+			"path": "pages/address/searchAddress",
+			"style": {
+				"navigationBarTitleText": "搜索地址"
+			}
 		}
 	],
 	"tabBar": {
 		"color": "#7a7e83",
-		"selectedColor": "#ff8638",
+		"selectedColor": "#F57A2B",
 		"backgroundColor": "#ffffff",
 		"list": [{
 			"pagePath": "pages/home/home",
@@ -59,8 +81,8 @@
 		}]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarBackgroundColor": "#ff8638",
-		"backgroundColor": "#fbf9fe"
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F57A2B"
 	}
 }

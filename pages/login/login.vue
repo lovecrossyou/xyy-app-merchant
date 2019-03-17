@@ -1,201 +1,233 @@
 <template>
-    <view class="content">
-        <view class="input-group">
-            <view class="input-row border">
-                <text class="title">账号：</text>
-                <m-input class="m-input" type="text" clearable focus v-model="account" placeholder="请输入账号"></m-input>
-            </view>
-            <view class="input-row">
-                <text class="title">密码：</text>
-                <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
-            </view>
-        </view>
-        <view class="btn-row">
-            <button type="primary" class="primary" @tap="bindLogin">登录</button>
-        </view>
-        <view class="action-row">
-            <navigator url="../reg/reg">注册账号</navigator>
-            <text>|</text>
-            <navigator url="../pwd/pwd">忘记密码</navigator>
-        </view>
-        <view class="oauth-row" v-if="hasProvider" v-bind:style="{top: positionTop + 'px'}">
-            <view class="oauth-image" v-for="provider in providerList" :key="provider.value">
-                <image :src="provider.image" @tap="oauth(provider.value)"></image>
-            </view>
-        </view>
-    </view>
+	<view class="enter_wrapper">
+		<img src="http://qnimage.xiteng.com/WechatIMG2083.jpeg" alt="" class="bg_img">
+		<view class="enter_box_area">
+			<view class="tel_area_wrapper">
+				<input type="number" v-model="userPhone" placeholder="请输入您的手机号码" placeholder-style="color:#7CA7D2;" />
+			</view>
+			<view class="tel_area_wrapper">
+				<input type="number" v-model="userCode" placeholder="请输入验证码" placeholder-style="color:#7CA7D2;" />
+				<button type="primary" class="get_code_btn">获取验证码</button>
+			</view>
+		</view>
+		<button class="login_btn" open-type="getUserInfo" @getuserinfo="oauth('weixin')">登录</button>
+		<view class="footer_text">注册或创建账户即同意《鑫翼优商家注册协议书》 </view>
+	</view>
 </template>
 
 <script>
-    import service from '../../service.js';
-    import {
-        mapState,
-        mapMutations
-    } from 'vuex'
-    import mInput from '../../components/m-input.vue'
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from 'vuex'
+	export default {
+		data() {
+			return {
+				providerList: [],
+				userCode: '',
+				userPhone: ''
+			}
+		},
+		methods: {
+			...mapActions(['login','appLogin']),
+			initProvider() {
+				const filters = ['weixin', 'qq', 'sinaweibo'];
+				uni.getProvider({
+					service: 'oauth',
+					success: (res) => {
+						if (res.provider && res.provider.length) {
+							for (let i = 0; i < res.provider.length; i++) {
+								if (~filters.indexOf(res.provider[i])) {
+									this.providerList.push({
+										value: res.provider[i],
+										image: '../../static/img/' + res.provider[i] + '.png'
+									});
+								}
+							}
+							this.hasProvider = true;
+						}
+					},
+					fail: (err) => {
+						console.error('获取服务供应商失败：' + JSON.stringify(err));
+					}
+				});
+			},
+			oauth(value) {
+				uni.login({
+					provider: value,
+					success: (res) => {
+						uni.getUserInfo({
+							provider: value,
+							success: (infoRes) => {
+								/**
+								 * 实际开发中，获取用户信息后，需要将信息上报至服务端。
+								 * 服务端可以用 userInfo.openId 作为用户的唯一标识新增或绑定用户信息。
+								 */
+								const {
+									encryptedData,
+									iv
+								} = infoRes;
+								console.log("infoRes ", JSON.stringify(infoRes));
+								console.log("res ", JSON.stringify(res));
 
-    export default {
-        components: {
-            mInput
-        },
-        data() {
-            return {
-                providerList: [],
-                hasProvider: false,
-                account: '',
-                password: '',
-                positionTop: 0
-            }
-        },
-        computed: mapState(['forcedLogin']),
-        methods: {
-            ...mapMutations(['login']),
-            initProvider() {
-                const filters = ['weixin', 'qq', 'sinaweibo'];
-                uni.getProvider({
-                    service: 'oauth',
-                    success: (res) => {
-                        if (res.provider && res.provider.length) {
-                            for (let i = 0; i < res.provider.length; i++) {
-                                if (~filters.indexOf(res.provider[i])) {
-                                    this.providerList.push({
-                                        value: res.provider[i],
-                                        image: '../../static/img/' + res.provider[i] + '.png'
-                                    });
-                                }
-                            }
-                            this.hasProvider = true;
-                        }
-                    },
-                    fail: (err) => {
-                        console.error('获取服务供应商失败：' + JSON.stringify(err));
-                    }
-                });
-            },
-            initPosition() {
-                /**
-                 * 使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
-                 * 反向使用 top 进行定位，可以避免此问题。
-                 */
-                this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
-            },
-            bindLogin() {
-                /**
-                 * 客户端对账号信息进行一些必要的校验。
-                 * 实际开发中，根据业务需要进行处理，这里仅做示例。
-                 */
-                if (this.account.length < 5) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '账号最短为 5 个字符'
-                    });
-                    return;
-                }
-                if (this.password.length < 6) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '密码最短为 6 个字符'
-                    });
-                    return;
-                }
-                /**
-                 * 下面简单模拟下服务端的处理
-                 * 检测用户账号密码是否在已注册的用户列表中
-                 * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
-                 */
-                const data = {
-                    account: this.account,
-                    password: this.password
-                };
-                const validUser = service.getUsers().some(function (user) {
-                    return data.account === user.account && data.password === user.password;
-                });
-                if (validUser) {
-                    this.toMain(this.account);
-                } else {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '用户账号或密码不正确',
-                    });
-                }
-            },
-            oauth(value) {
-                uni.login({
-                    provider: value,
-                    success: (res) => {
-                        uni.getUserInfo({
-                            provider: value,
-                            success: (infoRes) => {
-                                /**
-                                 * 实际开发中，获取用户信息后，需要将信息上报至服务端。
-                                 * 服务端可以用 userInfo.openId 作为用户的唯一标识新增或绑定用户信息。
-                                 */
-                                this.toMain(infoRes.userInfo.nickName);
-                            }
-                        });
-                    },
-                    fail: (err) => {
-                        console.error('授权登录失败：' + JSON.stringify(err));
-                    }
-                });
-            },
-            toMain(userName) {
-                this.login(userName);
-                /**
-                 * 强制登录时使用reLaunch方式跳转过来
-                 * 返回首页也使用reLaunch方式
-                 */
-                if (this.forcedLogin) {
-                    uni.reLaunch({
-                        url: '../main/main',
-                    });
-                } else {
-                    uni.navigateBack();
-                }
-
-            }
-        },
-        onLoad() {
-            this.initPosition();
-            this.initProvider();
-        }
-    }
+								console.log("encryptedData ", JSON.stringify(encryptedData));
+								var params = {
+									userPhone: this.userPhone,
+									userCode: this.userCode,
+									code: res.code,
+									userLng: '',
+									userLat: '',
+									encode: {
+										encryptedData,
+										iv
+									}
+								}
+								// #ifdef APP-PLUS
+								params.weiXinUserInfo={
+									openid:res.authResult.openid
+								}
+								// #endif
+								
+								console.log('params###',JSON.stringify(params));
+								this.toMain(params);
+							}
+						});
+					},
+					fail: (err) => {
+						console.error('授权登录失败：' + JSON.stringify(err));
+					}
+				});
+			},
+			async toMain(params) {
+				// #ifdef APP-PLUS
+					const res = await this.appLogin(params);
+					if (res.status !== 'ok') return;
+				// #endif
+				// #ifndef APP-PLUS
+					const result = await this.login(params);
+					if (result.status !== 'ok') return;
+				// #endif
+								
+				uni.reLaunch({
+					url: '../main/main'
+				});
+			}
+		},
+		onLoad() {
+			this.initProvider();
+		}
+	}
 </script>
 
-<style>
-    .action-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
+<style lang="less" scoped>
+	.enter_wrapper {
+		width: 100%;
 
-    .action-row navigator {
-        color: #007aff;
-        padding: 0 20upx;
-    }
+		.bg_img {
+			width: 100%;
+			height: 396upx;
+		}
 
-    .oauth-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-    }
+		.enter_box_area {
+			width: 100%;
+			padding: 0 47upx;
+			box-sizing: border-box;
 
-    .oauth-image {
-        width: 100upx;
-        height: 100upx;
-        border: 1upx solid #dddddd;
-        border-radius: 100upx;
-        margin: 0 40upx;
-        background-color: #ffffff;
-    }
+			.tel_area_wrapper {
+				width: 100%;
+				height: 95upx;
+				border-bottom: 1upx solid #7CA7D2;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
 
-    .oauth-image image {
-        width: 60upx;
-        height: 60upx;
-        margin: 20upx;
-    }
+				.get_code_btn {
+					width: 165upx;
+					height: 60upx;
+					background-color: #7CA7D2;
+					color: #fff;
+					font-size: 28upx;
+					border-radius: 10upx;
+					border: none;
+					text-align: center;
+					line-height: 60upx;
+				}
+			}
+
+			.tel_area_wrapper>input {
+				font-size: 28upx;
+				color: #7CA7D2;
+				flex: 1;
+			}
+		}
+
+		.login_btn {
+			width: 655upx;
+			height: 90upx;
+			border: none;
+			background-color: #7CA7D2;
+			color: #fff;
+			text-align: center;
+			line-height: 90upx;
+			font-size: 28upx;
+			border-radius: 40upx;
+			margin-top: 100upx;
+		}
+
+		.third_party_area {
+			width: 100%;
+			border-top: 1upx dashed #F1F1F1;
+			margin-top: 100upx;
+			position: relative;
+
+			.third_party_text {
+				color: #A3A3A3;
+				font-size: 24upx;
+				position: absolute;
+				left: 43%;
+				top: -15upx;
+			}
+		}
+
+		.login_way {
+			width: 70%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			margin: 65upx auto 0 auto;
+
+			image {
+				width: 110upx;
+				height: 110upx;
+			}
+
+			.share {
+				width: 110upx;
+				height: 110upx;
+				// padding: 0 20rpx;
+				// position: absolute;
+				// right: 32rpx;
+				// 				top: 0;
+				// 				bottom: 0;
+				margin: auto;
+				background-size: 110upx 110upx;
+				background-repeat: no-repeat;
+				border: none;
+				background-image: url('http://qnimage.xiteng.com/weixin@2x.png');
+				border-radius: 50%;
+				background-color: #fff;
+			}
+		}
+
+		.footer_text {
+			width: 100%;
+			height: 25upx;
+			color: #7CA7D2;
+			font-size: 22upx;
+			margin-top: 93upx;
+			text-align: center;
+		}
+	}
 </style>
