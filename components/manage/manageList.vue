@@ -1,6 +1,6 @@
 <template>
 	<view class="option_item" @click="handler">
-		<img :src="imgSrc" alt="" v-bind:style="{width:imgWidth,height:imgHeight}">
+		<image class="c-icon" :src="imgSrc" alt="" mode="widthFix"/>
 		<view class="option_text">{{titleText}}</view>
 	</view>
 </template>
@@ -55,6 +55,10 @@
 		padding-top: 25upx;
 		box-sizing: border-box;
 		margin: 0 15upx 60upx 15upx;
+	}
+	
+	.c-icon{
+		width: 64upx;
 	}
 
 	.option_text {

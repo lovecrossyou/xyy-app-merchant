@@ -15,14 +15,14 @@
 			></image>
 		</view>
 		<view class="item_list">
-			<itemTemplate imgSrc="../../static/user/jiaoyijilu@2x.png" title="交易记录" imgWidth="44upx" imgHeight="44upx"></itemTemplate>
-			<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置" imgWidth="44upx" imgHeight="42upx"></itemTemplate>
+			<itemTemplate imgSrc="../../static/user/jiaoyijilu@2x.png" title="交易记录" ></itemTemplate>
+			<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置"></itemTemplate>
 		</view>
 	</view>
 </template>
 
 <script>
-import itemTemplate from "@/user/itemTemplate.vue"
+import itemTemplate from "./itemTemplate.vue"
 export default {
 	components: {
 		itemTemplate

@@ -1,8 +1,8 @@
 <template>
 	<view class="list_wrapper">
-		<img :src="imgSrc" v-bind:style="{ width: imgWidth, height: imgHeight }">
+		<image class="item-icon" :src="imgSrc" mode="widthFix"/>
 		<text class="item_text">{{title}}</text>
-		<img src="http://qnimage.xiteng.com/right_icon@2x.png" style="width: 14upx;height: 22upx;">
+		<image class="next_icon" src="http://qnimage.xiteng.com/right_icon@2x.png" mode="widthFix"/>
 	</view>
 </template>
 
@@ -38,6 +38,14 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+	}
+	
+	.item-icon{
+		width: 45upx;
+	}
+	
+	.next_icon{
+		width:14upx ;
 	}
 	.item_text{
 		flex: 1;
