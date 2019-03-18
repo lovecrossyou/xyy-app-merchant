@@ -85,7 +85,7 @@
 
 <script>
 // 导入组件文件
-import glanceSlideNavTabBar from '@/components/glance-SlideNavTabBar.vue';
+import glanceSlideNavTabBar from '@/components/home/glance-SlideNavTabBar.vue';
 
 export default {
 	// 注入组件
@@ -98,7 +98,7 @@ export default {
 	methods: {
 		// 实现点击事件
 		clickitem(idx, val) {
-			uni.showToast({});
+			
 		}
 	}
 };
