@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		1111
 	</view>
 </template>
 
@@ -14,6 +14,6 @@
 	}
 </script>
 
-<style lang="less">
+<style scoped>
 
 </style>
