@@ -43,7 +43,7 @@
 			<div class="title">店铺头像</div>
 			<div class="shop-image"></div>
 		</div>
-	
+
 		<!-- 底部footer -->
 		<div class="footer">
 			<div class="button">完成</div>
