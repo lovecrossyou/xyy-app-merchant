@@ -34,14 +34,13 @@
 			<div class="title88">商品分类</div>
 			<div class="shop-addr">请选择</div>
 		</div>
+		<div class="username-wrapper">
+			<div class="title88">商品描述</div>
+			<input class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入商品描述" />
+		</div>
 		<!-- 头像 -->
 		<div class="avatar-wrapper">
 			<div class="title">店铺头像</div>
-			<div class="shop-image"></div>
-		</div>
-		<!-- 店内环境 -->
-		<div class="shopicon">
-			<div class="title">店内环境</div>
 			<div class="shop-image"></div>
 		</div>
 	
