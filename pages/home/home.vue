@@ -1,7 +1,7 @@
 <template>
 	<view class="home_wrapper">
 		<!-- 头部 -->
-		<view class="header_wrapper">
+		<view class="header_wrapper" @click="goShopInfo">
 			<img
 				src="http://img0.imgtn.bdimg.com/it/u=440953885,2173090427&fm=11&gp=0.jpg"
 				alt=""
@@ -99,6 +99,11 @@ export default {
 		// 实现点击事件
 		clickitem(idx, val) {
 			
+		},
+		goShopInfo(){
+			uni.navigateTo({
+				url:"/pages/shop/shopinfo"
+			})
 		}
 	}
 };

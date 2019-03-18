@@ -54,7 +54,6 @@
 <script>
 
     import {mapState, mapMutations} from 'vuex'
-    import {getAddress, getUser, postAddAddress} from '../../util/service/getData.js'
     import alertTip from '../../components/alertTip.vue'
 	import api from '../../util/api.js'
 
