@@ -16,6 +16,7 @@ const api = {
 	getAddress: (params) => request.post("client/keplerPay/queryResult", params),
 	getUser: (params) => request.post("client/keplerPay/queryResult", params),
 	postAddAddress: (params) => request.post("client/keplerPay/queryResult", params),
+	uploadFile: file => request.post("client/keplerPay/queryResult", params),
 
 }
 export default api
