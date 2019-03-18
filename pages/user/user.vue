@@ -1,41 +1,71 @@
 <template>
-    <view class="content">
-        
-    </view>
+	<view class="user_wrapper">
+		<!-- 头部 -->
+		<view class="header_wrapper">
+			<img
+				src="http://img0.imgtn.bdimg.com/it/u=440953885,2173090427&fm=11&gp=0.jpg"
+				alt=""
+				class="tea_img"
+			/>
+			<view class="user_name">仙女蓉</view>
+			<image
+				src="http://qnimage.xiteng.com/right_icon@2x.png"
+				mode=""
+				class="next_icon"
+			></image>
+		</view>
+		<view class="item_list">
+			<itemTemplate imgSrc="../../static/user/jiaoyijilu@2x.png" title="交易记录" imgWidth="44upx" imgHeight="44upx"></itemTemplate>
+			<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置" imgWidth="44upx" imgHeight="42upx"></itemTemplate>
+		</view>
+	</view>
 </template>
 
 <script>
-    import {
-        mapState,
-        mapMutations
-    } from 'vuex'
-
-    export default {
-        computed: {
-            ...mapState(['hasLogin', 'forcedLogin'])
-        },
-        methods: {
-            ...mapMutations(['logout']),
-            bindLogin() {
-                uni.navigateTo({
-                    url: '../login/login',
-                });
-            },
-            bindLogout() {
-                this.logout();
-                /**
-                 * 如果需要强制登录跳转回登录页面
-                 */
-                if (this.forcedLogin) {
-                    uni.reLaunch({
-                        url: '../login/login',
-                    });
-                }
-            }
-        }
-    }
+import itemTemplate from "@/user/itemTemplate.vue"
+export default {
+	components: {
+		itemTemplate
+	},
+	methods: {
+		
+	}
+};
 </script>
 
 <style>
-
+.user_wrapper {
+	width: 100%;
+}
+.header_wrapper {
+	width: 100%;
+	height: 200upx;
+	display: flex;
+	flex-direction: row;
+	padding: 20upx 28upx 20upx 24upx;
+	box-sizing: border-box;
+	align-items: center;
+	border-bottom: 1upx solid #f3e1d5;
+}
+.tea_img {
+	width: 160upx;
+	height: 160upx;
+	border-radius: 50%;
+	border: 1upx solid rgba(210, 210, 210, 1);
+}
+.user_name {
+	flex: 1;
+	font-size: 32upx;
+	color: #ff8638;
+	line-height: 200upx;
+	margin-left: 40upx;
+}
+.next_icon {
+	width: 14upx;
+	height: 24upx;
+}
+.item_list{
+	padding:10upx 25upx;
+	box-sizing: border-box;
+	}
 </style>
