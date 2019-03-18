@@ -57,6 +57,12 @@
 			"style": {
 				"navigationBarTitleText": "搜索地址"
 			}
+		},
+		 {
+			"path": "pages/orderAll/orderDetails",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
 		}
 	],
 	"tabBar": {
