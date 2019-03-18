@@ -143,7 +143,7 @@ export default {
 	width: 100%;
 	background-color: #fff;
 	margin-top: 20upx;
-	padding: 22upx 16upx;
+	padding: 20upx;
 	box-sizing: border-box;
 }
 .order_details{
