@@ -1,7 +1,7 @@
 <template>
 	<view class="manage_wrapper">
-		<manageList imgSrc="../../static/manage/label_icon@2x.png" titleText="分类管理" imgWidth="64upx" imgHeight="64upx"></manageList>
-		<manageList imgSrc="../../static/manage/shangpingouwudai@2x.png" titleText="商品管理" imgWidth="64upx" imgHeight="62upx"></manageList>
+		<manageList :click="goCategory" imgSrc="../../static/manage/label_icon@2x.png" titleText="分类管理" imgWidth="64upx" imgHeight="64upx"></manageList>
+		<manageList :click="goProduct" imgSrc="../../static/manage/shangpingouwudai@2x.png" titleText="商品管理" imgWidth="64upx" imgHeight="62upx"></manageList>
 		<manageList imgSrc="../../static/manage/yunyingshang@2x.png" titleText="营销管理" imgWidth="66upx" imgHeight="52upx"></manageList>
 		<manageList imgSrc="../../static/manage/yuangongguanli@2x.png" titleText="员工管理" imgWidth="54upx" imgHeight="66upx"></manageList>
 		<manageList imgSrc="../../static/manage/dingdan@2x.png" titleText="订单管理" imgWidth="62upx" imgHeight="70upx"></manageList>
@@ -20,6 +20,18 @@ export default {
 	},
 	components: {
 		manageList
+	},
+	methods:{
+		goProduct:function(){
+			uni.navigateTo({
+				url:"/pages/product/productList"
+			})
+		},
+		goCategory:function(){
+			uni.navigateTo({
+				url:"/pages/category/categoryList"
+			})
+		}
 	}
 };
 </script>
