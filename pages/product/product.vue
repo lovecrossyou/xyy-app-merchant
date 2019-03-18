@@ -37,7 +37,7 @@
 		<!-- 头像 -->
 		<div class="avatar-wrapper" @click="chooseImage">
 			<div class="title">店铺头像</div>
-			<div class="shop-image"></div>
+			<image v-bind:src="formData.headImage" class="shop-image"></image>
 		</div>
 
 		<!-- 底部footer -->
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+	import api from '../../util/api.js'
 	export default {
 		data() {
 			return {
@@ -70,11 +71,27 @@
 		},
 		methods: {
 			chooseImage: function() {
+				var that = this;
 				uni.chooseImage({
 					count: 6, //默认9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					success: function(res) {
-						console.log(JSON.stringify(res.tempFilePaths));
+						if (res.tempFilePaths.length !== 0) {
+							that.uploadImage(res.tempFilePaths)
+						}
+					}
+				});
+			},
+			uploadImage: function(tempFilePaths) {
+				uni.uploadFile({
+					url: 'http://47.94.169.143:8004/manage/qiniu/upload', //仅为示例，非真实的接口地址
+					filePath: tempFilePaths[0],
+					name: 'file',
+					success: (result) => {
+						const data = JSON.parse(result.data);
+						if (parseInt(data.status) === 0) {
+							this.formData.headImage = data.data.url;
+						}
 					}
 				});
 			},

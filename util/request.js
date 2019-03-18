@@ -2,6 +2,7 @@ import Fly from 'flyio/dist/npm/wx'
 import service from "../service"
 const request = new Fly()
 const baseURL = 'https://api.kuaimayoupin.com/'
+
 request.config.baseURL = baseURL
 
 const errorPrompt = (err) => {
