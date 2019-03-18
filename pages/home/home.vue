@@ -57,7 +57,7 @@
 					</view>
 				</view>
 				<!-- 商品 -->
-				<view class="commodity_list_wrapper">
+				<view class="commodity_list_wrapper" @click="goOrderDetails">
 					<blocl v-for="(item, index) in commodityList" :key="index">
 						<view class="commodity_details">
 							<img
@@ -96,9 +96,13 @@ export default {
 		};
 	},
 	methods: {
-		// 实现点击事件
 		clickitem(idx, val) {
 			
+		},
+		goOrderDetails(){
+			uni.navigateTo({
+				url:"../orderAll/orderDetails"
+			})
 		}
 	}
 };
