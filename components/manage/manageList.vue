@@ -1,5 +1,5 @@
 <template>
-	<view class="option_item" @click="click">
+	<view class="option_item" @click="handler">
 		<img :src="imgSrc" alt="" v-bind:style="{width:imgWidth,height:imgHeight}">
 		<view class="option_text">{{titleText}}</view>
 	</view>
@@ -8,9 +8,6 @@
 <script>
 	import Vue from 'vue';
 	export default {
-		props: {
-			click: Function
-		},
 		data() {
 			return {
 
@@ -20,11 +17,28 @@
 			imgSrc: String,
 			titleText: String,
 			imgWidth: String,
-			imgHeight: String
+			imgHeight: String,
+			page:String
 		},
 		components: {},
 		computed: {},
-		methods: {}
+		methods: {
+// 			goProduct:function(){
+// 				uni.navigateTo({
+// 					url:"/pages/product/productList"
+// 				})
+// 			},
+// 			goCategory:function(){
+// 				uni.navigateTo({
+// 					url:"/pages/category/categoryList"
+// 				})
+// 			},
+			handler:function(){
+				uni.navigateTo({
+					url:this.page
+				})
+			}
+		}
 	};
 </script>
 
