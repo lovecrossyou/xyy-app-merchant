@@ -3,32 +3,28 @@
 		<!-- 商品名称 -->
 		<div class="username-wrapper">
 			<div class="title88">商品名称</div>
-			<input class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入商品名称" />
+			<input v-model="formData.headName" class="shop-addr" @input="replaceInput" placeholder="请输入商品名称" />
 		</div>
 		<!-- 原价 -->
 		<div class="phone-wrapper">
 			<div class="title88">原价</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入原价" />
+			<input type="number" class="shop-addr" @input="replaceInput" v-model="formData.originalPrice" placeholder="请输入原价" />
 		</div>
 		<!-- 现价 -->
 		<div class="phone-wrapper">
 			<div class="title88">现价</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入现价" />
+			<input type="number" class="shop-addr" @input="replaceInput" v-model="formData.price" placeholder="请输入现价" />
 		</div>
 		<!-- 商品规格 -->
 		<div class="username-wrapper">
 			<div class="title88">商品规格</div>
-			<input class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入商品规格" />
+			<input class="shop-addr" @input="replaceInput" v-model="formData.spec" placeholder="请输入商品规格" />
 		</div>
-		<!-- 商品销量 -->
-		<div class="phone-wrapper">
-			<div class="title88">商品销量</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入商品销量" />
-		</div>
+
 		<!-- 库存 -->
 		<div class="phone-wrapper">
 			<div class="title88">库存</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入库存" />
+			<input type="number" class="shop-addr" @input="replaceInput" v-model="formData.stock" placeholder="请输入库存" />
 		</div>
 		<div class="addr-wrapper" @click='goCategory'>
 			<div class="title88">商品分类</div>
@@ -36,16 +32,16 @@
 		</div>
 		<div class="username-wrapper">
 			<div class="title88">商品描述</div>
-			<input class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入商品描述" />
+			<input class="shop-addr" @input="replaceInput" v-model="formData.productDescribe" placeholder="请输入商品描述" />
 		</div>
 		<!-- 头像 -->
-		<div class="avatar-wrapper">
+		<div class="avatar-wrapper" @click="chooseImage">
 			<div class="title">店铺头像</div>
 			<div class="shop-image"></div>
 		</div>
-	
+
 		<!-- 底部footer -->
-		<div class="footer">
+		<div class="footer" @click="saveOrUpdate">
 			<div class="button">完成</div>
 		</div>
 	</div>
@@ -56,15 +52,41 @@
 		data() {
 			return {
 				inputValue: '',
-				changeValue: ''
+				changeValue: '',
+				formData: {
+					"headName": "",
+					"price": '',
+					"originalPrice": '',
+					"tag": "",
+					"spec": "",
+					"brand": "",
+					"productDescribe": "",
+					"categoryId": 2,
+					"listImage": "",
+					"headImage": "",
+					"detailImages": []
+				}
 			}
 		},
 		methods: {
+			chooseImage: function() {
+				uni.chooseImage({
+					count: 6, //默认9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					success: function(res) {
+						console.log(JSON.stringify(res.tempFilePaths));
+					}
+				});
+			},
 			goCategory() {
 				//地址列表
 				uni.navigateTo({
 					url: '../category/categoryList'
 				})
+			},
+			saveOrUpdate() {
+				const formData = this.formData;
+				console.log('formData ', formData);
 			},
 			onKeyInput: function(event) {
 				this.inputValue = event.target.value
