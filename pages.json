@@ -92,6 +92,12 @@
 		    "style": {
 		    	"navigationBarTitleText": "商品描述"
 		    }
+		},
+		{
+		    "path" : "pages/category/addCategory",
+		    "style": {
+		    	"navigationBarTitleText": "添加分类"
+		    }
 		}
     ],
 	"tabBar": {
