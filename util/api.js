@@ -36,8 +36,9 @@ const api = {
 		uni.request({
 			url: searchBaseUrl+'/map/search',
 			data: data,
+			method:'POST',
 			success: (res) => {
-				console.log(res.data);
+				cb(res.data);
 			}
 		});
 	},

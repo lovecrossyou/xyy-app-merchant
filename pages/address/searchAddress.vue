@@ -30,17 +30,16 @@
 		data() {
 			return {
 				searchValue: null, //输入的搜索内容
-				searchData: null, //搜索的结果
+				searchData: [], //搜索的结果
 			}
 		},
 		props: [],
 		methods: {
 			onKeyInput: function(event) {
-				// this.inputValue = event.target.value;
 				api.searchNearby({
 					keywords: event.target.value
 				}, res => {
-					this.searchData = res.data.pois;
+					this.searchData = res.data;
 					console.log('searchData', JSON.stringify(this.searchData));
 				});
 			},
@@ -51,14 +50,14 @@
 						keywords: this.searchValue
 					}, res => {
 						this.searchData = res.data.pois;
-						console.log('searchData', JSON.stringify(this.searchData));
 					});
 
 				}
 			},
 			//选择搜素结果
-			choooedAddress(item) {},
-
+			choooedAddress(item) {
+				
+			},
 		}
 	}
 </script>
