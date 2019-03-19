@@ -148,6 +148,6 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#F57A2B"
+		"backgroundColor": "#fff"
 	}
 }

@@ -40,7 +40,7 @@
 		</div>
 		<!-- 头像 -->
 		<div class="avatar-wrapper" @click="chooseImage">
-			<div class="title">店铺头像</div>
+			<div class="title">商品图片</div>
 			<image v-bind:src="formData.headImage" class="shop-image"></image>
 		</div>
 
