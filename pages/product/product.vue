@@ -59,26 +59,14 @@
 	export default {
 		computed: {
 			...mapState('product', {
-				category: state => state.category
+				category: state => state.category,
+				formData: state => state.editProduct,
 			})
 		},
 		data() {
 			return {
 				inputValue: '',
-				changeValue: '',
-				formData: {
-					"headName": "",
-					"price": '',
-					"originalPrice": '',
-					"tag": "",
-					"spec": "",
-					"brand": "",
-					"productDescribe": "",
-					"categoryId": 2,
-					"listImage": "",
-					"headImage": "",
-					"detailImages": []
-				}
+				changeValue: ''
 			}
 		},
 		methods: {
@@ -108,8 +96,20 @@
 			async saveOrUpdate() {
 				const formData = this.formData;
 				formData.categoryId = this.category.id;
-				const res = await api.createProduct(formData);
-				console.log('saveOrUpdate res ', res);
+				
+				var res = null
+				if(formData.id){
+					res = await api.editProduct(formData);
+				}
+				else{
+					res = await api.createProduct(formData);
+				}
+				if(res.status === 'ok'){
+					this.$store.dispatch("product/fetchProductList", {
+						id: this.$store.state.shopId
+					});
+					uni.navigateBack();
+				}
 			},
 			onKeyInput: function(event) {
 				this.inputValue = event.target.value

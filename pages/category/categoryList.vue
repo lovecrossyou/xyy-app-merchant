@@ -48,7 +48,7 @@
 			},
 			async fetchCategoryList() {
 				const params = {
-					"id": 3
+					"id": this.$store.state.shopId
 				}
 				const res = await api.categoryList(params);
 				this.categoryList = res.data;

@@ -2,13 +2,13 @@ import request from './request'
 import Fly from 'flyio/dist/npm/wx'
 
 const uploadBaseUrl = "http://47.94.169.143:8004"
-
+const searchBaseUrl = "http://47.94.169.143:8004"
 const api = {
 
 	requestCartClient: (params) => request.post("client/shop/cartClient", params),
 	deliveryAddressList: (params) => request.post("client/deliveryAddress/list", params),
 	deliveryAddressCreate: (params) => request.post("client/deliveryAddress/create", params),
-	searchNearby: (params) => request.get("client/common/searchAddress", params),
+	// searchNearby: (params) => request.get("client/common/searchAddress", params),
 	deliveryAddressEdit: (params) => request.post("client/deliveryAddress/edit", params),
 	shopOrderCreate: (params) => request.post("client/shopOrder/create", params),
 	keplerPayConfirm: (params) => request.post("client/keplerPay/confirm", params),
@@ -26,6 +26,21 @@ const api = {
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/shop/createProduct", data, 'POST'),
+	editProduct: data => request.post("/merchant/shop/editProduct", data, 'POST'),
+
+	// 商品列表
+	productList: data => request.post("/merchant/shop/productListWithCategory", data, 'POST'),
+
+	//地址搜索
+	searchNearby: (data,cb) => {
+		uni.request({
+			url: searchBaseUrl+'/map/search',
+			data: data,
+			success: (res) => {
+				console.log(res.data);
+			}
+		});
+	},
 	//上传
 	uploader: (file, cb) => {
 		uni.uploadFile({

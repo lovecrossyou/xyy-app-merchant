@@ -50,7 +50,7 @@
 			toAddress() {
 				//地址列表
 				uni.navigateTo({
-					url: '../address/chooseAddress'
+					url: '../address/searchAddress'
 				})
 			},
 			onKeyInput: function(event) {

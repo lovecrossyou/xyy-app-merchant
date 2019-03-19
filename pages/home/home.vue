@@ -7,7 +7,7 @@
 				<view class="water_station_name">小贝水站</view>
 				<view class="water_station_sales_num">销量：500+</view>
 			</view>
-			<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
+			<image src="http://qnimage.xiteng.com/right_icon@2x.png"  class="next_icon"></image>
 		</view>
 		<!-- 订单 -->
 		<view class="orders_classify_wrapper">
