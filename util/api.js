@@ -20,10 +20,12 @@ const api = {
 	getUser: (params) => request.post("client/keplerPay/queryResult", params),
 	postAddAddress: (params) => request.post("client/keplerPay/queryResult", params),
 
- // 分类列表
+	// 分类列表
 	categoryList: data => request.post("/merchant/shop/productCategory/list", data, 'POST'),
+	addCategory: data => request.post("/merchant/shop/productCategory/create", data, 'POST'),
+
 	// 添加商品
-	createProduct:data=>request.post("/merchant/shop/createProduct", data, 'POST'),
+	createProduct: data => request.post("/merchant/shop/createProduct", data, 'POST'),
 	//上传
 	uploader: (file, cb) => {
 		uni.uploadFile({

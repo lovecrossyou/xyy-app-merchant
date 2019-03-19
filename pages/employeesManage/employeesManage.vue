@@ -4,9 +4,9 @@
 			<view class="employees_list_area">
 				<view class="employees_left">
 					<img src="http://qnimage.xiteng.com/zhulizhe.jpg" class="employees_img" />
-					<view class="employees_name">张三</view>
+					<view class="employees_name">{{employees.name}}</view>
 				</view>
-				<view class="employees_right" @click="goAddEmp">
+				<view class="employees_right" @click="goAddEmp(employees)">
 					<view class="post_name">店长</view>
 					<img src="http://qnimage.xiteng.com/right_icon@2x.png" alt="" class="next_icon"/>
 				</view>
@@ -20,13 +20,26 @@
 export default {
 	data() {
 		return {
-			employeesList:[1,2,3,4]
+			employeesList:[{
+				icon:'xx',
+				name:'猪猪',
+				number:'123'
+			},{
+				icon:'xx1',
+				name:'猪猪1',
+				number:'12663'
+			},{
+				icon:'xx2',
+				name:'猪猪2',
+				number:'1234'
+			}]
 		};
 	},
 	components: {},
 	computed: {},
 	methods: {
-		goAddEmp(){
+		goAddEmp(item){
+			this.$store.commit("employe/setEmploye",item);
 			uni.navigateTo({
 				url:"./addEmployees"
 			})

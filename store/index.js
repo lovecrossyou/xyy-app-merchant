@@ -1,19 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import product from './modules/product.js'
+import employe from './modules/employe.js'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	modules:{
-		product
+		product,
+		employe
 	},
     state: {
         /**
          * 是否需要强制登录
          */
         forcedLogin: false,
-        hasLogin: false,
+        hasLogin: true,
         userName: ""
     },
     mutations: {
