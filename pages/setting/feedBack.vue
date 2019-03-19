@@ -42,7 +42,7 @@ export default {
 	width:94%;
 	height: 88upx;
 	background: rgba(255, 134, 56, 1);
-	border-radius: 6px;
+	border-radius: 6upx;
 	text-align: center;
 	line-height: 88upx;
 	color: #fff;

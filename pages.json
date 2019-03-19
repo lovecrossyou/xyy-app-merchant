@@ -110,6 +110,12 @@
 		    "style": {
 		    	"navigationBarTitleText": "意见反馈"
 		    }
+		},
+		{
+		    "path" : "pages/employeesManage/employeesManage",
+		    "style": {
+		    	"navigationBarTitleText": "员工管理"
+		    }
 		}
     ],
 	"tabBar": {
