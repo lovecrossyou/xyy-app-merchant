@@ -31,6 +31,10 @@ const api = {
 	// 商品列表
 	productList: data => request.post("/merchant/shop/productListWithCategory", data, 'POST'),
 
+	// 店铺信息
+	shopInfo: data => request.post("/merchant/shop/info", data, 'POST'),
+	
+	
 	//地址搜索
 	searchNearby: (data,cb) => {
 		uni.request({

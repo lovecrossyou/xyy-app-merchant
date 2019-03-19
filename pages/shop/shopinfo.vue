@@ -2,8 +2,8 @@
 	<div class="content">
 		<!-- 头像 -->
 		<div class="avatar-wrapper">
-			<div class="title">店铺头像</div>
-			<div class="shop-image"></div>
+			<div class="title" >店铺头像</div>
+			<image :src="formData.imageUrl" class="shop-image"></image>
 		</div>
 		<!-- 店内环境 -->
 		<div class="shopicon">
@@ -18,17 +18,12 @@
 		<!-- 联系人 -->
 		<div class="username-wrapper">
 			<div class="title88">联系人</div>
-			<input class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入联系人" />
-		</div>
-		<!-- 客服电话 -->
-		<div class="phone-wrapper">
-			<div class="title88">客服电话</div>
-			<input type="number" class="shop-addr"  @input="replaceInput" v-model="changeValue" placeholder="请输入客服电话" />
+			<input class="shop-addr" @input="replaceInput" v-model="formData.name" placeholder="请输入联系人" />
 		</div>
 		<!-- 手机号码 -->
 		<div class="phone-wrapper">
 			<div class="title88">手机号码</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="changeValue" placeholder="请输入手机号码" />
+			<input type="number" class="shop-addr" @input="replaceInput" v-model="formData.telephone" placeholder="请输入手机号码" />
 		</div>
 
 		<!-- 底部footer -->
@@ -39,14 +34,44 @@
 </template>
 
 <script>
+	import api from '@/util/api.js'
+
 	export default {
 		data() {
 			return {
 				inputValue: '',
-				changeValue: ''
+				changeValue: '',
+				formData: {
+					"id": 3,
+					"name": "第二个店铺",
+					"shopType": "convenience_store",
+					"imageUrl": "http://img3.duitang.com/uploads/item/201511/14/20151114125146_LXHzE.jpeg",
+					"presentation": "店铺介绍222222",
+					"shopDetailImage": [
+						"3333",
+						"ssss"
+					],
+					"locationInfo": {
+						"longitude": 34.991231,
+						"latitude": 113.091231,
+						"addressName": "小测试地址名称"
+					},
+					"telephone": "188989898123"
+				}
 			}
 		},
+		onLoad(opt) {
+			this.fetchShopInfo();
+		},
 		methods: {
+			async fetchShopInfo() {
+				const res = await api.shopInfo({
+					"sn": "SP181214246"
+				});
+				this.formData = res.data;
+				// console.log('res',res);
+				
+			},
 			toAddress() {
 				//地址列表
 				uni.navigateTo({
