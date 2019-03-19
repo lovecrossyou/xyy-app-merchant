@@ -144,7 +144,7 @@
 				align-items: center;
 
 				.get_code_btn {
-					width: 165upx;
+					// width: 165upx;
 					height: 60upx;
 					background-color: #7CA7D2;
 					color: #fff;

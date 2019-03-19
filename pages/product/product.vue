@@ -5,6 +5,10 @@
 			<div class="title88">商品名称</div>
 			<input v-model="formData.headName" class="shop-addr" @input="replaceInput" placeholder="请输入商品名称" />
 		</div>
+		<div class="username-wrapper">
+			<div class="title88">商品品牌</div>
+			<input v-model="formData.brand" class="shop-addr" @input="replaceInput" placeholder="请输入商品品牌" />
+		</div>
 		<!-- 原价 -->
 		<div class="phone-wrapper">
 			<div class="title88">原价</div>
@@ -28,7 +32,7 @@
 		</div>
 		<div class="addr-wrapper" @click='goCategory'>
 			<div class="title88">商品分类</div>
-			<div class="shop-addr">请选择</div>
+			<div class="shop-addr">{{category.name}}</div>
 		</div>
 		<div class="username-wrapper">
 			<div class="title88">商品描述</div>
@@ -49,7 +53,15 @@
 
 <script>
 	import api from '../../util/api.js'
+	import {
+		mapState
+	} from "vuex"
 	export default {
+		computed: {
+			...mapState('product', {
+				category: state => state.category
+			})
+		},
 		data() {
 			return {
 				inputValue: '',
@@ -83,17 +95,9 @@
 				});
 			},
 			uploadImage: function(tempFilePaths) {
-				uni.uploadFile({
-					url: 'http://47.94.169.143:8004/manage/qiniu/upload', //仅为示例，非真实的接口地址
-					filePath: tempFilePaths[0],
-					name: 'file',
-					success: (result) => {
-						const data = JSON.parse(result.data);
-						if (parseInt(data.status) === 0) {
-							this.formData.headImage = data.data.url;
-						}
-					}
-				});
+				api.uploader(tempFilePaths[0], res => {
+					this.formData.headImage = res.url;
+				})
 			},
 			goCategory() {
 				//地址列表
@@ -101,9 +105,11 @@
 					url: '../category/categoryList'
 				})
 			},
-			saveOrUpdate() {
+			async saveOrUpdate() {
 				const formData = this.formData;
-				console.log('formData ', formData);
+				formData.categoryId = this.category.id;
+				const res = await api.createProduct(formData);
+				console.log('saveOrUpdate res ', res);
 			},
 			onKeyInput: function(event) {
 				this.inputValue = event.target.value
