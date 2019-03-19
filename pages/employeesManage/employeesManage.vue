@@ -6,13 +6,13 @@
 					<img src="http://qnimage.xiteng.com/zhulizhe.jpg" class="employees_img" />
 					<view class="employees_name">张三</view>
 				</view>
-				<view class="employees_right">
+				<view class="employees_right" @click="goAddEmp">
 					<view class="post_name">店长</view>
-					<img src="http://qnimage.xiteng.com/right_icon@2x.png" alt="" class="next_icon" />
+					<img src="http://qnimage.xiteng.com/right_icon@2x.png" alt="" class="next_icon"/>
 				</view>
 			</view>
 		</block>
-		<button type="primary">添加</button>
+		<button type="primary" @click="goAddEmp">添加</button>
 	</view>
 </template>
 
@@ -25,7 +25,13 @@ export default {
 	},
 	components: {},
 	computed: {},
-	methods: {}
+	methods: {
+		goAddEmp(){
+			uni.navigateTo({
+				url:"./addEmployees"
+			})
+		}
+	}
 };
 </script>
 

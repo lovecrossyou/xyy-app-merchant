@@ -116,6 +116,12 @@
 		    "style": {
 		    	"navigationBarTitleText": "员工管理"
 		    }
+		},
+		{
+		    "path" : "pages/employeesManage/addEmployees",
+		    "style": {
+		    	"navigationBarTitleText": "添加员工"
+		    }
 		}
     ],
 	"tabBar": {
