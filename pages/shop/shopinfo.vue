@@ -17,8 +17,8 @@
 		</div>
 		<!-- 联系人 -->
 		<div class="username-wrapper">
-			<div class="title88">联系人</div>
-			<input class="shop-addr" @input="replaceInput" v-model="formData.name" placeholder="请输入联系人" />
+			<div class="title88">店铺名称</div>
+			<input class="shop-addr" @input="replaceInput" v-model="formData.name" placeholder="请输入店铺名称" />
 		</div>
 		<!-- 手机号码 -->
 		<div class="phone-wrapper">
