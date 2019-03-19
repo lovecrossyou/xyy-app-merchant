@@ -16,7 +16,9 @@
 		</view>
 		<view class="item_list">
 			<itemTemplate imgSrc="../../static/user/jiaoyijilu@2x.png" title="交易记录" ></itemTemplate>
-			<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置"></itemTemplate>
+			<view @click="goSetting">
+				<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置"></itemTemplate>
+			</view>
 		</view>
 	</view>
 </template>
@@ -28,7 +30,11 @@ export default {
 		itemTemplate
 	},
 	methods: {
-		
+		goSetting(){
+			uni.navigateTo({
+				url:"../setting/setting"
+			})
+		}
 	}
 };
 </script>
