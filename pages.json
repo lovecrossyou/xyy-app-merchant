@@ -86,6 +86,12 @@
 		    "style": {
 		    	"navigationBarTitleText": "分类列表"
 		    }
+		},
+		{
+		    "path" : "pages/product/productDescribe",
+		    "style": {
+		    	"navigationBarTitleText": "商品描述"
+		    }
 		}
     ],
 	"tabBar": {
