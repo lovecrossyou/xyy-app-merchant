@@ -2,9 +2,9 @@
 	<view class="home_wrapper">
 		<!-- 头部 -->
 		<view class="header_wrapper" @click="goShopInfo">
-			<img :src="userInfo.icon" alt="" class="tea_img" />
+			<img :src="shopInfo.imageUrl" alt="" class="tea_img" />
 			<view class="water_station_info">
-				<view class="water_station_name">{{userInfo.cnName}}</view>
+				<view class="water_station_name">{{shopInfo.name}}</view>
 				<view class="water_station_sales_num">{{userInfo.mobilePhone}}</view>
 			</view>
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
@@ -74,7 +74,8 @@
 			forcedLogin: state => state.forcedLogin,
 			hasLogin: state => state.hasLogin,
 			userInfo: state => state.userInfo,
-			// orderList: state => state.shop.orderList
+			shopInfo: state => state.shopInfo,
+			orderList: state => state.shop.orderList
 		}),
 		onLoad() {
 			//加载用户信息
@@ -83,32 +84,11 @@
 				console.log('userInfo ', userInfo);
 				this.$store.commit('setInfo', userInfo);
 				this.clickitem(0);
+				
+				this.$store.dispatch("fetchShopInfo")
 			} else {
 				this.$store.commit('logout');
-				uni.showModal({
-					title: '未登录',
-					content: '您未登录，需要登录后才能继续',
-					/**
-					 * 如果需要强制登录，不显示取消按钮
-					 */
-					showCancel: !this.forcedLogin,
-					success: (res) => {
-						if (res.confirm) {
-							/**
-							 * 如果需要强制登录，使用reLaunch方式
-							 */
-							if (this.forcedLogin) {
-								uni.reLaunch({
-									url: '../login/login'
-								});
-							} else {
-								uni.navigateTo({
-									url: '../login/login'
-								});
-							}
-						}
-					}
-				});
+				this.goLogin();
 			}
 		},
 		// 注入组件
@@ -121,6 +101,17 @@
 			};
 		},
 		methods: {
+			goLogin(){
+				if (this.forcedLogin) {
+					uni.reLaunch({
+						url: '../login/login'
+					});
+				} else {
+					uni.navigateTo({
+						url: '../login/login'
+					});
+				}
+			},
 			clickitem(idx, val) {
 				console.log('idx, val', idx, val);
 				var orderStatus = "waiting_deal";

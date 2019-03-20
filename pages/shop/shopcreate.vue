@@ -50,7 +50,7 @@
 
 		<!-- 底部footer -->
 		<div class="footer" @click="saveShopInfo">
-			<div class="button">提交</div>
+			<div class="button">创建店铺</div>
 		</div>
 	</div>
 </template>
@@ -97,9 +97,6 @@
 				return this.$store.state.shop.selectAddress;
 			}
 		},
-		onLoad(opt) {
-			this.fetchShopInfo();
-		},
 		methods: {
 			startOpenTimeChange: function(e) {
 				this.formData.startOpenTime = e.target.value
@@ -127,7 +124,7 @@
 				var shopType = this.array[this.index].value;
 				this.formData.shopType = shopType;
 
-				const res = await api.shopUpdate(this.formData);
+				const res = await api.createShop(this.formData);
 				if (res.status === 'ok') {
 					uni.navigateBack();
 				}
@@ -210,8 +207,6 @@
 		justify-content: center;
 		align-items: center;
 		margin: auto;
-		// height: 108upx;
-		// width: 100%;
 	}
 
 	.button {

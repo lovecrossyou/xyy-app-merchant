@@ -20,11 +20,14 @@ const store = new Vuex.Store({
 		/**
 		 * 是否需要强制登录
 		 */
-		forcedLogin: false,
+		forcedLogin: true,
 		hasLogin: false,
 		userName: "",
 		shopId: 13,
-		userInfo: null
+		userInfo: null,
+		shopInfo:{
+			imageUrl:''
+		}
 	},
 	mutations: {
 		login(state, userInfo) {
@@ -38,9 +41,18 @@ const store = new Vuex.Store({
 		},
 		setInfo(state, data) {
 			state.userInfo = data;
+		},
+		setShopInfo(state, data) {
+			state.shopInfo = data;
 		}
 	},
 	actions: {
+		async fetchShopInfo({commit,state}){
+			const res = await api.shopInfo({
+				"sn": state.userInfo.shopSn
+			});
+			commit('setShopInfo', res.data);
+		},
 		async appLogin({
 			commit
 		}, data, cb) {

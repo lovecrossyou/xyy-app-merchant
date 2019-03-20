@@ -51,6 +51,9 @@ const api = {
 
 	// 订单发货 merchant/shopOrder/confirmDeliver "orderNo": "1111111"
 	confirmDeliver: data => request.post("/merchant/shop/confirmDeliver", data, 'POST'),
+	
+	// 创建店铺
+	createShop: data => request.post("/merchant/shop/create", data, 'POST'),
 
 	//地址搜索
 	searchNearby: (data, cb) => {
