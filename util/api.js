@@ -33,23 +33,33 @@ const api = {
 
 	// 店铺信息
 	shopInfo: data => request.post("/merchant/shop/info", data, 'POST'),
-	
+
 	// 更新店铺信息 
 	shopUpdate: data => request.post("/merchant/shop/update", data, 'POST'),
-	
+
 	// 登录
-    login: data => request.post("/merchant/shop/user/login", data, 'POST'),
-	
-	
+	login: data => request.post("/merchant/shop/user/login", data, 'POST'),
+
+
 	// 订单列表
 	orderList: data => request.post("/merchant/shopOrder/list", data, 'POST'),
-	
+
+	// 删除商品 merchant/shop/productRemove "id": 1
+	productRemove: data => request.post("/merchant/shop/productRemove", data, 'POST'),
+
+
+	// 下架商品 merchant/shop/productStatusReverse "id": 1
+	productStatusReverse: data => request.post("/merchant/shop/productStatusReverse", data, 'POST'),
+
+	// 订单发货 merchant/shopOrder/confirmDeliver "orderNo": "1111111"
+	confirmDeliver: data => request.post("/merchant/shop/confirmDeliver", data, 'POST'),
+
 	//地址搜索
-	searchNearby: (data,cb) => {
+	searchNearby: (data, cb) => {
 		uni.request({
-			url: searchBaseUrl+'/map/search',
+			url: searchBaseUrl + '/map/search',
 			data: data,
-			method:'POST',
+			method: 'POST',
 			success: (res) => {
 				cb(res.data);
 			}
