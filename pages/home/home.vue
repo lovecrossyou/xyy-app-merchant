@@ -85,30 +85,7 @@
 				this.clickitem(0);
 			} else {
 				this.$store.commit('logout');
-				uni.showModal({
-					title: '未登录',
-					content: '您未登录，需要登录后才能继续',
-					/**
-					 * 如果需要强制登录，不显示取消按钮
-					 */
-					showCancel: !this.forcedLogin,
-					success: (res) => {
-						if (res.confirm) {
-							/**
-							 * 如果需要强制登录，使用reLaunch方式
-							 */
-							if (this.forcedLogin) {
-								uni.reLaunch({
-									url: '../login/login'
-								});
-							} else {
-								uni.navigateTo({
-									url: '../login/login'
-								});
-							}
-						}
-					}
-				});
+				this.goLogin();
 			}
 		},
 		// 注入组件
@@ -121,6 +98,17 @@
 			};
 		},
 		methods: {
+			goLogin(){
+				if (this.forcedLogin) {
+					uni.reLaunch({
+						url: '../login/login'
+					});
+				} else {
+					uni.navigateTo({
+						url: '../login/login'
+					});
+				}
+			},
 			clickitem(idx, val) {
 				console.log('idx, val', idx, val);
 				var orderStatus = "waiting_deal";

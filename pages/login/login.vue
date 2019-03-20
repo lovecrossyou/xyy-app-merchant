@@ -6,12 +6,15 @@
 				<input type="number" v-model="username" placeholder="请输入您的手机号码" placeholder-style="color:#7CA7D2;" />
 			</view>
 			<view class="tel_area_wrapper">
-				<input type="number" v-model="password" placeholder="请输入验证码" placeholder-style="color:#7CA7D2;" />
-				<button type="primary" class="get_code_btn">获取验证码</button>
+				<input type="number" v-model="password" placeholder="请输入密码" placeholder-style="color:#7CA7D2;" />
+				<!-- <button type="primary" class="get_code_btn">获取验证码</button> -->
 			</view>
 		</view>
 		<!-- <button class="login_btn" open-type="getUserInfo" @getuserinfo="oauth('weixin')">登录</button> -->
 		<button class="login_btn" @click="doLogin">登录</button>
+		
+		
+		<button class="login_btn" @click="doCreateShop">我要开店</button>
 		<view class="footer_text">注册或创建账户即同意《鑫翼优商家注册协议书》 </view>
 	</view>
 </template>
@@ -31,13 +34,17 @@
 			}
 		},
 		methods: {
-			...mapActions(['login','appLogin']),
-			doLogin(){
+			...mapActions(['login', 'appLogin']),
+			doCreateShop(){
+				uni.navigateTo({
+					url:"/pages/shop/shopcreate"
+				})
+			},
+			doLogin() {
 				this.appLogin({
-					username:this.username,
-					password:this.password
-				},()=>{
-					console.log('xxxxxxxxx')
+					username: this.username,
+					password: this.password
+				}, () => {
 					this.toMain();
 				})
 			},
@@ -94,12 +101,12 @@
 									}
 								}
 								// #ifdef APP-PLUS
-								params.weiXinUserInfo={
-									openid:res.authResult.openid
+								params.weiXinUserInfo = {
+									openid: res.authResult.openid
 								}
 								// #endif
-								
-								console.log('params###',JSON.stringify(params));
+
+								console.log('params###', JSON.stringify(params));
 								this.toMain(params);
 							}
 						});
@@ -109,7 +116,7 @@
 					}
 				});
 			},
-			toMain(params) {	
+			toMain(params) {
 				uni.reLaunch({
 					url: '../main/main'
 				});

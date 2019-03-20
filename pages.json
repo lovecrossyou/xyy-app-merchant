@@ -128,6 +128,12 @@
 		    "style": {
 		    	"navigationBarTitleText": "订单管理"
 		    }
+		},
+		{
+		    "path" : "pages/shop/shopcreate",
+		    "style": {
+		    	"navigationBarTitleText": "我要开店"
+		    }
 		}
     ],
 	"tabBar": {
