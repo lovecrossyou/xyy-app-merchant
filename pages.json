@@ -74,102 +74,98 @@
 			"style": {
 				"navigationBarTitleText": "商品列表"
 			}
+		}, {
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "分类"
+			}
+		},
+		{
+			"path": "pages/category/categoryList",
+			"style": {
+				"navigationBarTitleText": "分类列表"
+			}
+		},
+		{
+			"path": "pages/product/productDescribe",
+			"style": {
+				"navigationBarTitleText": "商品描述"
+			}
+		},
+		{
+			"path": "pages/category/addCategory",
+			"style": {
+				"navigationBarTitleText": "添加分类"
+			}
+		},
+		{
+			"path": "pages/setting/setting",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		},
+		{
+			"path": "pages/setting/feedBack",
+			"style": {
+				"navigationBarTitleText": "意见反馈"
+			}
+		},
+		{
+			"path": "pages/employeesManage/employeesManage",
+			"style": {
+				"navigationBarTitleText": "员工管理"
+			}
+		},
+		{
+			"path": "pages/employeesManage/addEmployees",
+			"style": {
+				"navigationBarTitleText": "添加员工"
+			}
+		},
+		{
+			"path": "pages/orderManage/orderManage",
+			"style": {
+				"navigationBarTitleText": "订单管理"
+			}
+		},
+		{
+			"path": "pages/withdrawMoney/withdrawMoney",
+			"style": {
+				"navigationBarTitleText": "提现管理"
+			}
+		},
+		{
+			"path": "pages/withdrawMoney/transactionRecord",
+			"style": {
+				"navigationBarTitleText": "交易记录"
+			}
+		},
+		{
+			"path": "pages/withdrawMoney/balanceRecord",
+			"style": {
+				"navigationBarTitleText": "提现记录"
+			}
+		},
+		{
+			"path": "pages/withdrawMoney/balancePage",
+			"style": {
+				"navigationBarTitleText": "提现"
+			}
+		},
+		{
+			"path": "pages/withdrawMoney/BankCardInfo",
+			"style": {
+				"navigationBarTitleText": "添加银行卡信息"
+			}
+		},
+		{
+			"path": "pages/shop/shopcreate",
+			"style": {
+				"navigationBarTitleText": "我要开店"
+			}
 		}
-	    ,{
-            "path" : "pages/category/category",
-            "style": {
-            	"navigationBarTitleText": "分类"
-            }
-        },
-		{
-		    "path" : "pages/category/categoryList",
-		    "style": {
-		    	"navigationBarTitleText": "分类列表"
-		    }
-		},
-		{
-		    "path" : "pages/product/productDescribe",
-		    "style": {
-		    	"navigationBarTitleText": "商品描述"
-		    }
-		},
-		{
-		    "path" : "pages/category/addCategory",
-		    "style": {
-		    	"navigationBarTitleText": "添加分类"
-		    }
-		},
-		{
-		    "path" : "pages/setting/setting",
-		    "style": {
-		    	"navigationBarTitleText": "设置"
-		    }
-		},
-		{
-		    "path" : "pages/setting/feedBack",
-		    "style": {
-		    	"navigationBarTitleText": "意见反馈"
-		    }
-		},
-		{
-		    "path" : "pages/employeesManage/employeesManage",
-		    "style": {
-		    	"navigationBarTitleText": "员工管理"
-		    }
-		},
-		{
-		    "path" : "pages/employeesManage/addEmployees",
-		    "style": {
-		    	"navigationBarTitleText": "添加员工"
-		    }
-		},
-		{
-		    "path" : "pages/orderManage/orderManage",
-		    "style": {
-		    	"navigationBarTitleText": "订单管理"
-		    }
-<<<<<<< HEAD
-		},
-		{
-		    "path" : "pages/withdrawMoney/withdrawMoney",
-		    "style": {
-		    	"navigationBarTitleText": "提现管理"
-		    }
-		},
-		{
-		    "path" : "pages/withdrawMoney/transactionRecord",
-		    "style": {
-		    	"navigationBarTitleText": "交易记录"
-		    }
-		},
-		{
-		    "path" : "pages/withdrawMoney/balanceRecord",
-		    "style": {
-		    	"navigationBarTitleText": "提现记录"
-		    }
-		},
-		{
-		    "path" : "pages/withdrawMoney/balancePage",
-		    "style": {
-		    	"navigationBarTitleText": "提现"
-		    }
-		},
-		{
-		    "path" : "pages/withdrawMoney/BankCardInfo",
-		    "style": {
-		    	"navigationBarTitleText": "添加银行卡信息"
-		    }
-=======
-		},
-		{
-		    "path" : "pages/shop/shopcreate",
-		    "style": {
-		    	"navigationBarTitleText": "我要开店"
-		    }
->>>>>>> be1187ca0d60501357675713357928da47baa73e
-		}
-		
-    ],
+
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#F57A2B",
