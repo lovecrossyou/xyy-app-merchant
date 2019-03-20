@@ -2,9 +2,9 @@
 	<view class="user_wrapper">
 		<!-- 头部 -->
 		<view class="header_wrapper">
-			<img :src="userInfo.icon" alt="" class="tea_img" />
-			<view class="user_name">{{userInfo.cnName}}</view>
-			<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
+			<img :src="shopInfo.imageUrl" alt="" class="tea_img" />
+			<view class="user_name">{{shopInfo.name}}</view>
+			<image src="http://qnimage.xiteng.com/right_icon@2x.png"  class="next_icon"></image>
 		</view>
 		<view class="item_list">
 			<itemTemplate imgSrc="../../static/user/jiaoyijilu@2x.png" title="交易记录"></itemTemplate>
@@ -27,6 +27,7 @@
 			forcedLogin: state => state.forcedLogin,
 			hasLogin: state => state.hasLogin,
 			userInfo: state => state.userInfo,
+			shopInfo: state => state.shopInfo,
 			orderList: state => state.shop.orderList
 		}),
 		components: {
