@@ -82,7 +82,7 @@
 			if (userInfo) {
 				console.log('userInfo ', userInfo);
 				this.$store.commit('setInfo', userInfo);
-				this.$store.dispatch("shop/fetchOrderList")
+				// this.$store.dispatch("shop/fetchOrderList")
 			} else {
 				this.$store.commit('logout');
 				uni.showModal({
