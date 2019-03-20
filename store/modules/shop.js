@@ -10,7 +10,8 @@ const state = {
 		orderStatus: "waiting_deal",
 		page: "1",
 		pageSize: "20"
-	}
+	},
+	currentOrder:null
 }
 
 const mutations = {
@@ -19,6 +20,9 @@ const mutations = {
 	},
 	setOrderList(state, data) {
 		state.orderList = data;
+	},
+	setOrder(state, data) {
+		state.currentOrder = data;
 	}
 }
 

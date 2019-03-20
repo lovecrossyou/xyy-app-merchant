@@ -19,7 +19,7 @@
 					{ textcontent: '已完成' }
 				]"></glanceSlideNavTabBar>
 			<view class="order_details_list">
-				<block v-for="(order,o_index) in orderList" :key="o_index">
+				<view v-for="(order,o_index) in orderList" :key="o_index" @click="goOrderDetails(order)">
 					<!-- 地址 -->
 					<view class="person_info_area">
 						<view class="person_address_info">
@@ -33,7 +33,7 @@
 						</view>
 					</view>
 					<!-- 商品 -->
-					<view class="commodity_list_wrapper" @click="goOrderDetails">
+					<view class="commodity_list_wrapper">
 						<blocl v-for="(item, index) in commodityList" :key="index">
 							<view class="commodity_details">
 								<img src="http://img4.imgtn.bdimg.com/it/u=93266979,2836087381&fm=11&gp=0.jpg" alt="" style="width:112upx;height:112upx;border:1px solid rgba(210,210,210,1);border-radius: 50%;" />
@@ -45,11 +45,11 @@
 						</blocl>
 						<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
 					</view>
-				</block>
+				</view>
 			</view>
 		</view>
-		
-		
+
+
 		<!-- 空数据 -->
 		<view class="empty-data-wrapper">
 			<view class="empty-data-text">
@@ -82,7 +82,7 @@
 			if (userInfo) {
 				console.log('userInfo ', userInfo);
 				this.$store.commit('setInfo', userInfo);
-				// this.$store.dispatch("shop/fetchOrderList")
+				this.clickitem(0);
 			} else {
 				this.$store.commit('logout');
 				uni.showModal({
@@ -122,14 +122,29 @@
 		},
 		methods: {
 			clickitem(idx, val) {
-
+				console.log('idx, val', idx, val);
+				var orderStatus = "waiting_deal";
+				if (idx === 0) {
+					orderStatus = "waiting_deal";
+				} else if (idx === 1) {
+					orderStatus = "waiting_deal";
+				} else {
+					orderStatus = "waiting_deal";
+				}
+				this.$store.dispatch("shop/fetchOrderList", {
+					"shopId": this.$store.state.shopId,
+					"orderStatus": orderStatus,
+					"page": "1",
+					"pageSize": "20"
+				})
 			},
 			goShopInfo() {
 				uni.navigateTo({
 					url: "/pages/shop/shopinfo"
 				})
 			},
-			goOrderDetails() {
+			goOrderDetails(order) {
+				this.$store.commit('shop/setOrder', order);
 				uni.navigateTo({
 					url: "../orderAll/orderDetails"
 				})
@@ -190,14 +205,14 @@
 	.orders_classify_wrapper {
 		margin-top: 10upx;
 	}
-	
-	.empty-data-wrapper{
+
+	.empty-data-wrapper {
 		flex: 1;
 		background-color: #fff;
-		
+
 	}
-	
-	.empty-data-text{
+
+	.empty-data-text {
 		color: #8F8F94;
 		font-size: 26upx;
 		margin-top: 25%;
