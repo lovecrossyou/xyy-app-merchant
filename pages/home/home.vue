@@ -2,12 +2,12 @@
 	<view class="home_wrapper">
 		<!-- 头部 -->
 		<view class="header_wrapper" @click="goShopInfo">
-			<img src="http://img0.imgtn.bdimg.com/it/u=440953885,2173090427&fm=11&gp=0.jpg" alt="" class="tea_img" />
+			<img :src="userInfo.icon" alt="" class="tea_img" />
 			<view class="water_station_info">
-				<view class="water_station_name">小贝水站</view>
-				<view class="water_station_sales_num">销量：500+</view>
+				<view class="water_station_name">{{userInfo.cnName}}</view>
+				<view class="water_station_sales_num">{{userInfo.mobilePhone}}</view>
 			</view>
-			<image src="http://qnimage.xiteng.com/right_icon@2x.png"  class="next_icon"></image>
+			<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
 		</view>
 		<!-- 订单 -->
 		<view class="orders_classify_wrapper">
@@ -19,32 +19,41 @@
 					{ textcontent: '已完成' }
 				]"></glanceSlideNavTabBar>
 			<view class="order_details_list">
-				<!-- 地址 -->
-				<view class="person_info_area">
-					<view class="person_address_info">
-						<img src="http://static.kuaimayoupin.com/address@2x.png" style="width: 22upx;height: 30upx;" />
-						<view class="address_text">北京市朝阳区安贞门神新家园562号楼4单元230</view>
-					</view>
-					<view class="contacts_info_area">
-						<img src="http://static.kuaimayoupin.com/lianxiren@2x.png" alt="" style="width: 22upx;height: 24upx;" />
-						<view class="address_text">任艳彤</view>
-						<view class="address_text">18356248596</view>
-					</view>
-				</view>
-				<!-- 商品 -->
-				<view class="commodity_list_wrapper" @click="goOrderDetails">
-					<blocl v-for="(item, index) in commodityList" :key="index">
-						<view class="commodity_details">
-							<img src="http://img4.imgtn.bdimg.com/it/u=93266979,2836087381&fm=11&gp=0.jpg" alt="" style="width:112upx;height:112upx;border:1px solid rgba(210,210,210,1);border-radius: 50%;" />
-							<view class="commodity_info">
-								<view class="commodity_name">紫砂壶</view>
-								<view class="commodity_buy_num">x4</view>
-							</view>
+				<block v-for="(order,o_index) in orderList" :key="o_index">
+					<!-- 地址 -->
+					<view class="person_info_area">
+						<view class="person_address_info">
+							<img src="http://static.kuaimayoupin.com/address@2x.png" style="width: 22upx;height: 30upx;" />
+							<view class="address_text">北京市朝阳区安贞门神新家园562号楼4单元230</view>
 						</view>
-					</blocl>
-
-					<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
-				</view>
+						<view class="contacts_info_area">
+							<img src="http://static.kuaimayoupin.com/lianxiren@2x.png" alt="" style="width: 22upx;height: 24upx;" />
+							<view class="address_text">任艳彤</view>
+							<view class="address_text">18356248596</view>
+						</view>
+					</view>
+					<!-- 商品 -->
+					<view class="commodity_list_wrapper" @click="goOrderDetails">
+						<blocl v-for="(item, index) in commodityList" :key="index">
+							<view class="commodity_details">
+								<img src="http://img4.imgtn.bdimg.com/it/u=93266979,2836087381&fm=11&gp=0.jpg" alt="" style="width:112upx;height:112upx;border:1px solid rgba(210,210,210,1);border-radius: 50%;" />
+								<view class="commodity_info">
+									<view class="commodity_name">紫砂壶</view>
+									<view class="commodity_buy_num">x4</view>
+								</view>
+							</view>
+						</blocl>
+						<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
+					</view>
+				</block>
+			</view>
+		</view>
+		
+		
+		<!-- 空数据 -->
+		<view class="empty-data-wrapper">
+			<view class="empty-data-text">
+				暂无订单
 			</view>
 		</view>
 	</view>
@@ -53,40 +62,54 @@
 <script>
 	// 导入组件文件
 	import glanceSlideNavTabBar from '@/components/home/glance-SlideNavTabBar.vue';
+	import service from '../../service.js'
 
 	import {
 		mapState
 	} from 'vuex'
 
 	export default {
-		computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
+		// computed:mapState(['forcedLogin', 'hasLogin', 'userName','userInfo']),
+		computed: mapState({
+			forcedLogin: state => state.forcedLogin,
+			hasLogin: state => state.hasLogin,
+			userInfo: state => state.userInfo,
+			orderList: state => state.shop.orderList
+		}),
 		onLoad() {
-		    if (!this.hasLogin) {
-		        uni.showModal({
-		            title: '未登录',
-		            content: '您未登录，需要登录后才能继续',
-		            /**
-		             * 如果需要强制登录，不显示取消按钮
-		             */
-		            showCancel: !this.forcedLogin,
-		            success: (res) => {
-		                if (res.confirm) {
+			//加载用户信息
+			const userInfo = service.getInfo();
+			if (userInfo) {
+				console.log('userInfo ', userInfo);
+				this.$store.commit('setInfo', userInfo);
+				this.$store.dispatch("shop/fetchOrderList")
+			} else {
+				this.$store.commit('logout');
+				uni.showModal({
+					title: '未登录',
+					content: '您未登录，需要登录后才能继续',
+					/**
+					 * 如果需要强制登录，不显示取消按钮
+					 */
+					showCancel: !this.forcedLogin,
+					success: (res) => {
+						if (res.confirm) {
 							/**
 							 * 如果需要强制登录，使用reLaunch方式
 							 */
-		                    if (this.forcedLogin) {
-		                        uni.reLaunch({
-		                            url: '../login/login'
-		                        });
-		                    } else {
-		                        uni.navigateTo({
-		                            url: '../login/login'
-		                        });
-		                    }
-		                }
-		            }
-		        });
-		    }
+							if (this.forcedLogin) {
+								uni.reLaunch({
+									url: '../login/login'
+								});
+							} else {
+								uni.navigateTo({
+									url: '../login/login'
+								});
+							}
+						}
+					}
+				});
+			}
 		},
 		// 注入组件
 		components: {
@@ -118,6 +141,8 @@
 <style scoped>
 	.home_wrapper {
 		width: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.header_wrapper {
@@ -135,6 +160,7 @@
 		width: 160upx;
 		height: 160upx;
 		border-radius: 50%;
+		background-color: #E1E1E1;
 	}
 
 	.water_station_info {
@@ -163,6 +189,19 @@
 
 	.orders_classify_wrapper {
 		margin-top: 10upx;
+	}
+	
+	.empty-data-wrapper{
+		flex: 1;
+		background-color: #fff;
+		
+	}
+	
+	.empty-data-text{
+		color: #8F8F94;
+		font-size: 26upx;
+		margin-top: 25%;
+		text-align: center;
 	}
 
 	.order_details_list {
@@ -202,6 +241,8 @@
 		justify-content: space-between;
 		margin-top: 18upx;
 		align-items: center;
+		padding-bottom: 20upx;
+		box-sizing: border-box;
 	}
 
 	.commodity_details {

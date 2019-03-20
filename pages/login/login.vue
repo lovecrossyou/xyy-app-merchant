@@ -3,14 +3,15 @@
 		<img src="http://qnimage.xiteng.com/WechatIMG2083.jpeg" alt="" class="bg_img">
 		<view class="enter_box_area">
 			<view class="tel_area_wrapper">
-				<input type="number" v-model="userPhone" placeholder="请输入您的手机号码" placeholder-style="color:#7CA7D2;" />
+				<input type="number" v-model="username" placeholder="请输入您的手机号码" placeholder-style="color:#7CA7D2;" />
 			</view>
 			<view class="tel_area_wrapper">
-				<input type="number" v-model="userCode" placeholder="请输入验证码" placeholder-style="color:#7CA7D2;" />
+				<input type="number" v-model="password" placeholder="请输入验证码" placeholder-style="color:#7CA7D2;" />
 				<button type="primary" class="get_code_btn">获取验证码</button>
 			</view>
 		</view>
-		<button class="login_btn" open-type="getUserInfo" @getuserinfo="oauth('weixin')">登录</button>
+		<!-- <button class="login_btn" open-type="getUserInfo" @getuserinfo="oauth('weixin')">登录</button> -->
+		<button class="login_btn" @click="doLogin">登录</button>
 		<view class="footer_text">注册或创建账户即同意《鑫翼优商家注册协议书》 </view>
 	</view>
 </template>
@@ -25,12 +26,21 @@
 		data() {
 			return {
 				providerList: [],
-				userCode: '',
-				userPhone: ''
+				username: '',
+				password: ''
 			}
 		},
 		methods: {
 			...mapActions(['login','appLogin']),
+			doLogin(){
+				this.appLogin({
+					username:this.username,
+					password:this.password
+				},()=>{
+					console.log('xxxxxxxxx')
+					this.toMain();
+				})
+			},
 			initProvider() {
 				const filters = ['weixin', 'qq', 'sinaweibo'];
 				uni.getProvider({
@@ -99,16 +109,7 @@
 					}
 				});
 			},
-			async toMain(params) {
-				// #ifdef APP-PLUS
-					const res = await this.appLogin(params);
-					if (res.status !== 'ok') return;
-				// #endif
-				// #ifndef APP-PLUS
-					const result = await this.login(params);
-					if (result.status !== 'ok') return;
-				// #endif
-								
+			toMain(params) {	
 				uni.reLaunch({
 					url: '../main/main'
 				});
