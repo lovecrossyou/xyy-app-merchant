@@ -136,7 +136,7 @@
 			flex-direction: row;
 
 			.categoryList {
-				width: 140upx;
+				width: 160upx;
 
 				.categoryItem {
 					display: flex;
