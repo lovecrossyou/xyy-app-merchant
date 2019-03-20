@@ -2,9 +2,9 @@
 	<view class="home_wrapper">
 		<!-- 头部 -->
 		<view class="header_wrapper" @click="goShopInfo">
-			<img :src="userInfo.icon" alt="" class="tea_img" />
+			<img :src="shopInfo.imageUrl" alt="" class="tea_img" />
 			<view class="water_station_info">
-				<view class="water_station_name">{{userInfo.cnName}}</view>
+				<view class="water_station_name">{{shopInfo.name}}</view>
 				<view class="water_station_sales_num">{{userInfo.mobilePhone}}</view>
 			</view>
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
@@ -74,6 +74,7 @@
 			forcedLogin: state => state.forcedLogin,
 			hasLogin: state => state.hasLogin,
 			userInfo: state => state.userInfo,
+			shopInfo: state => state.shopInfo,
 			orderList: state => state.shop.orderList
 		}),
 		onLoad() {
@@ -83,6 +84,8 @@
 				console.log('userInfo ', userInfo);
 				this.$store.commit('setInfo', userInfo);
 				this.clickitem(0);
+				
+				this.$store.dispatch("fetchShopInfo")
 			} else {
 				this.$store.commit('logout');
 				this.goLogin();
