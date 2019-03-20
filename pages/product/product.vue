@@ -48,7 +48,7 @@
 		<div class="footer" >
 			<div v-if="formData.id" class="button" @click="saveOrUpdate">更新</div>
 			<div v-else class="button" @click="saveOrUpdate">保存</div>
-			<div v-if="formData.id" class="button-del" @click="delProduct">删除</div>
+			<button type="default" v-if="formData.id" class="button-del" @click="delProduct">删除</button>
 		</div>
 	</div>
 </template>
@@ -104,6 +104,7 @@
 					res = await api.editProduct(formData);
 				}
 				else{
+					formData.shopId = this.$store.state.shopId;
 					res = await api.createProduct(formData);
 				}
 				if(res.status === 'ok'){

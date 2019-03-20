@@ -40,7 +40,7 @@
 		</view>
 
 		<div class="footer">
-			<div class="button" @click="confirmDeliver">发货</div>
+			<view class="btn-send"   @click="confirmDeliver">发货</view>
 		</div>
 	</view>
 </template>
@@ -183,5 +183,24 @@
 	.commodity_name {
 		color: #333333;
 		font-size: 28upx;
+	}
+	
+	.footer{
+		display: flex;
+		width: 100%;
+		flex-direction: row;
+		/* height: 120upx; */
+		justify-content: flex-end;
+		margin-top: 20upx;
+	}
+	
+	.btn-send{
+		width: 180upx;
+		height: 60upx;
+		background: #ff8638;
+		text-align: center;
+		line-height: 60upx;
+		color: #FFFFFF;
+		font-size: 26upx;
 	}
 </style>

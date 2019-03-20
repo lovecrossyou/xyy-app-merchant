@@ -126,7 +126,7 @@
 				}
 				var shopType = this.array[this.index].value;
 				this.formData.shopType = shopType;
-
+				this.formData.address = '信息'
 				const res = await api.shopUpdate(this.formData);
 				if (res.status === 'ok') {
 					uni.navigateBack();

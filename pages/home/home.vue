@@ -122,12 +122,12 @@
 				} else {
 					orderStatus = "waiting_deal";
 				}
-				this.$store.dispatch("shop/fetchOrderList", {
-					"shopId": this.$store.state.shopId,
-					"orderStatus": orderStatus,
-					"page": "1",
-					"pageSize": "20"
-				})
+// 				this.$store.dispatch("shop/fetchOrderList", {
+// 					"shopId": this.$store.state.shopId,
+// 					"orderStatus": orderStatus,
+// 					"page": "1",
+// 					"pageSize": "20"
+// 				})
 			},
 			goShopInfo() {
 				uni.navigateTo({
