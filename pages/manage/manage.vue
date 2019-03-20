@@ -7,7 +7,7 @@
 		<manageList page="/pages/orderManage/orderManage" imgSrc="../../static/manage/dingdan@2x.png" titleText="订单管理" imgWidth="62px" imgHeight="70px"></manageList>
 		<manageList page="/pages/shop/shopinfo" imgSrc="../../static/manage/dianpu@2x.png" titleText="店铺管理" imgWidth="62px" imgHeight="62px"></manageList>
 		<manageList imgSrc="../../static/manage/quan@2x.png" titleText="水票管理" imgWidth="76px" imgHeight="58px"></manageList>
-		<manageList imgSrc="../../static/manage/tixian@2x.png" titleText="提现管理" imgWidth="64px" imgHeight="62px"></manageList>
+		<manageList page="/pages/withdrawMoney/withdrawMoney" imgSrc="../../static/manage/tixian@2x.png" titleText="提现管理" imgWidth="64px" imgHeight="62px"></manageList>
 		<view style="width: 23%;height: 160upx;margin: 0 15px 40px 15px"></view>
 	</view>
 </template>

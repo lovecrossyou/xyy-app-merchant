@@ -128,7 +128,38 @@
 		    "style": {
 		    	"navigationBarTitleText": "订单管理"
 		    }
+		},
+		{
+		    "path" : "pages/withdrawMoney/withdrawMoney",
+		    "style": {
+		    	"navigationBarTitleText": "提现管理"
+		    }
+		},
+		{
+		    "path" : "pages/withdrawMoney/transactionRecord",
+		    "style": {
+		    	"navigationBarTitleText": "交易记录"
+		    }
+		},
+		{
+		    "path" : "pages/withdrawMoney/balanceRecord",
+		    "style": {
+		    	"navigationBarTitleText": "提现记录"
+		    }
+		},
+		{
+		    "path" : "pages/withdrawMoney/balancePage",
+		    "style": {
+		    	"navigationBarTitleText": "提现"
+		    }
+		},
+		{
+		    "path" : "pages/withdrawMoney/BankCardInfo",
+		    "style": {
+		    	"navigationBarTitleText": "添加银行卡信息"
+		    }
 		}
+		
     ],
 	"tabBar": {
 		"color": "#7a7e83",

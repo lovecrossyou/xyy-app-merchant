@@ -74,7 +74,7 @@
 			forcedLogin: state => state.forcedLogin,
 			hasLogin: state => state.hasLogin,
 			userInfo: state => state.userInfo,
-			orderList: state => state.shop.orderList
+			// orderList: state => state.shop.orderList
 		}),
 		onLoad() {
 			//加载用户信息

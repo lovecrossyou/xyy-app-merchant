@@ -7,7 +7,9 @@
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
 		</view>
 		<view class="item_list">
-			<itemTemplate imgSrc="../../static/user/jiaoyijilu@2x.png" title="交易记录"></itemTemplate>
+			<view @click="transactionRecord">
+				<itemTemplate imgSrc="../../static/user/jiaoyijilu@2x.png" title="交易记录"></itemTemplate>
+			</view>
 			<view @click="goSetting">
 				<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置"></itemTemplate>
 			</view>
@@ -36,6 +38,11 @@
 			goSetting() {
 				uni.navigateTo({
 					url: "../setting/setting"
+				})
+			},
+			transactionRecord(){
+				uni.navigateTo({
+					url:"../withdrawMoney/transactionRecord"
 				})
 			}
 		}
