@@ -34,6 +34,8 @@ const api = {
 	// 店铺信息
 	shopInfo: data => request.post("/merchant/shop/info", data, 'POST'),
 	
+	// 更新店铺信息 
+	shopUpdate: data => request.post("/merchant/shop/update", data, 'POST'),
 	
 	//地址搜索
 	searchNearby: (data,cb) => {

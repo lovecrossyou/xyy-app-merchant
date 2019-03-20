@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import product from './modules/product.js'
 import employe from './modules/employe.js'
+import shop from './modules/shop.js'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	modules:{
 		product,
-		employe
+		employe,
+		shop
 	},
     state: {
         /**

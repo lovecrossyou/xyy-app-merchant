@@ -1,25 +1,47 @@
 <template>
 	<div class="content">
-		<!-- 头像 -->
-		<div class="avatar-wrapper">
-			<div class="title" >店铺头像</div>
-			<image :src="formData.imageUrl" class="shop-image"></image>
-		</div>
-		<!-- 店内环境 -->
-		<div class="shopicon">
-			<div class="title">店内环境</div>
-			<div class="shop-image"></div>
-		</div>
-		<!-- 店铺地址 -->
-		<div class="addr-wrapper" @click='toAddress'>
-			<div class="title88">店铺地址</div>
-			<div class="shop-addr">请选择</div>
-		</div>
-		<!-- 联系人 -->
+		<!-- 店铺名称 -->
 		<div class="username-wrapper">
 			<div class="title88">店铺名称</div>
 			<input class="shop-addr" @input="replaceInput" v-model="formData.name" placeholder="请输入店铺名称" />
 		</div>
+		<!-- 头像 -->
+		<div class="avatar-wrapper" @click="chooseImage">
+			<div class="title">店铺头像</div>
+			<image :src="formData.imageUrl" class="shop-image"></image>
+		</div>
+		<div class="username-wrapper">
+			<div class="title88">店铺类型</div>
+			<picker class="picker" mode="selector" @change="bindPickerChange" :value="index" :range="array" range-key="key">
+				<view class="shop-addr">{{array[index].key}}</view>
+			</picker>
+		</div>
+
+		<!-- 店铺地址 -->
+		<div class="addr-wrapper" @click='toAddress'>
+			<div class="title88">店铺地址</div>
+			<div class="shop-addr">{{selectAddress.name}}</div>
+		</div>
+
+		<!-- 营业时间 -->
+		<div class="username-wrapper">
+			<div class="title88">开始营业时间</div>
+			<picker mode="time" :value="formData.startOpenTime" start="00:00" end="24:00" @change="startOpenTimeChange">
+				<view class="shop-addr">{{formData.startOpenTime}}</view>
+			</picker>
+		</div>
+		<div class="username-wrapper">
+			<div class="title88">结束营业时间</div>
+			<picker mode="time" :value="formData.endOpenTime" start="00:00" end="24:00" @change="endOpenTimeChange">
+				<view class="shop-addr">{{formData.endOpenTime}}</view>
+			</picker>
+		</div>
+
+		<div class="username-wrapper">
+			<div class="title88">店铺介绍</div>
+			<input class="shop-addr" @input="replaceInput" v-model="formData.presentation" placeholder="请输入店铺介绍" />
+		</div>
+
 		<!-- 手机号码 -->
 		<div class="phone-wrapper">
 			<div class="title88">手机号码</div>
@@ -27,8 +49,8 @@
 		</div>
 
 		<!-- 底部footer -->
-		<div class="footer">
-			<div class="button">我准备好了</div>
+		<div class="footer" @click="saveShopInfo">
+			<div class="button">提交</div>
 		</div>
 	</div>
 </template>
@@ -38,39 +60,108 @@
 
 	export default {
 		data() {
+			const currentDate = this.getDate({
+				format: true
+			})
 			return {
+
+				date: currentDate,
+				index: 0,
 				inputValue: '',
 				changeValue: '',
 				formData: {
-					"id": 3,
-					"name": "第二个店铺",
+					"name": "",
 					"shopType": "convenience_store",
-					"imageUrl": "http://img3.duitang.com/uploads/item/201511/14/20151114125146_LXHzE.jpeg",
-					"presentation": "店铺介绍222222",
-					"shopDetailImage": [
-						"3333",
-						"ssss"
-					],
+					"imageUrl": "",
+					"presentation": "",
+					"shopDetailImage": [],
 					"locationInfo": {
-						"longitude": 34.991231,
-						"latitude": 113.091231,
-						"addressName": "小测试地址名称"
+						"longitude": '',
+						"latitude": '',
+						"addressName": "请选择地址"
 					},
-					"telephone": "188989898123"
-				}
+					"telephone": "",
+					startOpenTime: '09:00',
+					endOpenTime: '21:00',
+				},
+				array: [{
+					key: '水站',
+					value: 'water_store'
+				}, {
+					key: '便利店',
+					value: 'convenience_store'
+				}]
+			}
+		},
+		computed: {
+			selectAddress() {
+				return this.$store.state.shop.selectAddress;
 			}
 		},
 		onLoad(opt) {
 			this.fetchShopInfo();
 		},
 		methods: {
+			startOpenTimeChange: function(e) {
+				this.formData.startOpenTime = e.target.value
+			},
+			endOpenTimeChange: function(e) {
+				this.formData.endOpenTime = e.target.value
+			},
+			async saveShopInfo() {
+				if (this.selectAddress.name.length!==0) {
+					var {
+						name,
+						location
+					} = this.selectAddress;
+
+					var latitude = location.split(',')[0];
+					var longitude = location.split(',')[1];
+
+					var locationInfo = {
+						longitude,
+						latitude,
+						addressName: name
+					}
+					this.formData.locationInfo = locationInfo;
+				}
+				var shopType = this.array[this.index].value;
+				this.formData.shopType = shopType;
+
+				const res = await api.shopUpdate(this.formData);
+				if (res.status === 'ok') {
+					uni.navigateBack();
+				}
+
+				console.log('formdata ', this.formData);
+			},
+			chooseImage: function() {
+				var that = this;
+				uni.chooseImage({
+					count: 6, //默认9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					success: function(res) {
+						if (res.tempFilePaths.length !== 0) {
+							that.uploadImage(res.tempFilePaths)
+						}
+					}
+				});
+			},
+			uploadImage: function(tempFilePaths) {
+				api.uploader(tempFilePaths[0], res => {
+					this.formData.imageUrl = res.url;
+				})
+			},
+			bindPickerChange: function(e) {
+				this.index = e.target.value;
+			},
 			async fetchShopInfo() {
 				const res = await api.shopInfo({
 					"sn": "SP181214246"
 				});
 				this.formData = res.data;
 				// console.log('res',res);
-				
+
 			},
 			toAddress() {
 				//地址列表
@@ -91,6 +182,21 @@
 				if (event.target.value === '123') {
 					uni.hideKeyboard();
 				}
+			},
+			getDate: function(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type === 'start') {
+					year = year - 60;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
 			}
 		}
 	}
@@ -126,7 +232,7 @@
 	.username-wrapper,
 	.phone-wrapper,
 	.phone-wrapper {
-		background: url('http://qnimage.xiteng.com/right_icon@2x.png') 100% center no-repeat;
+		// background: url('http://qnimage.xiteng.com/right_icon@2x.png') 100% center no-repeat;
 		background-size: 14upx 24upx;
 		height: 88upx;
 		display: flex;
@@ -197,7 +303,7 @@
 	}
 
 	.title88 {
-		width: 140upx;
+		width: 180upx;
 		height: 88upx;
 		line-height: 88upx;
 		margin-right: 24upx;
@@ -212,6 +318,12 @@
 		font-size: 24upx;
 		height: 88upx;
 		line-height: 88upx;
+		height: 88upx;
 		margin-right: 38upx;
+	}
+
+	.picker {
+		display: flex;
+		flex: 1;
 	}
 </style>

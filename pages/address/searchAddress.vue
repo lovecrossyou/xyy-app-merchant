@@ -3,7 +3,6 @@
 		<section>
 			<div class="search_form">
 				<input @input="onKeyInput" type="search" name="search" placeholder="请输入小区/写字楼/学校等" v-model="searchValue">
-				<!-- <button @click.prevent="searchPlace">搜索</button> -->
 			</div>
 			<ul class="address_list" v-if="searchData">
 				<li v-for="(item, index) in searchData" :key="index" @click="choooedAddress(item)">
@@ -36,27 +35,18 @@
 		props: [],
 		methods: {
 			onKeyInput: function(event) {
+				var that = this;
 				api.searchNearby({
 					keywords: event.target.value
 				}, res => {
-					this.searchData = res.data;
+					that.searchData = res.data;
 					console.log('searchData', JSON.stringify(this.searchData));
 				});
 			},
-			//搜索
-			searchPlace() {
-				if (this.searchValue && this.searchValue.length > 0) {
-					api.searchNearby({
-						keywords: this.searchValue
-					}, res => {
-						this.searchData = res.data.pois;
-					});
-
-				}
-			},
 			//选择搜素结果
 			choooedAddress(item) {
-				
+				this.$store.commit("shop/setAddr",item);
+				uni.navigateBack();
 			},
 		}
 	}

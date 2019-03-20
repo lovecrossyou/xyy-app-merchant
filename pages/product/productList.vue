@@ -60,6 +60,7 @@
 			categorylist() {
 				return this.$store.state.product.productList;
 			}
+			
 		},
 		methods: {
 			chooseProduct(product) {
