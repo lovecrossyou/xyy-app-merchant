@@ -35,9 +35,13 @@ const mutations = {
 const actions = {
 	async fetchProductList({
 		commit,
-		state
-	}, params) {
-		const res = await api.productList(params);		
+		state,
+		rootState
+	}, data) {
+		const params = {
+			id: rootState.shopId
+		}
+		const res = await api.productList(params);
 		if (res.status === 'ok') {
 			commit('setProductList', res.data)
 		}

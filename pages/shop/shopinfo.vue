@@ -64,7 +64,6 @@
 				format: true
 			})
 			return {
-
 				date: currentDate,
 				index: 0,
 				inputValue: '',

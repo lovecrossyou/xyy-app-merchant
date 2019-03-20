@@ -32,6 +32,19 @@ const actions = {
 		if (res.status === 'ok') {
 			commit('setOrderList', res.data.comtent)
 		}
+	},
+	async productRemove({
+		state,
+		commit,
+		dispatch
+	}, data) {
+		const res = await api.productRemove(data);
+		if (res.status === 'ok') {
+			// dispatch('product/fetchProductList',null, { root: true });
+			uni.showToast({
+				title:"删除成功"
+			})
+		}
 	}
 }
 

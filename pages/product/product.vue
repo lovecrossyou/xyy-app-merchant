@@ -45,8 +45,10 @@
 		</div>
 
 		<!-- 底部footer -->
-		<div class="footer" @click="saveOrUpdate">
-			<div class="button">完成</div>
+		<div class="footer" >
+			<div v-if="formData.id" class="button" @click="saveOrUpdate">更新</div>
+			<div v-else class="button" @click="saveOrUpdate">保存</div>
+			<div v-if="formData.id" class="button-del" @click="delProduct">删除</div>
 		</div>
 	</div>
 </template>
@@ -111,6 +113,13 @@
 					uni.navigateBack();
 				}
 			},
+			
+			delProduct(){
+				this.$store.dispatch("shop/productRemove", {
+					id: this.formData.id
+				});
+				uni.navigateBack();
+			},
 			onKeyInput: function(event) {
 				this.inputValue = event.target.value
 			},
@@ -146,6 +155,18 @@
 
 	.button {
 		background-color: #FF8638;
+		height: 88upx;
+		border-radius: 6upx;
+		line-height: 88upx;
+		color: #fff;
+		font-size: 28upx;
+		text-align: center;
+		width: 95%;
+		margin-bottom: 20upx;
+	}
+	
+	.button-del{
+		background-color: #999999;
 		height: 88upx;
 		border-radius: 6upx;
 		line-height: 88upx;

@@ -53,12 +53,15 @@
 			return {
 				mainHeight: 0,
 				isclick: 0,
-				tealist: [],
 			}
 		},
 		computed: {
 			categorylist() {
 				return this.$store.state.product.productList;
+			},
+			tealist(){
+				if(this.categorylist.length==0)return [];
+				return this.categorylist[this.isclick].products;
 			}
 			
 		},
@@ -81,7 +84,7 @@
 			},
 			changeStyle(index) {
 				this.isclick = index;
-				this.tealist = this.categorylist[index].products;
+				// this.tealist = this.categorylist[index].products;
 			},
 			getteaList() {
 				// this.tealist = this.categorylist[0].products
