@@ -40,13 +40,11 @@ const api = {
 	// 登录
 	login: data => request.post("/merchant/shop/user/login", data, 'POST'),
 
-
 	// 订单列表
 	orderList: data => request.post("/merchant/shopOrder/list", data, 'POST'),
 
 	// 删除商品 merchant/shop/productRemove "id": 1
 	productRemove: data => request.post("/merchant/shop/productRemove", data, 'POST'),
-
 
 	// 下架商品 merchant/shop/productStatusReverse "id": 1
 	productStatusReverse: data => request.post("/merchant/shop/productStatusReverse", data, 'POST'),
