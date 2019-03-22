@@ -163,6 +163,12 @@
 			"style": {
 				"navigationBarTitleText": "我要开店"
 			}
+		},
+		{
+			"path": "pages/shop/enterFlowPath",
+			"style": {
+				"navigationBarTitleText": "等待审核"
+			}
 		}
 
 	],
