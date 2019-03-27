@@ -26,7 +26,8 @@ const store = new Vuex.Store({
 		shopId: 13,
 		userInfo: null,
 		shopInfo:{
-			imageUrl:''
+			imageUrl:'',
+			mobilePhone:''
 		}
 	},
 	mutations: {
@@ -40,6 +41,7 @@ const store = new Vuex.Store({
 			state.hasLogin = false;
 		},
 		setInfo(state, data) {
+			state.shopId = data.id;
 			state.userInfo = data;
 		},
 		setShopInfo(state, data) {

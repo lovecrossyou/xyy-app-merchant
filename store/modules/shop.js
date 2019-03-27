@@ -4,10 +4,9 @@ const state = {
 	selectAddress: {
 		name: ''
 	},
-	orderList: [1, 2],
+	orderList: [],
 	orderListParams: {
-		shopId: 29,
-		orderStatus: "waiting_deal",
+		shopId: 2,
 		page: "1",
 		pageSize: "20"
 	},
@@ -32,9 +31,19 @@ const actions = {
 		state,
 		commit
 	}, data) {
-		const res = await api.orderList(state.orderListParams);
+		let res;
+		if(data==null){
+			res = await api.orderList(state.orderListParams);
+		}
+		else{
+			res = await api.orderList({
+				...state.orderListParams,
+				orderStatus:data
+			});
+		}
+		
 		if (res.status === 'ok') {
-			commit('setOrderList', res.data.comtent)
+			commit('setOrderList', res.data.content)
 		}
 	},
 	async productRemove({

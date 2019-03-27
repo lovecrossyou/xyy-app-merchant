@@ -14,7 +14,7 @@
 		<button class="login_btn" @click="doLogin">登录</button>
 		
 		
-		<button class="login_btn" @click="doCreateShop">我要开店</button>
+		<button class="login_btn_shop" @click="doCreateShop">我要开店</button>
 		<view class="footer_text">注册或创建账户即同意《鑫翼优商家注册协议书》 </view>
 	</view>
 </template>
@@ -177,6 +177,18 @@
 			border: none;
 			background-color: #7CA7D2;
 			color: #fff;
+			text-align: center;
+			line-height: 90upx;
+			font-size: 28upx;
+			border-radius: 40upx;
+			margin-top: 100upx;
+		}
+		.login_btn_shop {
+			width: 655upx;
+			height: 90upx;
+			border: none;
+			// background-color: #e1e1e1;
+			color: #7CA7D2;
 			text-align: center;
 			line-height: 90upx;
 			font-size: 28upx;

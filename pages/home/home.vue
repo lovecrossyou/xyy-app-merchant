@@ -1,7 +1,7 @@
 <template>
 	<view class="home_wrapper">
 		<!-- 头部 -->
-		<view class="header_wrapper" @click="goShopInfo">
+		<view v-if="userInfo" class="header_wrapper" @click="goShopInfo">
 			<img :src="shopInfo.imageUrl" alt="" class="tea_img" />
 			<view class="water_station_info">
 				<view class="water_station_name">{{shopInfo.name}}</view>
@@ -24,25 +24,25 @@
 					<view class="person_info_area">
 						<view class="person_address_info">
 							<img src="http://static.kuaimayoupin.com/address@2x.png" style="width: 22upx;height: 30upx;" />
-							<view class="address_text">北京市朝阳区安贞门神新家园562号楼4单元230</view>
+							<view class="address_text">{{order.deliverAddressInfo}}</view>
 						</view>
 						<view class="contacts_info_area">
 							<img src="http://static.kuaimayoupin.com/lianxiren@2x.png" alt="" style="width: 22upx;height: 24upx;" />
-							<view class="address_text">任艳彤</view>
-							<view class="address_text">18356248596</view>
+							<view class="address_text">{{order.receiveName}}</view>
+							<view class="address_text">{{order.receiveMobilePhone}}</view>
 						</view>
 					</view>
 					<!-- 商品 -->
 					<view class="commodity_list_wrapper">
-						<blocl v-for="(item, index) in commodityList" :key="index">
+						<block v-for="(item, index) in order.items" :key="index">
 							<view class="commodity_details">
-								<img src="http://img4.imgtn.bdimg.com/it/u=93266979,2836087381&fm=11&gp=0.jpg" alt="" style="width:112upx;height:112upx;border:1px solid rgba(210,210,210,1);border-radius: 50%;" />
+								<img :src='item.productImage' alt="" style="width:112upx;height:112upx;border:1px solid rgba(210,210,210,1);border-radius: 50%;" />
 								<view class="commodity_info">
-									<view class="commodity_name">紫砂壶</view>
-									<view class="commodity_buy_num">x4</view>
+									<view class="commodity_name">{{item.productName}}</view>
+									<view class="commodity_buy_num">x{{item.quantity}}</view>
 								</view>
 							</view>
-						</blocl>
+						</block>
 						<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
 					</view>
 				</view>
@@ -51,7 +51,7 @@
 
 
 		<!-- 空数据 -->
-		<view class="empty-data-wrapper">
+		<view v-if="emptyData" class="empty-data-wrapper">
 			<view class="empty-data-text">
 				暂无订单
 			</view>
@@ -69,19 +69,24 @@
 	} from 'vuex'
 
 	export default {
-		// computed:mapState(['forcedLogin', 'hasLogin', 'userName','userInfo']),
-		computed: mapState({
+		// computed:mapState(['forcedLogin', 'hasLogin', 'userName','userInfo']),emptyData
+		computed: {
+			...mapState({
 			forcedLogin: state => state.forcedLogin,
 			hasLogin: state => state.hasLogin,
 			userInfo: state => state.userInfo,
 			shopInfo: state => state.shopInfo,
 			orderList: state => state.shop.orderList
 		}),
+		emptyData(){
+			return this.orderList.length===0;
+		}
+		},
 		onLoad() {
 			//加载用户信息
 			const userInfo = service.getInfo();
+			console.log('userInfo ', userInfo);
 			if (userInfo) {
-				console.log('userInfo ', userInfo);
 				this.$store.commit('setInfo', userInfo);
 				this.clickitem(0);
 				
@@ -97,7 +102,7 @@
 		},
 		data() {
 			return {
-				commodityList: [1, 2, 3]
+				commodityList: []
 			};
 		},
 		methods: {
@@ -113,21 +118,17 @@
 				}
 			},
 			clickitem(idx, val) {
-				console.log('idx, val', idx, val);
-				var orderStatus = "waiting_deal";
+				console.log('idx', idx);
+				let orderStatus = "waiting_deal";
 				if (idx === 0) {
-					orderStatus = "waiting_deal";
+					orderStatus = null;
 				} else if (idx === 1) {
-					orderStatus = "waiting_deal";
+					orderStatus = "waiting_deliver";
 				} else {
-					orderStatus = "waiting_deal";
+					orderStatus = "finish";
 				}
-// 				this.$store.dispatch("shop/fetchOrderList", {
-// 					"shopId": this.$store.state.shopId,
-// 					"orderStatus": orderStatus,
-// 					"page": "1",
-// 					"pageSize": "20"
-// 				})
+				console.log('orderStatus', orderStatus);
+				this.$store.dispatch("shop/fetchOrderList",orderStatus)
 			},
 			goShopInfo() {
 				uni.navigateTo({

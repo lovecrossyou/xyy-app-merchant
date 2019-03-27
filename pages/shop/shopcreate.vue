@@ -105,6 +105,14 @@
 				this.formData.endOpenTime = e.target.value
 			},
 			async saveShopInfo() {
+				if(this.formData.telephone.length!=11){
+					uni.showToast({
+						title: '手机号格式不正确',
+						mask: false,
+						duration: 1500
+					});
+					return;
+				}
 				if (this.selectAddress.name.length !== 0) {
 					var {
 						name,
