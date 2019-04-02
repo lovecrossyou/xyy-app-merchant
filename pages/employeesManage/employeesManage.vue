@@ -4,10 +4,10 @@
 			<view class="employees_list_area">
 				<view class="employees_left">
 					<img src="http://qnimage.xiteng.com/zhulizhe.jpg" class="employees_img" />
-					<view class="employees_name">{{employees.name}}</view>
+					<view class="employees_name">{{employees.cnName}}</view>
 				</view>
 				<view class="employees_right" @click="goAddEmp(employees)">
-					<view class="post_name">店长</view>
+					<view class="post_name">{{employees.roleContent}}</view>
 					<img src="http://qnimage.xiteng.com/right_icon@2x.png" alt="" class="next_icon"/>
 				</view>
 			</view>
@@ -17,33 +17,33 @@
 </template>
 
 <script>
+ import {
+        mapState,
+		mapMutations,
+		mapActions
+    } from 'vuex'	
 export default {
 	data() {
 		return {
-			employeesList:[{
-				icon:'xx',
-				name:'猪猪',
-				number:'123'
-			},{
-				icon:'xx1',
-				name:'猪猪1',
-				number:'12663'
-			},{
-				icon:'xx2',
-				name:'猪猪2',
-				number:'1234'
-			}]
 		};
 	},
 	components: {},
-	computed: {},
+	computed:mapState({
+		employeesList:state=>state.employe.userList
+	}),
 	methods: {
+		...mapActions({
+			fetchList:"employe/fetchList"
+		}),
 		goAddEmp(item){
 			this.$store.commit("employe/setEmploye",item);
 			uni.navigateTo({
 				url:"./addEmployees"
 			})
 		}
+	},
+	async onLoad(opt) {
+		const res = await this.fetchList();
 	}
 };
 </script>

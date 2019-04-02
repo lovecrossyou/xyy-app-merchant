@@ -8,7 +8,7 @@
 		</view>
 		<view class="up_name_wrapper">
 			<view class="up_img_text">名字</view>
-			<input type="text" v-model="employee.name" placeholder="未填写" />
+			<input type="text" v-model="employee.cnName" placeholder="未填写" />
 		</view>
 		<view class="up_name_wrapper">
 			<view class="up_img_text">账号</view>
@@ -26,17 +26,22 @@
 
 <script>
 	import sunsinUpimg from '@/components/sunsin-upimg/sunsin-upimg.vue';
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from 'vuex'
 	export default {
 		data() {
 			return {
-				
+
 			};
 		},
-		computed:{
-			employee(){
-				return this.$store.state.employe.employe;
-			}
-		},
+		computed: mapState({
+			employeesList: state => state.employe.userList,
+			employee: state => state.employe.employe
+
+		}),
 		components: {
 			sunsinUpimg
 		},

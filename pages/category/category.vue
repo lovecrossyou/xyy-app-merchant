@@ -10,6 +10,11 @@
 			return {
 				
 			};
+		},
+		computed:{
+			category(){
+				return this.$store.state.shop.category;
+			}
 		}
 	}
 </script>

@@ -2,7 +2,7 @@
 	<view class="wrapper">
 		<view class="category_list">
 			<block v-for="(item,index) in categoryList" :key="index">
-				<categoryListTemplate :item='item' :itemClick="itemClick"></categoryListTemplate>
+				<categoryListTemplate :item='item' :itemClick="itemClick" :editClick="editClick"></categoryListTemplate>
 			</block>
 		</view>
 		<button type="primary" class="add_category_btn" @click="addCategory">添加分类</button>
@@ -36,6 +36,13 @@
 			...mapMutations({
 				"setCategory": 'product/setCategory'
 			}),
+			editClick(data){
+				console.log('data ', data);
+				this.setCategory(data);
+				uni.navigateTo({
+					url: '/pages/category/addCategory'
+				});
+			},
 			itemClick(data) {
 				console.log('data ', data);
 				this.setCategory(data);

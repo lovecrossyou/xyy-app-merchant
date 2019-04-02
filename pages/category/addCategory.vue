@@ -16,22 +16,16 @@
 	import api from "../../util/api.js"
 
 	export default {
-
-		data() {
-			return {
-				formData: {
-					"name": "",
-					"sortVal": '',
-					"shopId": 3
-				}
-			};
-		},
 		components: {},
-		computed: {},
+		computed:{
+			formData(){
+				return this.$store.state.product.category;
+			}
+		},
 		methods: {
 			async addCategory() {
 				console.log("formData ",this.formData);
-				const res = await api.addCategory(this.formData);
+				const res = this.formData.id?await api.editCategory(this.formData) : await api.addCategory(this.formData);
 				uni.navigateBack({
 					
 				})

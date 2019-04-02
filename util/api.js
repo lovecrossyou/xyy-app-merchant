@@ -23,6 +23,7 @@ const api = {
 	// 分类列表
 	categoryList: data => request.post("/merchant/shop/productCategory/list", data, 'POST'),
 	addCategory: data => request.post("/merchant/shop/productCategory/create", data, 'POST'),
+	editCategory: data => request.post("/merchant/shop/productCategory/edit", data, 'POST'),
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/shop/createProduct", data, 'POST'),

@@ -1,7 +1,7 @@
 <template>
 	<view class="wrapper" @click="onClick(item)">
 		<view class="title_text">{{ item.name }}</view>
-		<image src="../../static/category/bianji@2x.png" mode="" class="change_img_icon" @click="addCategory"></image>
+		<image src="../../static/category/bianji@2x.png" mode="" class="change_img_icon" @click.stop="onEdit(item)"></image>
 	</view>
 </template>
 
@@ -12,13 +12,17 @@
 		},
 		props: {
 			item: Object,
-			itemClick:Function
+			itemClick:Function,
+			editClick:Function,
 		},
 		components: {},
 		computed: {},
 		methods: {
 			onClick(data){
 				this.itemClick(data)
+			},
+			onEdit(data){
+				this.editClick(data)
 			},
 			addCategory() {
 				uni.navigateTo({
