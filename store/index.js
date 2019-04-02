@@ -20,6 +20,7 @@ const store = new Vuex.Store({
 		category
 	},
 	state: {
+		pushMessage: {},  
 		/**
 		 * 是否需要强制登录
 		 */
@@ -31,7 +32,8 @@ const store = new Vuex.Store({
 		shopInfo:{
 			imageUrl:'',
 			mobilePhone:''
-		}
+		},
+		clientInfo:null//获取客户端推送信息
 	},
 	mutations: {
 		login(state, userInfo) {
@@ -49,7 +51,23 @@ const store = new Vuex.Store({
 		},
 		setShopInfo(state, data) {
 			state.shopInfo = data;
-		}
+		},
+		
+		saveClientInfo(state,data){
+			state.clientInfo = data;
+		},
+		
+		updatePushMessage(state, message) {  
+            /**  
+             * 注意：这里为了方便预览查看效果，始终对 payload 做了序列化的处理。  
+             * 实际开发期中，请自行调整代码并注意发送的 payload 消息格式。  
+             */   
+            let payload = message.payload;  
+            if (typeof payload !== 'string') {  
+                message.payload = JSON.stringify(payload);  
+            }  
+            state.pushMessage = message || {};  
+        } 
 	},
 	actions: {
 		async fetchShopInfo({commit,state}){
@@ -70,6 +88,12 @@ const store = new Vuex.Store({
 					url: '/pages/home/home'
 				});
 			}
+		},
+		//注册到推送服务器
+		async registeToUNPush({ commit, state }){
+			const clientInfo = state.clientInfo;
+			if(!clientInfo)return;
+			const res = await api.registeToUNPush(clientInfo);
 		}
 	}
 })
