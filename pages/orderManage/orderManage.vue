@@ -15,25 +15,25 @@
 					<view class="person_info_area">
 						<view class="person_address_info">
 							<img src="http://static.kuaimayoupin.com/address@2x.png" style="width: 22upx;height: 30upx;" />
-							<view class="address_text">北京市朝阳区安贞门神新家园562号楼4单元230</view>
+							<view class="address_text">{{order.deliverAddressInfo}}</view>
 						</view>
 						<view class="contacts_info_area">
 							<img src="http://static.kuaimayoupin.com/lianxiren@2x.png" alt="" style="width: 22upx;height: 24upx;" />
-							<view class="address_text">任艳彤</view>
-							<view class="address_text">18356248596</view>
+							<view class="address_text">{{order.receiveName}}</view>
+							<view class="address_text">{{order.receiveMobilePhone}}</view>
 						</view>
 					</view>
 					<!-- 商品 -->
 					<view class="commodity_list_wrapper">
-						<blocl v-for="(item, index) in commodityList" :key="index">
+						<block v-for="(item, index) in order.items" :key="index">
 							<view class="commodity_details">
-								<img src="http://img4.imgtn.bdimg.com/it/u=93266979,2836087381&fm=11&gp=0.jpg" alt="" style="width:112upx;height:112upx;border:1px solid rgba(210,210,210,1);border-radius: 50%;" />
+								<img :src='item.productImage' alt="" style="width:112upx;height:112upx;border:1px solid rgba(210,210,210,1);border-radius: 50%;" />
 								<view class="commodity_info">
-									<view class="commodity_name">紫砂壶</view>
-									<view class="commodity_buy_num">x4</view>
+									<view class="commodity_name">{{item.productName}}</view>
+									<view class="commodity_buy_num">x{{item.quantity}}</view>
 								</view>
 							</view>
-						</blocl>
+						</block>
 						<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
 					</view>
 				</view>
@@ -122,12 +122,7 @@
 				} else {
 					orderStatus = "waiting_deal";
 				}
-				this.$store.dispatch("shop/fetchOrderList", {
-					"shopId": this.$store.state.shopId,
-					"orderStatus": orderStatus,
-					"page": "1",
-					"pageSize": "20"
-				})
+				this.$store.dispatch("shop/fetchOrderList",orderStatus)
 			},
 			goShopInfo() {
 				uni.navigateTo({
