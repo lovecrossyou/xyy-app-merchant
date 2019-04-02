@@ -29,6 +29,21 @@ const mutations = {
 	},
 	setProductList(state, data) {
 		state.productList = data;
+	},
+	resetFormData(state, data){
+		state.editProduct = {
+		"headName": "",
+		"price": '',
+		"originalPrice": '',
+		"tag": "",
+		"spec": "",
+		"brand": "",
+		"productDescribe": "",
+		"categoryId": 0,
+		"listImage": "",
+		"headImage": "",
+		"detailImages": []
+	}
 	}
 }
 
@@ -39,7 +54,7 @@ const actions = {
 		rootState
 	}, data) {
 		const params = {
-			id: rootState.shopId
+			id: rootState.shopInfo.id
 		}
 		const res = await api.productList(params);
 		if (res.status === 'ok') {

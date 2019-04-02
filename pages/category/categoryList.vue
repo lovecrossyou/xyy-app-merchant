@@ -18,9 +18,13 @@
 	export default {
 		data() {
 			return {
-				categoryList: [],
 				goBack: false
 			};
+		},
+		computed:{
+			categoryList(){
+				return this.$store.state.category.list;
+			}
 		},
 		components: {
 			categoryListTemplate
@@ -36,7 +40,7 @@
 			...mapMutations({
 				"setCategory": 'product/setCategory'
 			}),
-			editClick(data){
+			editClick(data) {
 				console.log('data ', data);
 				this.setCategory(data);
 				uni.navigateTo({
@@ -53,13 +57,8 @@
 					url: '/pages/category/addCategory'
 				});
 			},
-			async fetchCategoryList() {
-				const params = {
-					"id": this.$store.state.shopId
-				}
-				const res = await api.categoryList(params);
-				this.categoryList = res.data;
-				console.log('res ', res);
+			fetchCategoryList() {
+				this.$store.dispatch('category/list');
 			}
 		}
 	};

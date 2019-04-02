@@ -99,18 +99,25 @@
 				const formData = this.formData;
 				formData.categoryId = this.category.id;
 				
+				// 价格处理
+				if(formData.originalPrice){
+					formData.originalPrice = Number(formData.originalPrice)*100;
+				}
+				if(formData.price){
+					formData.price = Number(formData.price)*100;
+				}
 				var res = null
 				if(formData.id){
 					res = await api.editProduct(formData);
 				}
 				else{
-					formData.shopId = this.$store.state.shopId;
+					formData.shopId = this.$store.state.shopInfo.id;;
 					res = await api.createProduct(formData);
 				}
 				if(res.status === 'ok'){
-					this.$store.dispatch("product/fetchProductList", {
-						id: this.$store.state.shopId
-					});
+// 					this.$store.dispatch("product/fetchProductList", {
+// 						id: this.$store.state.shopId
+// 					});
 					uni.navigateBack();
 				}
 			},

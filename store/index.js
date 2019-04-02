@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import product from './modules/product.js'
 import employe from './modules/employe.js'
 import shop from './modules/shop.js'
+import category from './modules/category.js'
+
 import api from '../util/api.js'
 
 import servcie from "../service.js"
@@ -14,7 +16,8 @@ const store = new Vuex.Store({
 	modules: {
 		product,
 		employe,
-		shop
+		shop,
+		category
 	},
 	state: {
 		/**

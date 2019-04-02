@@ -73,11 +73,10 @@
 				})
 			},
 			fetchList() {
-				this.$store.dispatch("product/fetchProductList", {
-					id: this.$store.state.shopId
-				});
+				this.$store.dispatch("product/fetchProductList");
 			},
 			addProduct() {
+				this.$store.commit('product/resetFormData');
 				uni.navigateTo({
 					url: "/pages/product/product"
 				})

@@ -82,14 +82,13 @@
 			return this.orderList.length===0;
 		}
 		},
-		onLoad() {
+		onShow() {
 			//加载用户信息
 			const userInfo = service.getInfo();
 			console.log('userInfo ', userInfo);
 			if (userInfo) {
 				this.$store.commit('setInfo', userInfo);
 				this.clickitem(0);
-				
 				this.$store.dispatch("fetchShopInfo")
 			} else {
 				this.$store.commit('logout');

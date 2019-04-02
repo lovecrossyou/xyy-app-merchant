@@ -25,7 +25,11 @@
 		methods: {
 			async addCategory() {
 				console.log("formData ",this.formData);
+				if(!this.formData.shopId){
+					this.formData.shopId = this.$store.state.shopInfo.id;
+				}
 				const res = this.formData.id?await api.editCategory(this.formData) : await api.addCategory(this.formData);
+				this.$store.dispatch('category/list');
 				uni.navigateBack({
 					
 				})
