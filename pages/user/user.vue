@@ -42,6 +42,7 @@
 				})
 			},
 			transactionRecord(){
+				return;
 				uni.navigateTo({
 					url:"../withdrawMoney/transactionRecord"
 				})

@@ -42,7 +42,7 @@
 
 
 		<!-- 空数据 -->
-		<view class="empty-data-wrapper">
+		<view class="empty-data-wrapper" v-if="orderList.length!=0">
 			<view class="empty-data-text">
 				暂无订单
 			</view>

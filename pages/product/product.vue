@@ -45,7 +45,7 @@
 		</div>
 
 		<!-- 底部footer -->
-		<div class="footer" >
+		<div class="footer">
 			<div v-if="formData.id" class="button" @click="saveOrUpdate">更新</div>
 			<div v-else class="button" @click="saveOrUpdate">保存</div>
 			<button type="default" v-if="formData.id" class="button-del" @click="delProduct">删除</button>
@@ -98,31 +98,91 @@
 			async saveOrUpdate() {
 				const formData = this.formData;
 				formData.categoryId = this.category.id;
-				
-				// 价格处理
-				if(formData.originalPrice){
-					formData.originalPrice = Number(formData.originalPrice)*100;
+				// headName brand spec price category headImage
+				const {
+					headName,
+					brand,
+					spec,
+					price,
+					category,
+					headImage
+				} = formData;
+				if (!headName) {
+					uni.showToast({
+						title: '请输入商品名称',
+						mask: false,
+						duration: 1500
+					});
+					return;
 				}
-				if(formData.price){
-					formData.price = Number(formData.price)*100;
+				if (!brand) {
+					uni.showToast({
+						title: '请输入品牌名称',
+						mask: false,
+						duration: 1500
+					});
+					return;
+
+				}
+				if (!spec) {
+					uni.showToast({
+						title: '请输入规格',
+						mask: false,
+						duration: 1500
+					});
+					return;
+
+				}
+				if (!price) {
+					uni.showToast({
+						title: '请输入价格',
+						mask: false,
+						duration: 1500
+					});
+					return;
+
+				}
+				if (!category) {
+					uni.showToast({
+						title: '请选择分类',
+						mask: false,
+						duration: 1500
+					});
+					return;
+
+				}
+				if (!headImage) {
+					uni.showToast({
+						title: '请上传商品图片',
+						mask: false,
+						duration: 1500
+					});
+					return;
+
+				}
+				// 价格处理
+				if (formData.originalPrice) {
+					formData.originalPrice = Number(formData.originalPrice) * 100;
+				}
+				if (formData.price) {
+					formData.price = Number(formData.price) * 100;
 				}
 				var res = null
-				if(formData.id){
+				if (formData.id) {
 					res = await api.editProduct(formData);
-				}
-				else{
+				} else {
 					formData.shopId = this.$store.state.shopInfo.id;;
 					res = await api.createProduct(formData);
 				}
-				if(res.status === 'ok'){
-// 					this.$store.dispatch("product/fetchProductList", {
-// 						id: this.$store.state.shopId
-// 					});
+				if (res.status === 'ok') {
+					// 					this.$store.dispatch("product/fetchProductList", {
+					// 						id: this.$store.state.shopId
+					// 					});
 					uni.navigateBack();
 				}
 			},
-			
-			delProduct(){
+
+			delProduct() {
 				this.$store.dispatch("shop/productRemove", {
 					id: this.formData.id
 				});
@@ -172,8 +232,8 @@
 		width: 95%;
 		margin-bottom: 20upx;
 	}
-	
-	.button-del{
+
+	.button-del {
 		background-color: #999999;
 		height: 88upx;
 		border-radius: 6upx;

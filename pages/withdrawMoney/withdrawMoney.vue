@@ -3,7 +3,7 @@
 		<view class="header_bg_area">
 			<img src="../../static/withdrawMoney/qian@2x.png" alt="" />
 			<text class="balance_text">余额</text>
-			<text class="balance_num">1235.00</text>
+			<text class="balance_num">0.00</text>
 		</view>
 		<view><button class="balance_btn" @click="goBalance">提现</button></view>
 		<view class="record_area">
