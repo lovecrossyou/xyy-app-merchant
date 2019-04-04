@@ -41,7 +41,7 @@ const api = {
 	shopUpdate: data => request.post("/merchant/shop/update", data, 'POST'),
 
 	// 登录
-	login: data => request.post("/merchant/shop/user/login", data, 'POST'),
+	login: data => request.post("/user/login", data, 'POST'),
 
 	// 订单列表
 	orderList: data => request.post("/merchant/shopOrder/list", data, 'POST'),

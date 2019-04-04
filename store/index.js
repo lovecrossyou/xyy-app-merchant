@@ -82,7 +82,7 @@ const store = new Vuex.Store({
 		},params) {
 			const {data, cb} = params;
 			const res = await api.login(data);
-			if (res.status === 'ok') {
+			if (res.status === 0) {
 				commit('login', res.data);
 				//持久化
 				servcie.addInfo(res.data)
