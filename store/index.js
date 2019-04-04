@@ -44,6 +44,7 @@ const store = new Vuex.Store({
 		logout(state) {
 			state.userInfo = null;
 			state.hasLogin = false;
+			servcie.clearInfo()
 		},
 		setInfo(state, data) {
 			state.shopId = data.id;
@@ -78,7 +79,8 @@ const store = new Vuex.Store({
 		},
 		async appLogin({
 			commit
-		}, data, cb) {
+		},params) {
+			const {data, cb} = params;
 			const res = await api.login(data);
 			if (res.status === 'ok') {
 				commit('login', res.data);
@@ -87,13 +89,18 @@ const store = new Vuex.Store({
 				uni.reLaunch({
 					url: '/pages/home/home'
 				});
+				cb();
 			}
 		},
 		//注册到推送服务器
 		async registeToUNPush({ commit, state }){
 			const clientInfo = state.clientInfo;
+			const params = Object.assign({},{...clientInfo})
+			console.log('registeToUNPush ',JSON.stringify(params));
 			if(!clientInfo)return;
-			const res = await api.registeToUNPush(clientInfo);
+			api.registePush(params,res=>{
+				console.log('registePush ok ',JSON.stringify(res));
+			});
 		}
 	}
 })

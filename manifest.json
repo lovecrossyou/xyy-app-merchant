@@ -83,26 +83,31 @@
                     "xxxhdpi" : "unpackage/res/icons/192x192.png"
                 }
             },
-			"plugins": { // 第三方sdk配置  
-    "push": { // 模块名称  
-        "igexin": { // 个推SDK参数配置  
-            "appid": "y5yjVOpjpR7KiYaToRui15", // 个推的appid  
-            "appkey": "nueJCq9JhM6AeG3hDVOha7", // 个推的appkey  
-            "appsecret": "rvraX7mii56O42AkGAapj4", // 个推的appsecret  
-            "icons": { // 推送图片配置  
-                "push": { // push图标，规格与应用图片一致，不配置则默认使用push图标  
-                    "hdpi" : "unpackage/res/icons/72x72.png",
-                    "ldpi" : "unpackage/res/icons/48x48.png",
-                    "mdpi" : "unpackage/res/icons/48x48.png",
-                    "xhdpi" : "unpackage/res/icons/96x96.png",
-                    "xxhdpi" : "unpackage/res/icons/144x144.png",
-                    "xxxhdpi" : "unpackage/res/icons/192x192.png" 
-                },  
-                "description": "推送图标"  
-            }  
-        }  
-    }  
-}  
+            "plugins" : {
+                // 第三方sdk配置  
+                "push" : {
+                    // 模块名称  
+                    "igexin" : {
+                        // 个推SDK参数配置  
+                        "appid" : "y5yjVOpjpR7KiYaToRui15", // 个推的appid  
+                        "appkey" : "nueJCq9JhM6AeG3hDVOha7", // 个推的appkey  
+                        "appsecret" : "rvraX7mii56O42AkGAapj4", // 个推的appsecret  
+                        "icons" : {
+                            // 推送图片配置  
+                            "push" : {
+                                // push图标，规格与应用图片一致，不配置则默认使用push图标  
+                                "hdpi" : "unpackage/res/icons/72x72.png",
+                                "ldpi" : "unpackage/res/icons/48x48.png",
+                                "mdpi" : "unpackage/res/icons/48x48.png",
+                                "xhdpi" : "unpackage/res/icons/96x96.png",
+                                "xxhdpi" : "unpackage/res/icons/144x144.png",
+                                "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                            },
+                            "description" : "推送图标"
+                        }
+                    }
+                }
+            }
         }
     },
     /* SDK配置 */

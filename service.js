@@ -29,9 +29,14 @@ const addInfo = function(info) {
 	addToken(info.accessToken);
 }
 
+const clearInfo = function() {
+	uni.clearStorageSync();
+}
+
 export default {
 	getToken,
 	getInfo,
 	addToken,
-	addInfo
+	addInfo,
+	clearInfo
 }

@@ -6,27 +6,35 @@
 		<view>
 			<chooseItem title="修改密码"></chooseItem>
 		</view>
+		<view @click="loginOut">
+			<chooseItem title="退出登录"></chooseItem>
+		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		mapMutations,
+	} from 'vuex'
 	import chooseItem from "@/pages/setting/components/chooseItem.vue"
 	export default {
-		data() {
-			return {
-				
-			}
-		},
 		components: {
 			chooseItem
 		},
 		computed: {
-			
+
 		},
 		methods: {
-			goFeedBack(){
+			...mapMutations(['logout']),
+			loginOut() {
+				this.logout();
+				uni.reLaunch({
+					url:"/pages/home/home"
+				})
+			},
+			goFeedBack() {
 				uni.navigateTo({
-					url:"feedBack"
+					url: "feedBack"
 				})
 			}
 		}
@@ -34,7 +42,7 @@
 </script>
 
 <style scoped>
-	.setting_wrapper{
+	.setting_wrapper {
 		width: 100%;
 		padding: 25upx;
 		box-sizing: border-box;

@@ -6,8 +6,8 @@
 		onLaunch: function() {
 			// #ifdef APP-PLUS
 			var info = plus.push.getClientInfo();
-			this.saveClientInfo(saveClientInfo);
-			console.log('ClientInfo ', JSON.stringify(info));
+			console.log('info',JSON.stringify(info));
+			this.saveClientInfo(info);
 			const _self = this;
 			const _handlePush = function(message) {
 				/**  

@@ -12,8 +12,8 @@
 		</view>
 		<!-- <button class="login_btn" open-type="getUserInfo" @getuserinfo="oauth('weixin')">登录</button> -->
 		<button class="login_btn" @click="doLogin">登录</button>
-		
-		
+
+
 		<button class="login_btn_shop" @click="doCreateShop">我要开店</button>
 		<view class="footer_text">注册或创建账户即同意《鑫翼优商家注册协议书》 </view>
 	</view>
@@ -29,24 +29,34 @@
 		data() {
 			return {
 				providerList: [],
-				username: '',
-				password: ''
+				username: '13220168837',
+				password: '123456'
 			}
 		},
 		methods: {
-			...mapActions(['login', 'appLogin']),
-			doCreateShop(){
+			...mapActions(['login', 'appLogin', 'registeToUNPush']),
+
+			doCreateShop() {
 				uni.navigateTo({
-					url:"/pages/shop/shopcreate"
+					url: "/pages/shop/shopcreate"
 				})
 			},
 			doLogin() {
+				let that = this;
 				this.appLogin({
-					username: this.username,
-					password: this.password
-				}, () => {
-					this.toMain();
+					data: {
+						username: this.username,
+						password: this.password
+					},
+					cb: () => {
+						// 注册推送服务
+						console.log('注册推送服务')						
+						that.pushRegiste();
+					}
 				})
+			},
+			pushRegiste(){
+				this.registeToUNPush();
 			},
 			initProvider() {
 				const filters = ['weixin', 'qq', 'sinaweibo'];
@@ -66,7 +76,7 @@
 						}
 					},
 					fail: (err) => {
-						console.error('获取服务供应商失败：' + JSON.stringify(err));
+						// console.error('获取服务供应商失败：' + JSON.stringify(err));
 					}
 				});
 			},
@@ -118,7 +128,7 @@
 			},
 			toMain(params) {
 				uni.reLaunch({
-					url: '../main/main'
+					url: '/pages/home/home'
 				});
 			}
 		},
@@ -183,6 +193,7 @@
 			border-radius: 40upx;
 			margin-top: 100upx;
 		}
+
 		.login_btn_shop {
 			width: 655upx;
 			height: 90upx;

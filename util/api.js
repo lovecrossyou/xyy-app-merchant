@@ -3,6 +3,8 @@ import Fly from 'flyio/dist/npm/wx'
 
 const uploadBaseUrl = "http://47.94.169.143:8004"
 const searchBaseUrl = "http://47.94.169.143:8004"
+
+const pushBaseUrl = "http://192.168.1.235:8004"
 const api = {
 
 	requestCartClient: (params) => request.post("client/shop/cartClient", params),
@@ -80,7 +82,18 @@ const api = {
 				}
 			}
 		});
+	},
+	registePush: (data,cb)=>{
+		uni.request({
+			url: pushBaseUrl + '/push/bindUser',
+			data: data,
+			method: 'POST',
+			success: (res) => {
+				cb(res.data);
+			}
+		});
 	}
+	
 
 }
 export default api
