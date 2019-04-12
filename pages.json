@@ -169,6 +169,12 @@
 			"style": {
 				"navigationBarTitleText": "等待审核"
 			}
+		},
+		{
+			"path": "pages/shop/storeApply",
+			"style": {
+				"navigationBarTitleText": "店铺申请"
+			}
 		}
 
 	],

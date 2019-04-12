@@ -13,6 +13,9 @@
 			<view @click="goSetting">
 				<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置"></itemTemplate>
 			</view>
+			<view @click="doCreateShop">
+				<itemTemplate title="我要开店"></itemTemplate>
+			</view>
 		</view>
 	</view>
 </template>
@@ -45,7 +48,12 @@
 				uni.navigateTo({
 					url:"../withdrawMoney/transactionRecord"
 				})
-			}
+			},
+			doCreateShop(){
+				uni.navigateTo({
+					url:"/pages/shop/storeApply"
+				})
+			},
 		}
 	};
 </script>

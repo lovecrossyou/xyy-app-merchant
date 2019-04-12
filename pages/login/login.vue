@@ -14,7 +14,7 @@
 		<button class="login_btn" @click="doLogin">登录</button>
 		
 		
-		<button class="login_btn" @click="doCreateShop">我要开店</button>
+		
 		<view class="footer_text">注册或创建账户即同意《鑫翼优商家注册协议书》 </view>
 	</view>
 </template>
@@ -35,11 +35,6 @@
 		},
 		methods: {
 			...mapActions(['login', 'appLogin']),
-			doCreateShop(){
-				uni.navigateTo({
-					url:"/pages/shop/shopcreate"
-				})
-			},
 			doLogin() {
 				this.appLogin({
 					username: this.username,
