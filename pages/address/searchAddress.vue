@@ -22,7 +22,8 @@
 <script>
 	import api from '@/util/api.js'
 	import {
-		mapMutations
+		mapMutations,
+		mapState
 	} from 'vuex'
 
 	export default {
@@ -32,6 +33,7 @@
 				searchData: [], //搜索的结果
 			}
 		},
+		computed: mapState(['shopInfo']),
 		props: [],
 		methods: {
 			async onKeyInput(event) {
@@ -42,7 +44,11 @@
 			},
 			//选择搜素结果
 			choooedAddress(item) {
-				this.$store.commit("shop/setAddr",item);
+				this.$store.commit("shop/setAddr", item);
+				this.shopInfo.address = item.name;
+				this.shopInfo.latitude = item.latitude;
+				this.shopInfo.longitude = item.longitude;
+
 				uni.navigateBack();
 			},
 		}

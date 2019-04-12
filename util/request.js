@@ -3,7 +3,8 @@ import service from "../service"
 const request = new Fly()
 // const baseURL = 'https://api.kuaimayoupin.com'
 // const baseURL = 'http://47.94.169.143:7002'
-const baseURL = 'http://47.94.169.143:8004'
+// const baseURL = 'http://47.94.169.143:8004'
+const baseURL = 'http://127.0.0.1:8004'
 
 request.config.baseURL = baseURL
 
@@ -16,23 +17,22 @@ const errorPrompt = (err) => {
 }
 
 request.interceptors.request.use((request) => {
-	request.headers["accessToken"] = service.getToken();
-	uni.showLoading();
+	let cookie = uni.getStorageSync('cookieKey');
+	if (cookie) {
+		request.headers['Cookie'] = cookie;
+	}
 	return request
 })
 
 request.interceptors.response.use((response, promise) => {
 	uni.hideLoading()
-	if (!(response.data.status === "ok")) {
-		if (response.data.status === "-999") {
-			//需要登录权限
-			this.$store.commit("setLogin", false)
-			uni.redirectTo({
-				url: '/pages/login/enter'
-			});
-		} else {
-			errorPrompt(response)
-		}
+	if (response && response.headers && response.headers['set-cookie']) {
+		uni.setStorageSync('cookieKey', response.headers['set-cookie'][0]); //保存Cookie到Storage
+	}
+	console.log('response.data ',response.data)
+	if(response.data.message){
+		errorPrompt(response.data);
+		return Promise.resolve(null);
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {

@@ -173,7 +173,7 @@
 		{
 			"path": "pages/shop/storeApply",
 			"style": {
-				"navigationBarTitleText": "店铺申请"
+				"navigationBarTitleText": "店铺信息"
 			}
 		},
 		{

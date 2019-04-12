@@ -26,7 +26,22 @@ const store = new Vuex.Store({
 		shopId: 13,
 		userInfo: null,
 		shopInfo:{
-			imageUrl:''
+			"name": "",
+			"address": "",
+			"latitude": 39.92843,
+			"longitude": 116.35073,
+			"description": "",
+			"phone": '',
+			"promotion_info": "哈哈,就是便宜!",
+			"float_delivery_fee": 0,
+			"float_minimum_order_amount": 0,
+			"startTime": "09:00",
+			"endTime": "21:00",
+			"image_path": "",
+			"business_license_image": "",
+			"catering_service_license_image": "",
+			"activities": [],
+			"category": "请选择"
 		}
 	},
 	mutations: {
@@ -48,16 +63,15 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		async fetchShopInfo({commit,state}){
-			const res = await api.shopInfo({
-				"sn": state.userInfo.shopSn
-			});
-			commit('setShopInfo', res.data);
+			const restaurant_id = state.userInfo.restaurant_id;
+			const res = await api.shopInfo(restaurant_id);
+			commit('setShopInfo', res);
 		},
 		async appLogin({
 			commit
 		}, data, cb) {
 			const res = await api.login(data);
-			if (res.status === 'ok') {
+			if (res.status === 1) {
 				commit('login', res.data);
 				//持久化
 				servcie.addInfo(res.data)

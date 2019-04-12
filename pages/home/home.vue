@@ -1,11 +1,11 @@
 <template>
 	<view class="home_wrapper">
 		<!-- 头部 -->
-		<view class="header_wrapper" @click="goShopInfo">
-			<img :src="shopInfo.imageUrl" alt="" class="tea_img" />
+		<view v-if="shopInfo" class="header_wrapper" @click="goShopInfo">
+			<img :src="shopInfo.image_path" alt="" class="tea_img" />
 			<view class="water_station_info">
 				<view class="water_station_name">{{shopInfo.name}}</view>
-				<view class="water_station_sales_num">{{userInfo.mobilePhone}}</view>
+				<view class="water_station_sales_num">{{shopInfo.phone}}</view>
 			</view>
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="" class="next_icon"></image>
 		</view>
@@ -104,11 +104,11 @@
 			goLogin(){
 				if (this.forcedLogin) {
 					uni.reLaunch({
-						url: '../login/login'
+						url: '../login/register'
 					});
 				} else {
 					uni.navigateTo({
-						url: '../login/login'
+						url: '../login/register'
 					});
 				}
 			},
@@ -122,16 +122,10 @@
 				} else {
 					orderStatus = "waiting_deal";
 				}
-// 				this.$store.dispatch("shop/fetchOrderList", {
-// 					"shopId": this.$store.state.shopId,
-// 					"orderStatus": orderStatus,
-// 					"page": "1",
-// 					"pageSize": "20"
-// 				})
 			},
 			goShopInfo() {
 				uni.navigateTo({
-					url: "/pages/shop/shopinfo"
+					url: "/pages/shop/storeApply"
 				})
 			},
 			goOrderDetails(order) {

@@ -21,7 +21,7 @@ const api = {
 	postAddAddress: (params) => request.post("client/keplerPay/queryResult", params),
 
 	// 分类列表
-	categoryList: data => request.post("/merchant/shop/productCategory/list", data, 'POST'),
+	categoryList: () => request.get("/shopping/v2/restaurant/category"),
 	addCategory: data => request.post("/merchant/shop/productCategory/create", data, 'POST'),
 
 	// 添加商品
@@ -32,13 +32,13 @@ const api = {
 	productList: data => request.post("/merchant/shop/productListWithCategory", data, 'POST'),
 
 	// 店铺信息
-	shopInfo: data => request.post("/merchant/shop/info", data, 'POST'),
+	shopInfo: restaurant_id => request.get("/merchant/restaurant/"+restaurant_id),
 
 	// 更新店铺信息 
-	shopUpdate: data => request.post("/merchant/shop/update", data, 'POST'),
+	shopUpdate: data => request.post("/merchant/updateshop", data, 'POST'),
 
 	// 登录
-	login: data => request.post("/merchant/shop/user/login", data, 'POST'),
+	login: data => request.post("/merchant/login", data, 'POST'),
 
 	// 订单列表
 	orderList: data => request.post("/merchant/shopOrder/list", data, 'POST'),

@@ -2,99 +2,138 @@
 	<view class="apply_wrapper">
 		<!-- 基本信息 -->
 		<view class="basic_msg">
-			<view class="basic_msg_text">基本信息（必填）</view>
+			<view class="basic_msg_text">基本信息</view>
 			<view style="width: 100%;padding:0 30upx;box-sizing: border-box;">
 				<view class="input_cont">
-					<view class="left_text">门店信息</view>
-					<input type="text" v-model="formData.name" :value="formData.name" placeholder="请与门脸照上名称一致" />
+					<view class="left_text">店铺名称</view>
+					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请与门脸照上名称一致" />
 				</view>
+				<!-- 店铺简介 -->
 				<view class="input_cont">
-					<view class="left_text">联系人电话</view>
-					<input type="text" v-model="formData.phone" :value="formData.phone" placeholder="请填写手机号" />
+					<view class="left_text">店铺简介</view>
+					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请与门脸照上名称一致" />
+				</view>
+				<!-- 配送费 -->
+				<view class="input_cont">
+					<view class="left_text">配送费</view>
+					<input type="number" v-model="shopInfo.float_delivery_fee" :value="shopInfo.float_delivery_fee" placeholder="请与门脸照上名称一致" />
+				</view>
+				<!-- 起送价 -->
+				<view class="input_cont">
+					<view class="left_text">起送价</view>
+					<input type="number" v-model="shopInfo.float_minimum_order_amount" :value="shopInfo.float_minimum_order_amount"
+					 placeholder="请与门脸照上名称一致" />
+				</view>
+
+				<!-- 营业时间 -->
+				<div class="input_cont">
+					<div class="left_text">开始营业时间</div>
+					<picker class="picker" mode="time" :value="startTime" start="00:00" end="24:00" @change="startOpenTimeChange">
+						<view class="center_text">{{startTime}}</view>
+					</picker>
+				</div>
+				<div class="input_cont">
+					<div class="left_text">结束营业时间</div>
+					<picker class="picker" mode="time" :value="endTime" start="00:00" end="24:00" @change="endOpenTimeChange">
+						<view class="center_text">{{endTime}}</view>
+					</picker>
+				</div>
+
+				<view class="input_cont">
+					<view class="left_text">联系电话</view>
+					<input type="text" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请填写手机号" />
 				</view>
 				<view class="input_cont">
 					<view class="left_text">门店分类</view>
-					<view class="center_text" @click="showCategoryPicker">{{formData.category}}</view>
+					<view class="center_text" @click="showCategoryPicker">{{shopInfo.category}}</view>
 					<image src="../../static/shop/xiala@2x.png" mode="" class="next_icon"></image>
 				</view>
-				
+
 				<view class="input_cont" @click="searchAddress">
 					<view class="left_text">门店地址</view>
-					<view class="center_text">请选择地址</view>
+					<view class="center_text">{{shopInfo.address}}</view>
 					<image src="../../static/shop/shouhuodizhi@2x.png" mode="" class="address_icon"></image>
 				</view>
-				
+
 			</view>
 		</view>
 		<!-- 门店照片 -->
-		<view class="basic_msg_text" style="margin-top: 20upx;">门店照片（必填）</view>
+		<view class="basic_msg_text" style="margin-top: 20upx;">店铺信息</view>
 		<view class="store_imgs">
 			<view class="uploading_img_item" style="border: none;">
-				<view class="left_title">门脸照</view>
-				<image src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				<view class="left_title">店铺头像</view>
+
+				<!-- image_path -->
+				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+
 				<view class="right_explain">一张真实的门店照可提升店铺 形象</view>
 			</view>
 			<view class="uploading_img_item">
-				<view class="left_title">店内照</view>
-				<image src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				<view class="left_title">营业执照</view>
+				<image v-if="shopInfo.license" :src="shopInfo.license.business_license_image" mode="" class="add_img"></image>
+				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				
 				<view class="right_explain">简洁干净的店内照可以让客户 放心点单</view>
 			</view>
 			<view class="uploading_img_item">
-				<view class="left_title">门店logo</view>
-				<image src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				<view class="left_title">餐饮服务许可证</view>
+				<image v-if="shopInfo.license" :src="shopInfo.license.catering_service_license_image" mode="" class="add_img"></image>
+				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				
 				<view class="right_explain">上传店铺logo,提升进店概率（ 支持JPG，JPEG，PNG格式， 大小不超过500K）</view>
 			</view>
 		</view>
 		<wzp-picker ref="wzpPicker" :mode="mode" :pickerList="pickerList" :defaultIndex="defaultIndex" :equalModeId="equalModeId"
 		 @onConfirm="onConfirm"></wzp-picker>
-		<button type="primary" class="submit_btn">提交</button>
+		<button type="primary" class="submit_btn" @click="shopUpdate">提交</button>
 	</view>
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex'
 	import wzpPicker from "../../components/wzp-picker/wzpPicker.vue";
 	import cityData from "../../common/city.data.js";
 	import province from '../../common/province.js';
+	import api from '@/util/api.js'
 	export default {
+		computed: mapState(['shopInfo']),
 		data() {
 			return {
+				startTime: '09:00',
+				endTime: '21:00',
 				pickerValue: "",
 				mode: "",
 				pickerList: [],
 				defaultIndex: [],
-				addressDetail:'',
-				formData: {
-					"name": "邻家便利店",
-					"address": "北京市西城区百万庄大街11号",
-					"latitude": 39.92843,
-					"longitude": 116.35073,
-					"description": "快倒闭了",
-					"phone": 13220168837,
-					"promotion_info": "哈哈,就是便宜!",
-					"float_delivery_fee": 5,
-					"float_minimum_order_amount": 20,
-					"is_premium": true,
-					"delivery_mode": true,
-					"new": true,
-					"bao": true,
-					"zhun": true,
-					"piao": true,
-					"startTime": "05:30",
-					"endTime": "18:30",
-					"image_path": "http://static.kuaimayoupin.com/16a1076af23.jpg",
-					"business_license_image": "http://static.kuaimayoupin.com/16a1076b844.jpg",
-					"catering_service_license_image": "http://static.kuaimayoupin.com/16a1076cdd6.jpg",
-					"activities": [{
-						"icon_name": "减",
-						"name": "满减优惠",
-						"description": "满30减5，满60减8"
-					}],
-					"category": "请选择"
-				}
+				addressDetail: '',
 			};
 		},
+		onLoad(opt) {
+			this.categoryList();
+		},
 		methods: {
-			searchAddress(){
+			async shopUpdate() {
+				const params = this.shopInfo;
+				const res = await api.shopUpdate(params);
+				if (res.status === 1) {
+					uni.showToast({
+						title: res.success,
+						mask: false,
+						duration: 1500
+					});
+
+				}
+			},
+			startOpenTimeChange: function(e) {
+				this.startTime = e.target.value
+			},
+			endOpenTimeChange: function(e) {
+				this.endTime = e.target.value
+			},
+			searchAddress() {
 				uni.navigateTo({
 					url: '/pages/address/searchAddress'
 				})
@@ -102,14 +141,29 @@
 			// 双列联动初始化
 			showCategoryPicker() {
 				this.mode = 'two_linkage';
-				this.pickerList = cityData;
 				this.defaultIndex = [0, 0];
 				this.$refs.wzpPicker.showPicker();
 			},
 
 			onConfirm(e) {
-				const pickerValue = cityData[e[0]].label + "/" + cityData[e[0]].children[e[1]].label;
-				this.formData.category = pickerValue;
+				const pickerValue = this.pickerList[e[0]].label + "/" + this.pickerList[e[0]].children[e[1]].label;
+				this.shopInfo.category = pickerValue;
+			},
+			async categoryList() {
+				const res = await api.categoryList();
+				let list = [];
+				res.forEach(c => {
+					let node = {};
+					node.label = c.name;
+					node.children = c.sub_categories.map(sub => {
+						return {
+							label: sub.name,
+							value: sub.id
+						}
+					});
+					list.push(node);
+				});
+				this.pickerList = list;
 			}
 		},
 		onBackPress() {
@@ -127,6 +181,8 @@
 <style scoped>
 	.apply_wrapper {
 		width: 100%;
+		padding-bottom: 40upx;
+		box-sizing: border-box;
 	}
 
 	.basic_msg_text {
@@ -138,6 +194,10 @@
 		line-height: 60upx;
 		font-size: 24upx;
 		color: #74b1ff;
+	}
+
+	.picker {
+		width: 40%;
 	}
 
 	.input_cont {
