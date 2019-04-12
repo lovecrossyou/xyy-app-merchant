@@ -2,7 +2,7 @@
 	<view class="wrapper">
 		<view class="header_bg"></view>
 		<view class="top_operation">
-			<image src="../../static/login/rigjt_icon@2x.png" mode="" class="back_icon"></image>
+			<image src="../../static/login/rigjt_icon@2x.png" mode="" class="back_icon" @click="goBack"></image>
 			<view class="top_text">去开店</view>
 		</view>
 		<view class="main_text">鑫翼优商家版</view>
@@ -48,6 +48,9 @@ export default {
 		loginFn(index) {
 			this.indexNeed = index;
 			console.log(index);
+		},
+		goBack(){
+			uni.navigateBack()
 		}
 	}
 };
