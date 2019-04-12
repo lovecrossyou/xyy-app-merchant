@@ -56,16 +56,7 @@ const api = {
 	createShop: data => request.post("/merchant/shop/create", data, 'POST'),
 
 	//地址搜索
-	searchNearby: (data, cb) => {
-		uni.request({
-			url: searchBaseUrl + '/map/search',
-			data: data,
-			method: 'POST',
-			success: (res) => {
-				cb(res.data);
-			}
-		});
-	},
+	searchNearby:data=> request.get('/v1/pois?type=search&keyword='+data.keywords),
 	//上传
 	uploader: (file, cb) => {
 		uni.uploadFile({

@@ -34,14 +34,11 @@
 		},
 		props: [],
 		methods: {
-			onKeyInput: function(event) {
+			async onKeyInput(event) {
 				var that = this;
-				api.searchNearby({
+				that.searchData = await api.searchNearby({
 					keywords: event.target.value
-				}, res => {
-					that.searchData = res.data;
-					console.log('searchData', JSON.stringify(this.searchData));
-				});
+				})
 			},
 			//选择搜素结果
 			choooedAddress(item) {
