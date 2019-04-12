@@ -60,27 +60,28 @@
 		<!-- 门店照片 -->
 		<view class="basic_msg_text" style="margin-top: 20upx;">店铺信息</view>
 		<view class="store_imgs">
-			<view class="uploading_img_item" style="border: none;">
+			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
 				<view class="left_title">店铺头像</view>
-
-				<!-- image_path -->
 				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 
 				<view class="right_explain">一张真实的门店照可提升店铺 形象</view>
 			</view>
-			<view class="uploading_img_item">
+			<view class="uploading_img_item" @click="upLoadBusinessLicence" style="border: none;">
 				<view class="left_title">营业执照</view>
 				<image v-if="shopInfo.license" :src="shopInfo.license.business_license_image" mode="" class="add_img"></image>
+				<image v-else-if="shopInfo.business_license_image" :src="shopInfo.business_license_image" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
-				
+
 				<view class="right_explain">简洁干净的店内照可以让客户 放心点单</view>
 			</view>
-			<view class="uploading_img_item">
+			<view class="uploading_img_item" @click="upLoadServiceLicence" style="border: none;">
 				<view class="left_title">餐饮服务许可证</view>
 				<image v-if="shopInfo.license" :src="shopInfo.license.catering_service_license_image" mode="" class="add_img"></image>
+				<image v-else-if="shopInfo.catering_service_license_image" :src="shopInfo.catering_service_license_image" mode=""
+				 class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
-				
+
 				<view class="right_explain">上传店铺logo,提升进店概率（ 支持JPG，JPEG，PNG格式， 大小不超过500K）</view>
 			</view>
 		</view>
@@ -115,6 +116,47 @@
 			this.categoryList();
 		},
 		methods: {
+			upLoadBusinessLicence() {
+				let that = this;
+				uni.chooseImage({
+					success: chooseImageRes => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						api.uploader(tempFilePaths[0], res => {
+							that.shopInfo.business_license_image = res.image_path;
+							if (that.shopInfo.license) {
+								that.shopInfo.license.business_license_image = res.image_path;
+
+							}
+
+						})
+					}
+				});
+			},
+			upLoadServiceLicence() {
+				let that = this;
+				uni.chooseImage({
+					success: chooseImageRes => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						api.uploader(tempFilePaths[0], res => {
+							that.shopInfo.catering_service_license_image = res.image_path;
+							if (that.shopInfo.license) {
+								that.shopInfo.license.catering_service_license_image = res.image_path;
+							}
+						})
+					}
+				});
+			},
+			upLoadImagePath() {
+				let that = this;
+				uni.chooseImage({
+					success: chooseImageRes => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						api.uploader(tempFilePaths[0], res => {
+							that.shopInfo.image_path = res.image_path;
+						})
+					}
+				});
+			},
 			async shopUpdate() {
 				const params = this.shopInfo;
 				const res = await api.shopUpdate(params);

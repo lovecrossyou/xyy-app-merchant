@@ -1,6 +1,6 @@
 import request from './request'
 import Fly from 'flyio/dist/npm/wx'
-
+import {baseURL} from './request.js'
 const uploadBaseUrl = "http://47.94.169.143:8004"
 const searchBaseUrl = "http://47.94.169.143:8004"
 const api = {
@@ -60,14 +60,12 @@ const api = {
 	//上传
 	uploader: (file, cb) => {
 		uni.uploadFile({
-			url: uploadBaseUrl + '/manage/qiniu/upload',
+			url: baseURL + '/v1/addimg/shop',
 			filePath: file,
 			name: 'file',
 			success: (result) => {
 				const data = JSON.parse(result.data);
-				if (parseInt(data.status) === 0) {
-					cb(data.data);
-				}
+				cb(data);
 			}
 		});
 	}
