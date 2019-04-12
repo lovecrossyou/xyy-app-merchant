@@ -111,12 +111,10 @@ export default {
 }
 .store_imgs {
 	width: 100%;
-	padding: 0 33upx;
-	box-sizing: border-box;
 }
 .uploading_img_item {
 	width: 100%;
-	padding: 30upx 0;
+	padding: 30upx 33upx;
 	display: flex;
 	flex-direction: row;
 	border-top: 1upx solid #e0e0e0;
