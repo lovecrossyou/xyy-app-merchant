@@ -175,6 +175,18 @@
 			"style": {
 				"navigationBarTitleText": "店铺申请"
 			}
+		},
+		{
+			"path": "pages/login/register",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "登录",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏
+					}
+				}
+			}
 		}
 
 	],

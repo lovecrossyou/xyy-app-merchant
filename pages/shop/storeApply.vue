@@ -27,8 +27,8 @@
 			</view>
 		</view>
 		<!-- 门店照片 -->
+		<view class="basic_msg_text" style="margin-top: 20upx;">门店照片（必填）</view>
 		<view class="store_imgs">
-			<view class="basic_msg_text" style="margin-top: 20upx;">门店照片（必填）</view>
 			<view class="uploading_img_item" style="border: none;">
 				<view class="left_title">门脸照</view>
 				<image src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
