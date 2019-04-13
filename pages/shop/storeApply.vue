@@ -6,23 +6,23 @@
 			<view style="width: 100%;padding:0 30upx;box-sizing: border-box;">
 				<view class="input_cont">
 					<view class="left_text">店铺名称</view>
-					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请与门脸照上名称一致" />
+					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请输入店铺名称" />
 				</view>
 				<!-- 店铺简介 -->
 				<view class="input_cont">
 					<view class="left_text">店铺简介</view>
-					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请与门脸照上名称一致" />
+					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请输入店铺简介" />
 				</view>
 				<!-- 配送费 -->
 				<view class="input_cont">
-					<view class="left_text">配送费</view>
-					<input type="number" v-model="shopInfo.float_delivery_fee" :value="shopInfo.float_delivery_fee" placeholder="请与门脸照上名称一致" />
+					<view class="left_text">配送费（¥）</view>
+					<input type="number" v-model="shopInfo.float_delivery_fee" :value="shopInfo.float_delivery_fee" placeholder="配送费" />
 				</view>
 				<!-- 起送价 -->
 				<view class="input_cont">
-					<view class="left_text">起送价</view>
+					<view class="left_text">起送价（¥）</view>
 					<input type="number" v-model="shopInfo.float_minimum_order_amount" :value="shopInfo.float_minimum_order_amount"
-					 placeholder="请与门脸照上名称一致" />
+					 placeholder="请输入起送价" />
 				</view>
 
 				<!-- 营业时间 -->
@@ -157,16 +157,26 @@
 					}
 				});
 			},
+			
+			// 更新店铺 
 			async shopUpdate() {
 				const params = this.shopInfo;
-				const res = await api.shopUpdate(params);
+				let res;
+				if(params.id){
+					res = await api.shopUpdate(params);
+				}
+				else{
+					res = await api.createShop(params);
+					uni.redirectTo({
+						url:"/pages/shop/enterFlowPath?phone="+params.phone
+					})
+				}
 				if (res.status === 1) {
 					uni.showToast({
 						title: res.success,
 						mask: false,
 						duration: 1500
 					});
-
 				}
 			},
 			startOpenTimeChange: function(e) {

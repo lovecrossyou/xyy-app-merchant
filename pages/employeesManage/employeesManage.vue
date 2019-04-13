@@ -20,19 +20,7 @@
 export default {
 	data() {
 		return {
-			employeesList:[{
-				icon:'xx',
-				name:'猪猪',
-				number:'123'
-			},{
-				icon:'xx1',
-				name:'猪猪1',
-				number:'12663'
-			},{
-				icon:'xx2',
-				name:'猪猪2',
-				number:'1234'
-			}]
+			employeesList:[]
 		};
 	},
 	components: {},

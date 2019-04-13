@@ -30,7 +30,7 @@
 			</view>
 		</view>
 		<button class="login_btn" @click="doLogin">登录</button>
-		<view class="footer_text">注册或创建账户即同意《鑫翼优用户注册协议书》</view>
+		<view class="footer_text" @click="doCreateShop">注册或创建账户即同意《鑫翼优用户注册协议书》</view>
 	</view>
 </template>
 
@@ -59,9 +59,15 @@
 				this.indexNeed = index;
 				console.log(index);
 			},
+			// 登陆
 			doLogin() {
-				console.log(this.formData);
 				this.appLogin(this.formData);
+			},
+			// 开店
+			doCreateShop(){
+				uni.navigateTo({
+					url:"/pages/shop/storeApply"
+				})
 			},
 			goBack() {
 				uni.navigateBack()

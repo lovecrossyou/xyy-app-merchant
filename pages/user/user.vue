@@ -2,7 +2,7 @@
 	<view class="user_wrapper">
 		<!-- 头部 -->
 		<view class="header_wrapper">
-			<img :src="shopInfo.imageUrl" alt="" class="tea_img" />
+			<img :src="shopInfo.image_path" alt="" class="tea_img" />
 			<view class="user_name">{{shopInfo.name}}</view>
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png"  class="next_icon"></image>
 		</view>
@@ -12,9 +12,6 @@
 			</view>
 			<view @click="goSetting">
 				<itemTemplate imgSrc="../../static/user/settings@2x.png" title="设置"></itemTemplate>
-			</view>
-			<view @click="doCreateShop">
-				<itemTemplate title="我要开店"></itemTemplate>
 			</view>
 		</view>
 	</view>
@@ -27,14 +24,10 @@
 	} from 'vuex'
 
 	export default {
-		// computed:mapState(['forcedLogin', 'hasLogin', 'userName','userInfo']),
-		computed: mapState({
-			forcedLogin: state => state.forcedLogin,
-			hasLogin: state => state.hasLogin,
-			userInfo: state => state.userInfo,
-			shopInfo: state => state.shopInfo,
-			orderList: state => state.shop.orderList
-		}),
+		computed:{
+			...mapState(['forcedLogin', 'hasLogin', 'userName','shopInfo']),
+			...mapState('shop',['orderList'])
+		},
 		components: {
 			itemTemplate
 		},

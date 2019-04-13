@@ -29,7 +29,7 @@
 		<!-- 价格 -->
 		<div class="phone-wrapper">
 			<div class="title88">价格(¥)</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="editProduct.specs[0].price" placeholder="请输入现价" />
+			<input type="number" class="shop-addr" @input="replaceInput" v-model="editProduct.specs[0].price" placeholder="请输入价格" />
 		</div>
 
 		<!-- 底部footer -->

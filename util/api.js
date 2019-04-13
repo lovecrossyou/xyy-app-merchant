@@ -55,7 +55,7 @@ const api = {
 	confirmDeliver: data => request.post("/merchant/shop/confirmDeliver", data, 'POST'),
 	
 	// 创建店铺
-	createShop: data => request.post("/merchant/shop/create", data, 'POST'),
+	createShop: data => request.post("/merchant/createShop", data, 'POST'),
 
 	//地址搜索
 	searchNearby:data=> request.get('/v1/pois?type=search&keyword='+data.keywords),

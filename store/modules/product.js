@@ -13,7 +13,7 @@ const state = {
 		"specs": [{
 			"specs": "默认",
 			"packing_fee": 0,
-			"price": 0
+			"price": ''
 		}],
 		"category_id": 0,
 		"restaurant_id": 0
