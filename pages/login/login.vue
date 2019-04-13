@@ -113,7 +113,7 @@
 			},
 			toMain(params) {
 				uni.reLaunch({
-					url: '../main/main'
+					url: '/pages/home/home'
 				});
 			}
 		},

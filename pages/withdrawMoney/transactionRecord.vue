@@ -27,7 +27,7 @@
 export default {
 	data() {
 		return {
-			transactionList:[1,2,3]
+			transactionList:[]
 		};
 	},
 	components: {},

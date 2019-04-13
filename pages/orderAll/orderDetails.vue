@@ -1,41 +1,45 @@
 <template>
 	<view class="order_details_wrapper">
 		<!-- 地址 -->
-		<view class="top_address">
+		<view v-if="addrInfo" class="top_address">
 			<view class="person_address_info">
 				<img src="../../static/address/address@2x.png" style="width: 22upx;height: 30upx;" />
-				<view class="address_text">北京市朝阳区安贞门神新家园562号楼4单元230</view>
+				<view class="address_text">{{addrInfo.address}}</view>
 			</view>
 			<view class="contacts_info_area">
 				<img src="../../static/address/lianxiren@2x.png" alt="" style="width: 22upx;height: 24upx;" />
-				<view class="address_text">任艳彤</view>
-				<view class="address_text">18356248596</view>
+				<view class="address_text">{{addrInfo.name}}</view>
+				<view class="address_text">{{addrInfo.phone}}</view>
 			</view>
 		</view>
 		<!-- 商品列表 -->
 		<view class="buy_commodity_list">
-			<block v-for="(item, index) in orderList" :key="index">
+			<block v-for="(item, index) in currentOrder.basket.group[0]" :key="index">
 				<view class="commodity_area">
-					<img src="http://img4.imgtn.bdimg.com/it/u=93266979,2836087381&fm=11&gp=0.jpg" style="width: 114upx;height: 114upx;border-radius: 50%;" />
+					<!-- <img src="http://img4.imgtn.bdimg.com/it/u=93266979,2836087381&fm=11&gp=0.jpg" style="width: 114upx;height: 114upx;border-radius: 50%;" /> -->
 					<view class="order_info">
-						<view class="commodity_name">紫砂壶</view>
+						<view class="commodity_name">{{item.name}}</view>
 						<view class="commodity_bottom">
-							<view class="commodity_price">¥25.00</view>
-							<view class="commodity_num">x5</view>
+							<view class="commodity_price">¥{{item.price}}</view>
+							<view class="commodity_num">x{{item.quantity}}</view>
 						</view>
 					</view>
-					<view class="commodity_all_price">¥100.00</view>
-				</view>
+<!-- 					<view class="commodity_all_price">¥100.00</view>
+ -->				</view>
 			</block>
 		</view>
 		<!-- 订单详情 -->
 		<view class="order_info_wrapper">
-			<orderInfoTemplate textLeft="订单详情" textRight="75112203108246"></orderInfoTemplate>
-			<orderInfoTemplate textLeft="下单时间" textRight="2018.10.12 12:00"></orderInfoTemplate>
+			<orderInfoTemplate textLeft="订单详情" :textRight="currentOrder.id"></orderInfoTemplate>
+			<orderInfoTemplate textLeft="下单时间" :textRight="currentOrder.formatted_created_at"></orderInfoTemplate>
 			<orderInfoTemplate textLeft="优惠券" textRight="无"></orderInfoTemplate>
 			<view class="order_details">
+				<view class="text_left">配送费</view>
+				<view class="text_right_delivery">¥{{currentOrder.basket.deliver_fee.price}}</view>
+			</view>
+			<view class="order_details">
 				<view class="text_left">实付款</view>
-				<view class="text_right">¥200.00</view>
+				<view class="text_right">¥{{currentOrder.total_amount}}</view>
 			</view>
 		</view>
 
@@ -46,19 +50,36 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex'
+	
 	import orderInfoTemplate from '@/components/order/orderInfoTemplate.vue';
 	import api from '@/util/api.js'
 	export default {
 		data() {
 			return {
-				orderList: [1, 2, 3]
+				orderList: [1, 2, 3],
+				addrInfo:null
 			};
 		},
 		components: {
 			orderInfoTemplate
 		},
-		computed: {},
+		onLoad(opt) {
+			console.log('this.currentOrder', this.currentOrder);
+			const address_id = this.currentOrder.address_id;
+			const user_id = this.currentOrder.user_id;
+			this.fetchAddr(address_id);
+		},
+		
+		computed: {
+			...mapState('shop',['currentOrder'])
+		},
 		methods: {
+			async fetchAddr(address_id){
+				this.addrInfo = await api.address(address_id);
+			},
 			async confirmDeliver() {
 				const res = api.confirmDeliver({
 					orderNo: ''
@@ -84,6 +105,11 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+	}
+	
+	.text_right_delivery{
+		color: #999999;
+	    font-size: 28upx;
 	}
 
 	.person_address_info,

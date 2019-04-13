@@ -4,7 +4,7 @@ const state = {
 	selectAddress: {
 		name: ''
 	},
-	orderList: [1, 2],
+	orderList: [],
 	orderListParams: {
 		shopId: 29,
 		orderStatus: "waiting_deal",
@@ -32,9 +32,9 @@ const actions = {
 		state,
 		commit
 	}, data) {
-		const res = await api.orderList(state.orderListParams);
-		if (res.status === 'ok') {
-			commit('setOrderList', res.data.comtent)
+		const res = await api.orderList(data);
+		if(res instanceof Array){
+			commit('setOrderList', res);
 		}
 	},
 	async productRemove({

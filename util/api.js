@@ -43,8 +43,10 @@ const api = {
 	login: data => request.post("/merchant/login", data, 'POST'),
 
 	// 订单列表
-	orderList: data => request.post("/merchant/shopOrder/list", data, 'POST'),
-
+	orderList: data => request.get("/merchant/orders", data),
+	
+	address :addr_id=>request.get('/v1/addresse/'+addr_id),
+	
 	// 删除商品 merchant/shop/productRemove "id": 1
 	productRemove: data => request.post("/merchant/shop/productRemove", data, 'POST'),
 

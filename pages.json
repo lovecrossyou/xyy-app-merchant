@@ -6,11 +6,6 @@
 				"navigationBarTitleText": "首页"
 			}
 		}, {
-			"path": "pages/main/main",
-			"style": {
-				"navigationBarTitleText": "登录模板"
-			}
-		}, {
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录"
