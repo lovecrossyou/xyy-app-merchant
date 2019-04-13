@@ -192,7 +192,7 @@
 				this.shopInfo.category = pickerValue;
 			},
 			async categoryList() {
-				const res = await api.categoryList();
+				const res = await api.getCategory();
 				let list = [];
 				res.forEach(c => {
 					let node = {};

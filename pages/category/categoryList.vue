@@ -13,6 +13,7 @@
 	import categoryListTemplate from '@/pages/category/components/categoryListTemplate.vue';
 	import api from "../../util/api.js"
 	import {
+		mapState,
 		mapMutations
 	} from "vuex"
 	export default {
@@ -22,6 +23,7 @@
 				goBack: false
 			};
 		},
+		computed:mapState(['shopInfo']),
 		components: {
 			categoryListTemplate
 		},
@@ -30,6 +32,8 @@
 			if (options.goBack) {
 				this.goBack = true;
 			}
+		},
+		onShow() {
 			this.fetchCategoryList();
 		},
 		methods: {
@@ -37,7 +41,6 @@
 				"setCategory": 'product/setCategory'
 			}),
 			itemClick(data) {
-				console.log('data ', data);
 				this.setCategory(data);
 				uni.navigateBack();
 			},
@@ -47,12 +50,8 @@
 				});
 			},
 			async fetchCategoryList() {
-				const params = {
-					"id": this.$store.state.shopId
-				}
-				const res = await api.categoryList(params);
-				this.categoryList = res.data;
-				console.log('res ', res);
+				const res = await api.categoryList(this.shopInfo.id);
+				this.categoryList = res.category_list;
 			}
 		}
 	};

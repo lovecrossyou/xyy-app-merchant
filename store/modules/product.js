@@ -5,19 +5,21 @@ const state = {
 		name: ''
 	},
 	editProduct: {
-		"headName": "",
-		"price": '',
-		"originalPrice": '',
-		"tag": "",
-		"spec": "",
-		"brand": "",
-		"productDescribe": "",
-		"categoryId": 0,
-		"listImage": "",
-		"headImage": "",
-		"detailImages": []
+		"name": "",
+		"description": "",
+		"image_path": "",
+		"activity": "",
+		"attributes": [],
+		"specs": [{
+			"specs": "默认",
+			"packing_fee": 0,
+			"price": 0
+		}],
+		"category_id": 0,
+		"restaurant_id": 0
 	},
-	productList: []
+	productList: [],
+	menus: []
 }
 
 const mutations = {
@@ -29,8 +31,12 @@ const mutations = {
 	},
 	setProductList(state, data) {
 		state.productList = data;
+	},
+	setMenus(state, data) {
+		state.menus = data;
 	}
 }
+
 
 const actions = {
 	async fetchProductList({
@@ -38,13 +44,18 @@ const actions = {
 		state,
 		rootState
 	}, data) {
-		const params = {
-			id: rootState.shopId
-		}
-		const res = await api.productList(params);
-		if (res.status === 'ok') {
-			commit('setProductList', res.data)
-		}
+		const res = await api.productList(data);
+		commit('setProductList', res);
+	},
+	async menus({
+		commit,
+		state,
+		rootState
+	}, data) {
+		const res = await api.menu({
+			restaurant_id: this.shopInfo.id,
+		});
+		commit('setMenus', res);
 	}
 }
 
@@ -52,5 +63,5 @@ export default {
 	namespaced: true,
 	state,
 	actions,
-	mutations
+	mutations,
 }

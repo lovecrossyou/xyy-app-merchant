@@ -1,54 +1,42 @@
 <template>
 	<div class="content">
-		<!-- 商品名称 -->
-		<div class="username-wrapper">
-			<div class="title88">商品名称</div>
-			<input v-model="formData.headName" class="shop-addr" @input="replaceInput" placeholder="请输入商品名称" />
-		</div>
-		<div class="username-wrapper">
-			<div class="title88">商品品牌</div>
-			<input v-model="formData.brand" class="shop-addr" @input="replaceInput" placeholder="请输入商品品牌" />
-		</div>
-		<!-- 原价 -->
-		<div class="phone-wrapper">
-			<div class="title88">原价</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="formData.originalPrice" placeholder="请输入原价" />
-		</div>
-		<!-- 现价 -->
-		<div class="phone-wrapper">
-			<div class="title88">现价</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="formData.price" placeholder="请输入现价" />
-		</div>
-		<!-- 商品规格 -->
-		<div class="username-wrapper">
-			<div class="title88">商品规格</div>
-			<input class="shop-addr" @input="replaceInput" v-model="formData.spec" placeholder="请输入商品规格" />
-		</div>
-
-		<!-- 库存 -->
-		<div class="phone-wrapper">
-			<div class="title88">库存</div>
-			<input type="number" class="shop-addr" @input="replaceInput" v-model="formData.stock" placeholder="请输入库存" />
-		</div>
 		<div class="addr-wrapper" @click='goCategory'>
 			<div class="title88">商品分类</div>
 			<div class="shop-addr">{{category.name}}</div>
 		</div>
+		<!-- 商品名称 -->
 		<div class="username-wrapper">
-			<div class="title88">商品描述</div>
-			<input class="shop-addr" @input="replaceInput" v-model="formData.productDescribe" placeholder="请输入商品描述" />
+			<div class="title88">商品名称</div>
+			<input v-model="editProduct.name" class="shop-addr" @input="replaceInput" placeholder="请输入商品名称" />
 		</div>
-		<!-- 头像 -->
+		<!-- 商品详情 -->
+		<div class="username-wrapper">
+			<div class="title88">商品详情</div>
+			<input v-model="editProduct.description" class="shop-addr" @input="replaceInput" placeholder="请输入商品名称" />
+		</div>
+		<!-- 商品图片 -->
 		<div class="avatar-wrapper" @click="chooseImage">
 			<div class="title">商品图片</div>
-			<image v-bind:src="formData.headImage" class="shop-image"></image>
+
+			<image v-bind:src="editProduct.image_path" class="shop-image"></image>
+		</div>
+
+		<!-- 包装费 -->
+		<div class="phone-wrapper">
+			<div class="title88">包装费(¥)</div>
+			<input type="number" class="shop-addr" @input="replaceInput" v-model="editProduct.specs[0].packing_fee" placeholder="请输入包装费" />
+		</div>
+		<!-- 价格 -->
+		<div class="phone-wrapper">
+			<div class="title88">价格(¥)</div>
+			<input type="number" class="shop-addr" @input="replaceInput" v-model="editProduct.specs[0].price" placeholder="请输入现价" />
 		</div>
 
 		<!-- 底部footer -->
-		<div class="footer" >
-			<div v-if="formData.id" class="button" @click="saveOrUpdate">更新</div>
+		<div class="footer">
+			<div v-if="editProduct.id" class="button" @click="saveOrUpdate">更新</div>
 			<div v-else class="button" @click="saveOrUpdate">保存</div>
-			<button type="default" v-if="formData.id" class="button-del" @click="delProduct">删除</button>
+			<button type="default" v-if="editProduct.id" class="button-del" @click="delProduct">删除</button>
 		</div>
 	</div>
 </template>
@@ -56,14 +44,13 @@
 <script>
 	import api from '../../util/api.js'
 	import {
-		mapState
+		mapState,
+		setCategory
 	} from "vuex"
 	export default {
 		computed: {
-			...mapState('product', {
-				category: state => state.category,
-				formData: state => state.editProduct,
-			})
+			...mapState(['shopInfo']),
+			...mapState('product', ['category', 'editProduct','menus'])
 		},
 		data() {
 			return {
@@ -85,8 +72,9 @@
 				});
 			},
 			uploadImage: function(tempFilePaths) {
+				let that = this;
 				api.uploader(tempFilePaths[0], res => {
-					this.formData.headImage = res.url;
+					that.editProduct.image_path = res.image_path;
 				})
 			},
 			goCategory() {
@@ -96,26 +84,46 @@
 				})
 			},
 			async saveOrUpdate() {
-				const formData = this.formData;
-				formData.categoryId = this.category.id;
-				
-				var res = null
-				if(formData.id){
-					res = await api.editProduct(formData);
+				const formData = this.editProduct;
+				if (this.category.name.length === 0) {
+					uni.showToast({
+						title: '请选择分类',
+						mask: false,
+						duration: 1500
+					});
+					return;
 				}
-				else{
-					formData.shopId = this.$store.state.shopId;
+				formData.restaurant_id = this.shopInfo.id;
+				let res;
+				if (formData.item_id) {
+					//更新商品
+					formData.new_category_id = this.category.id;
+					formData.category_name = this.category.name;
+					res = await api.editProduct(formData);
+				} else {
+					formData.category_id = this.category.id;
+					// 添加商品
 					res = await api.createProduct(formData);
 				}
-				if(res.status === 'ok'){
-					this.$store.dispatch("product/fetchProductList", {
-						id: this.$store.state.shopId
-					});
+
+				this.$store.dispatch("product/fetchProductList", {
+					restaurant_id: this.shopInfo.id,
+					offset: 0,
+					limit: 20
+				});
+				if(res){
+					if(res.success){
+						uni.showToast({
+							title: res.success,
+							mask: false,
+							duration: 1500
+						});
+					}
 					uni.navigateBack();
 				}
 			},
-			
-			delProduct(){
+
+			delProduct() {
 				this.$store.dispatch("shop/productRemove", {
 					id: this.formData.id
 				});
@@ -165,8 +173,8 @@
 		width: 95%;
 		margin-bottom: 20upx;
 	}
-	
-	.button-del{
+
+	.button-del {
 		background-color: #999999;
 		height: 88upx;
 		border-radius: 6upx;

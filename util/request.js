@@ -11,7 +11,7 @@ request.config.baseURL = baseURL
 const errorPrompt = (err) => {
 	console.log('errorPrompt ',err);
 	uni.showToast({
-		title: err.data.message || 'fetch data error.',
+		title: err.message || 'fetch data error.',
 		icon: 'none'
 	})
 }

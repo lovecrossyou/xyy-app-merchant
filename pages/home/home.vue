@@ -69,14 +69,10 @@
 	} from 'vuex'
 
 	export default {
-		// computed:mapState(['forcedLogin', 'hasLogin', 'userName','userInfo']),
-		computed: mapState({
-			forcedLogin: state => state.forcedLogin,
-			hasLogin: state => state.hasLogin,
-			userInfo: state => state.userInfo,
-			shopInfo: state => state.shopInfo,
-			orderList: state => state.shop.orderList
-		}),
+		computed: {
+			...mapState(['forcedLogin', 'hasLogin', 'userInfo', 'shopInfo']),
+			...mapState('shop', ['orderList']),
+		},
 		onLoad() {
 			//加载用户信息
 			const userInfo = service.getInfo();
@@ -84,7 +80,7 @@
 				console.log('userInfo ', userInfo);
 				this.$store.commit('setInfo', userInfo);
 				this.clickitem(0);
-				
+
 				this.$store.dispatch("fetchShopInfo")
 			} else {
 				this.$store.commit('logout');
@@ -101,7 +97,7 @@
 			};
 		},
 		methods: {
-			goLogin(){
+			goLogin() {
 				if (this.forcedLogin) {
 					uni.reLaunch({
 						url: '../login/register'

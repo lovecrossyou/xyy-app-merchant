@@ -1,24 +1,24 @@
 <template>
 	<view class="categoryMain">
 		<view class="categoryView">
-			<scroll-view scroll-y="true" class="categoryList" v-bind:style="{height: mainHeight+'px'}">
-				<block v-for="(item,index) in categorylist" :key="index">
+			<!-- <scroll-view scroll-y="true" class="categoryList" v-bind:style="{height: mainHeight+'px'}">
+				<block v-for="(item,index) in menus" :key="index">
 					<view class="categoryItem" :class="{'categoryclickItem':isclick===index}" @click="changeStyle(index)">
 						<view class="categoryTxt">
 							{{item.name}}
 						</view>
 					</view>
 				</block>
-			</scroll-view>
+			</scroll-view> -->
 			<scroll-view scroll-y="true" class="tealistView" v-bind:style="{height: mainHeight+'px'}">
-				<block v-for="(item,index) in tealist" :key="index">
+				<block v-for="(item,index) in productList" :key="index">
 					<view class="header_wrapper" @click="goShopInfo">
-						<img :src="item.headImage" alt="" class="tea_img" />
+						<img :src="item.image_path" alt="" class="tea_img" />
 						<view class="water_station_info">
-							<view class="water_station_name">{{item.headName}}</view>
+							<view class="water_station_name">{{item.name}}</view>
 							<view class="info">
-								<view class="price">¥{{item.price/100}}</view>
-								<view class="stock">库存{{item.stock}}</view>
+								<view class="price">¥{{item.specfoods[0].price}}</view>
+								<view class="stock">库存{{item.specfoods[0].stock}}</view>
 							</view>
 						</view>
 						<image @click="chooseProduct(item)" src="../../static/product/edit.png" class="next_icon"></image>
@@ -36,10 +36,12 @@
 </template>
 
 <script>
-	export default {
-		components: {
+	import {
+		mapState
+	} from 'vuex'
 
-		},
+	import api from '@/util/api.js'
+	export default {
 		onShow() {
 			try {
 				const res = uni.getSystemInfoSync();
@@ -53,28 +55,35 @@
 			return {
 				mainHeight: 0,
 				isclick: 0,
+				menus: []
 			}
 		},
 		computed: {
-			categorylist() {
-				return this.$store.state.product.productList;
-			},
-			tealist(){
-				if(this.categorylist.length==0)return [];
-				return this.categorylist[this.isclick].products;
-			}
-			
+			...mapState(['shopInfo']),
+			...mapState('product', ['productList']),
 		},
 		methods: {
 			chooseProduct(product) {
+				product.specs = [{
+						"specs": product.specfoods[0].specs_name,
+						"packing_fee": product.specfoods[0].packing_fee,
+						"price": product.specfoods[0].price
+					}],
+					console.log('product ', product);
+
 				this.$store.commit('product/setProduct', product);
 				uni.navigateTo({
 					url: "/pages/product/product"
 				})
 			},
-			fetchList() {
+			async fetchList() {
 				this.$store.dispatch("product/fetchProductList", {
-					id: this.$store.state.shopId
+					restaurant_id: this.shopInfo.id,
+					offset: 0,
+					limit: 20
+				});
+				this.menus = await api.menu({
+					restaurant_id: this.shopInfo.id,
 				});
 			},
 			addProduct() {
@@ -84,15 +93,9 @@
 			},
 			changeStyle(index) {
 				this.isclick = index;
-				// this.tealist = this.categorylist[index].products;
 			},
-			getteaList() {
-				// this.tealist = this.categorylist[0].products
-			}
 		},
-		created() {
-			this.getteaList()
-		}
+
 	}
 </script>
 

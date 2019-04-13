@@ -2,11 +2,11 @@
 	<view class="add_category_wrapper">
 		<view class="add_area">
 			<view class="name_text">名称</view>
-			<input type="text" v-model="formData.name" placeholder="请填写分类名称" />
+			<input type="text" v-model="formData.name" placeholder="请填写商品种类" />
 		</view>
 		<view class="add_area">
-			<view class="name_text">排序</view>
-			<input type="text" v-model="formData.sortVal" placeholder="请填写数字(选填)" />
+			<view class="name_text">描述</view>
+			<input type="text" v-model="formData.description" placeholder="请填写种类描述" />
 		</view>
 		<button type="primary" @click="addCategory">完成</button>
 	</view>
@@ -14,26 +14,28 @@
 
 <script>
 	import api from "../../util/api.js"
-
+	import {
+		mapState,
+		mapMutations
+	} from "vuex"
 	export default {
 
 		data() {
 			return {
 				formData: {
 					"name": "",
-					"sortVal": '',
-					"shopId": 3
+					"description": ''
 				}
 			};
 		},
 		components: {},
-		computed: {},
+		computed: mapState(['shopInfo']),
 		methods: {
 			async addCategory() {
-				console.log("formData ",this.formData);
+				this.formData.restaurant_id = this.shopInfo.id;
 				const res = await api.addCategory(this.formData);
 				uni.navigateBack({
-					
+
 				})
 			}
 		}
