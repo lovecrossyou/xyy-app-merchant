@@ -180,10 +180,12 @@
 				}
 			},
 			startOpenTimeChange: function(e) {
-				this.startTime = e.target.value
+				this.startTime = e.target.value;
+				this.shopInfo.startTime = e.target.value;
 			},
 			endOpenTimeChange: function(e) {
-				this.endTime = e.target.value
+				this.endTime = e.target.value;
+				this.shopInfo.endTime = e.target.value;
 			},
 			searchAddress() {
 				uni.navigateTo({
