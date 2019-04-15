@@ -3,8 +3,8 @@
 		<view class="transaction_top_area">
 			<view class="transaction_date">2019年3月</view>
 			<view class="transaction_info">
-				<view class="expenditure">支出¥5623.00</view>
-				<view class="income">收入¥896563.00</view>
+				<view class="expenditure">支出¥0.00</view>
+				<view class="income">收入¥0.00</view>
 			</view>
 		</view>
 		<block v-for="(transaction,index) in transactionList" :key="index">
