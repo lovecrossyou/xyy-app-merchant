@@ -182,8 +182,19 @@
 					}
 				}
 			}
+		},
+		{
+			"path": "pages/user/personalData/personalData",
+			"style": {
+				"navigationBarTitleText": "用户信息"
+			}
+		},
+		{
+			"path": "pages/user/personalData/amendName",
+			"style": {
+				"navigationBarTitleText": "用户信息"
+			}
 		}
-
 	],
 	"tabBar": {
 		"color": "#7a7e83",

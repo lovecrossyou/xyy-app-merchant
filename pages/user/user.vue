@@ -1,7 +1,7 @@
 <template>
 	<view class="user_wrapper">
 		<!-- 头部 -->
-		<view class="header_wrapper">
+		<view class="header_wrapper" @click="modification">
 			<img :src="shopInfo.image_path" alt="" class="tea_img" />
 			<view class="user_name">{{shopInfo.name}}</view>
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png"  class="next_icon"></image>
@@ -32,6 +32,12 @@
 			itemTemplate
 		},
 		methods: {
+			modification() {
+				// return;
+				uni.navigateTo({
+					url: "personalData/personalData"
+				})
+			},
 			goSetting() {
 				uni.navigateTo({
 					url: "../setting/setting"
