@@ -41,7 +41,7 @@
 
 				<view class="input_cont">
 					<view class="left_text">联系电话</view>
-					<input type="text" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请填写手机号" />
+					<input type="number" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请填写手机号" />
 				</view>
 				<view class="input_cont">
 					<view class="left_text">门店分类</view>
@@ -166,6 +166,22 @@
 					res = await api.shopUpdate(params);
 				}
 				else{
+					if(this.shopInfo.phone.length!=11){
+						uni.showToast({
+							title: '请输入合法的手机号码',
+							mask: false,
+							duration: 1500
+						});
+						return;
+					}
+					if(this.shopInfo.category === '请选择'){
+						uni.showToast({
+							title: '请选择店铺分类',
+							mask: false,
+							duration: 1500
+						});
+						return;
+					}
 					res = await api.createShop(params);
 					uni.redirectTo({
 						url:"/pages/shop/enterFlowPath?phone="+params.phone
