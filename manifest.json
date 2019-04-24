@@ -8,7 +8,8 @@
     "app-plus" : {
         /* 5+App特有相关 */
         "modules" : {
-            "Payment" : {}
+            "Payment" : {},
+            "Push" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -48,7 +49,11 @@
                 }
             },
             /* ios打包配置 */
-            "sdkConfigs" : {},
+            "sdkConfigs" : {
+                "push" : {
+                    "unipush" : {}
+                }
+            },
             "icons" : {
                 "ios" : {
                     "appstore" : "/Users/zhulizhe/Desktop/kuaima/cert/商家版logo.png",
