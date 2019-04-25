@@ -42,6 +42,9 @@ const api = {
 	// 登录
 	login: data => request.post("/merchant/login", data, 'POST'),
 
+	//注册推送 
+	pushRegiste: data => request.post("/push/registe", data, 'POST'),
+
 	// 订单列表
 	orderList: data => request.get("/merchant/orders", data),
 	

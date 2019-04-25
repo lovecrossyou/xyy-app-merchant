@@ -79,6 +79,10 @@ const store = new Vuex.Store({
 					url: '/pages/home/home'
 				});
 			}
+		},
+		async registePush({commit,state},data){
+			console.log('xxxxx ',JSON.stringify(data));
+			const res = await api.pushRegiste(data);
 		}
 	}
 })

@@ -1,11 +1,11 @@
 <template>
 	<view class="wrapper">
-		<view class="header_bg"></view>
-		<view class="top_operation">
-			<image src="../../static/login/rigjt_icon@2x.png" mode="" class="back_icon" @click="goBack"></image>
-			<view class="top_text" @click="doCreateShop">去开店</view>
+		<view class="header_bg" @click.stop="doCreateShop"></view>
+		<view class="top_operation" @click.stop="doCreateShop">
+			<image src="../../static/login/rigjt_icon@2x.png" mode="" class="back_icon" @click.stop="goBack"></image>
+			<view class="top_text" @click.stop="doCreateShop"></view>
 		</view>
-		<view class="main_text">鑫翼优商家</view>
+		<view class="main_text" @click.stop="doCreateShop">去开店</view>
 
 		<!-- 登录注册切换 -->
 		<view class="login_option_tab">
