@@ -3,8 +3,8 @@
 		onLaunch: function() {
 			// #ifdef APP-PLUS
 			var info = plus.push.getClientInfo();
-			this.$store.dispatch('registePush',info);
-			console.log('info # ', JSON.stringify(info));
+			this.$store.commit('saveClientInfo',info)
+			// console.log('info # ', JSON.stringify(info));
 			// #endif
 		},
 		onShow: function() {
