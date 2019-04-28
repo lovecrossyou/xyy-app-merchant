@@ -89,7 +89,9 @@ const store = new Vuex.Store({
 				const clientInfo = state.clientInfo;
 				if (clientInfo) {
 					console.log('clientInfo## ',JSON.stringify(clientInfo));
-					await api.pushRegiste(clientInfo);
+					await api.pushRegiste({
+						client_info:clientInfo
+					});
 				}
 			}
 		},
