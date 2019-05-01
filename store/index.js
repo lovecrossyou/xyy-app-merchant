@@ -74,6 +74,12 @@ const store = new Vuex.Store({
 			const res = await api.shopInfo(restaurant_id);
 			commit('setShopInfo', res);
 		},
+		async sendSms({
+			commit,
+			state
+		},data){
+			await api.sendSms(data);
+		},
 		async appLogin({
 			commit,
 			state

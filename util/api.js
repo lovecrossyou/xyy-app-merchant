@@ -41,6 +41,9 @@ const api = {
 
 	// 登录
 	login: data => request.post("/merchant/login", data, 'POST'),
+	
+	// sendSms
+	sendSms :data => request.post("sms/send",data,'POST'),
 
 	//注册推送 
 	pushRegiste: data => request.post("/push/registe", data, 'POST'),
