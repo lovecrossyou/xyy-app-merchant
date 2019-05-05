@@ -22,10 +22,10 @@
 			</view>
 
 			<view class="login_tab_area" v-if="indexNeed == 1 ? true : false">
-				<view class="input_area"><input type="number" value="" placeholder="请输入管理员手机号" /></view>
+				<view class="input_area"><input type="number" v-model="formData.phone" placeholder="请输入管理员手机号" /></view>
 				<view class="input_area">
-					<input type="number" value="" placeholder="请输入验证码" />
-					<button class="get_code">获取验证码</button>
+					<input type="number" v-model="formData.code" placeholder="请输入验证码" />
+					<button class="get_code" @click="sendSms">获取验证码</button>
 				</view>
 			</view>
 		</view>
@@ -43,18 +43,23 @@
 	export default {
 		data() {
 			return {
-				navContent: ['账号登录', '短信登录'],
-				indexNeed: 0,
+				// navContent: ['账号登录', '短信登录'],
+				navContent: ['短信登录'],
+				indexNeed: 1,
 				formData: {
-					username: '',
-					password: ''
+					phone: '',
+					password: '',
+					code:''
 				}
 			};
 		},
-		components: {},
-		computed: {},
+		onLoad(option) {
+			if(option.phone){
+				this.formData.phone = option.phone;
+			}
+		},
 		methods: {
-			...mapActions(['login', 'appLogin']),
+			...mapActions(['login', 'appLogin','sendSms']),
 			loginFn(index) {
 				this.indexNeed = index;
 				console.log(index);
@@ -71,6 +76,9 @@
 			},
 			goBack() {
 				uni.navigateBack()
+			},
+			sendSms(){
+				this.$store.dispatch('sendSms',this.formData);
 			}
 		}
 	};

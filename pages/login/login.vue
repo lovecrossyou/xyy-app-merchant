@@ -115,6 +115,7 @@
 				uni.reLaunch({
 					url: '/pages/home/home'
 				});
+				this.$store.dispatch('registePush');
 			}
 		},
 		onLoad() {

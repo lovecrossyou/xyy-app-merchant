@@ -183,6 +183,14 @@
 						return;
 					}
 					res = await api.createShop(params);
+					if(res.status === 0){
+						uni.showToast({
+							title: res.message,
+							mask: false,
+							duration: 1500
+						});
+						return;
+					}
 					uni.redirectTo({
 						url:"/pages/shop/enterFlowPath?phone="+params.phone
 					})

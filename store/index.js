@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 		userName: "",
 		shopId: 13,
 		userInfo: null,
-		shopInfo:{
+		shopInfo: {
 			"name": "",
 			"address": "",
 			"latitude": 39.92843,
@@ -42,7 +42,8 @@ const store = new Vuex.Store({
 			"catering_service_license_image": "",
 			"activities": [],
 			"category": "请选择"
-		}
+		},
+		clientInfo: null
 	},
 	mutations: {
 		login(state, userInfo) {
@@ -59,16 +60,29 @@ const store = new Vuex.Store({
 		},
 		setShopInfo(state, data) {
 			state.shopInfo = data;
+		},
+		saveClientInfo(state, data) {
+			state.clientInfo = data;
 		}
 	},
 	actions: {
-		async fetchShopInfo({commit,state}){
+		async fetchShopInfo({
+			commit,
+			state
+		}) {
 			const restaurant_id = state.userInfo.restaurant_id;
 			const res = await api.shopInfo(restaurant_id);
 			commit('setShopInfo', res);
 		},
+		async sendSms({
+			commit,
+			state
+		},data){
+			await api.sendSms(data);
+		},
 		async appLogin({
-			commit
+			commit,
+			state
 		}, data, cb) {
 			const res = await api.login(data);
 			if (res.status === 1) {
@@ -78,11 +92,23 @@ const store = new Vuex.Store({
 				uni.reLaunch({
 					url: '/pages/home/home'
 				});
+				const clientInfo = state.clientInfo;
+				if (clientInfo) {
+					console.log('clientInfo## ',JSON.stringify(clientInfo));
+					await api.pushRegiste({
+						client_info:clientInfo
+					});
+				}
 			}
 		},
-		async registePush({commit,state},data){
-			console.log('xxxxx ',JSON.stringify(data));
-			const res = await api.pushRegiste(data);
+		async registePush({
+			commit,
+			state
+		}, data) {
+			const clientInfo = state.clientInfo;
+			if (clientInfo) {
+				await api.pushRegiste(clientInfo);
+			}
 		}
 	}
 })

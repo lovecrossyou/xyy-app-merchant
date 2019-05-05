@@ -3,8 +3,8 @@
 		<img src="../../static/shop/wancheng@2x.png" alt="" class="succes_icon">
 		<view class="title_text">提交完成，请等待审核结果</view>
 		<view class="message_text_l">工作人员会在1-3个工作日内进行审核，审核结果会短信通知</view>
-		<view class="message_text">初始 账户： {{phone}}</view>
-		<view class="message_text">初始 密码： {{pwd}}</view>
+		<!-- <view class="message_text">初始 账户： {{phone}}</view>
+		<view class="message_text">初始 密码： {{pwd}}</view> -->
 
 		<button type="primary" class="submit_btn" @click="goLogin">去登录</button>
 
@@ -25,7 +25,7 @@
 		methods:{
 			goLogin(){
 				uni.redirectTo({
-					url:'/pages/login/register'
+					url:'/pages/login/register?phone='+this.phone
 				})
 			}
 		}
