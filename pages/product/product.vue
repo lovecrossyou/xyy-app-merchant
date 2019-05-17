@@ -12,7 +12,7 @@
 		<!-- 商品详情 -->
 		<div class="username-wrapper">
 			<div class="title88">商品详情</div>
-			<input v-model="editProduct.description" class="shop-addr" @input="replaceInput" placeholder="请输入商品名称" />
+			<input v-model="editProduct.description" class="shop-addr" @input="replaceInput" placeholder="请输入商品详情" />
 		</div>
 		<!-- 商品图片 -->
 		<div class="avatar-wrapper" @click="chooseImage">
