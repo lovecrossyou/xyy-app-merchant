@@ -3,12 +3,12 @@
 		<view class="header_bg">
 			<view class="main_text">包装水行业备案小程序</view>
 		</view>
-		
-		<view class="item">
+
+		<view class="item" @click="doCreateFactory">
 			水厂备案录入
 		</view>
 
-		<view class="item">
+		<view class="item" @click="doCreateShop">
 			水站备案录入
 		</view>
 	</view>
@@ -22,7 +22,17 @@
 			}
 		},
 		methods: {
-
+			// 开店
+			doCreateShop() {
+				uni.navigateTo({
+					url: "/pages/shop/storeApply"
+				})
+			},
+			doCreateFactory() {
+				uni.navigateTo({
+					url: "/pages/shop/factoryApply"
+				})
+			},
 		}
 	}
 </script>
@@ -48,20 +58,20 @@
 		height: 400upx;
 		background: url(http://qnimage.xiteng.com/banner@2x.png) no-repeat center center;
 		background-size: 100% 100%;
-		
+
 		/* position: relative; */
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		
+
 		margin-bottom: 20upx;
 	}
-	
-	.main_text{
+
+	.main_text {
 		color: #999999;
 		font-size: 30upx;
-		
+
 	}
 
 	.item {
