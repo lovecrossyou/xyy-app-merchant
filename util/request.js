@@ -1,8 +1,13 @@
 import Fly from 'flyio/dist/npm/wx'
 import service from "../service"
 const request = new Fly()
+<<<<<<< HEAD
 // const baseURL = 'https://api.kuaimayoupin.com'
 export const baseURL = 'http://47.94.169.143:8004'
+=======
+const baseURL = 'https://api.kuaimayoupin.com'
+// export const baseURL = 'http://47.94.169.143:8004'
+>>>>>>> a0a0031349abe0c123c01c36e9cbba8ed8c0b296
 // export const baseURL = 'http://192.168.199.101:8004' //家里
 // export const baseURL = 'http://192.168.1.235:7001' //公司
 
