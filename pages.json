@@ -53,7 +53,19 @@
 				}
 			}
 		}
-	],
+        ,{
+            "path" : "pages/selectmode/selectmode",
+            "style" : {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏
+					}
+				}
+			}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#FFFFFF",
