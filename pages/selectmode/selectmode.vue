@@ -5,11 +5,11 @@
 		</view>
 		
 		<view class="item">
-			水厂备案
+			水厂备案录入
 		</view>
 
 		<view class="item">
-			水站备案
+			水站备案录入
 		</view>
 	</view>
 </template>
