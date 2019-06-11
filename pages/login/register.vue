@@ -5,7 +5,7 @@
 			<image src="../../static/login/rigjt_icon@2x.png" mode="" class="back_icon" @click.stop="goBack"></image>
 			<view class="top_text" @click.stop="doCreateShop"></view>
 		</view>
-		<view class="main_text" @click.stop="doCreateShop">去开店</view>
+		<!-- <view class="main_text" @click.stop="doCreateShop">去开店</view> -->
 
 		<!-- 登录注册切换 -->
 		<view class="login_option_tab">
@@ -14,7 +14,7 @@
 			</view>
 
 			<view class="login_tab_area" v-if="indexNeed == 0 ? true : false">
-				<view class="input_area"><input type="number" v-model="formData.username" placeholder="请输入管理员手机号" /></view>
+				<view class="input_area"><input type="number" v-model="formData.username" placeholder="请输入手机号" /></view>
 				<view class="input_area">
 					<input type="number" v-model="formData.password" placeholder="请输入密码" />
 					<view class="forget_password_text">忘记密码</view>
@@ -30,7 +30,7 @@
 			</view>
 		</view>
 		<button class="login_btn" @click="doLogin">登录</button>
-		<view class="footer_text" @click="doCreateShop">注册或创建账户即同意《鑫翼优用户注册协议书》</view>
+		<view class="footer_text">注册或创建账户即同意《鑫翼优用户注册协议书》</view>
 	</view>
 </template>
 
@@ -134,7 +134,7 @@
 	}
 
 	.input_area {
-		width: 520upx;
+		width: 560upx;
 		height: 92upx;
 		padding: 0 10upx;
 		box-sizing: border-box;
@@ -175,7 +175,7 @@
 	}
 
 	.get_code {
-		width: 160upx;
+		width: 180upx;
 		height: 50upx;
 		border-radius: 30upx;
 		font-size: 24upx;

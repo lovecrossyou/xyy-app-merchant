@@ -11,9 +11,7 @@
 			</view>
 		</view>
 		<!-- <button class="login_btn" open-type="getUserInfo" @getuserinfo="oauth('weixin')">登录</button> -->
-		<button class="login_btn" @click="doLogin">登录</button>
-		
-		
+		<button class="login_btn" @click="doLogin">登录/注册</button>
 		
 		<view class="footer_text">注册或创建账户即同意《鑫翼优商家注册协议书》 </view>
 	</view>

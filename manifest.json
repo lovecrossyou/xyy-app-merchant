@@ -1,5 +1,5 @@
 {
-    "name" : "鑫翼优商家",
+    "name" : "包装水行业备案",
     "appid" : "__UNI__E9B40C0",
     "description" : "商户管理",
     "versionName" : "1.0.0",
@@ -106,7 +106,7 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wx56e7731073ee003f",
+        "appid" : "wxe64e399abf97e8e8",
         "setting" : {
             "urlCheck" : false,
             "es6" : false
