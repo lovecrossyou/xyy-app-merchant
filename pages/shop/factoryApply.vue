@@ -5,67 +5,76 @@
 			<view class="basic_msg_text">基本信息</view>
 			<view style="width: 100%;padding:0 30upx;box-sizing: border-box;">
 				<view class="input_cont">
-					<view class="left_text">店铺名称</view>
-					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请输入店铺名称" />
+					<view class="left_text">水厂名称</view>
+					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请输入水厂名称" />
 				</view>
-				<!-- 店铺简介 -->
+
+				<view class="input_cont" @click="searchAddress">
+					<view class="left_text">水厂地址</view>
+					<view class="center_text">{{shopInfo.address}}</view>
+					<image src="../../static/shop/shouhuodizhi@2x.png" mode="" class="address_icon"></image>
+				</view>
+				
 				<view class="input_cont">
-					<view class="left_text">店铺简介</view>
+					<view class="left_text">品牌(代加工/自主)</view>
+					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请输入品牌名称" />
+				</view>
+
+				<!-- 水厂简介 -->
+				<view class="input_cont">
+					<view class="left_text">水厂简介</view>
 					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请输入店铺简介" />
 				</view>
-				<!-- 配送费 -->
-				<view class="input_cont">
-					<view class="left_text">配送费（¥）</view>
-					<input type="number" v-model="shopInfo.float_delivery_fee" :value="shopInfo.float_delivery_fee" placeholder="配送费" />
-				</view>
-				<!-- 起送价 -->
-				<view class="input_cont">
-					<view class="left_text">起送价（¥）</view>
-					<input type="number" v-model="shopInfo.float_minimum_order_amount" :value="shopInfo.float_minimum_order_amount"
-					 placeholder="请输入起送价" />
-				</view>
-
-				<!-- 营业时间 -->
-				<div class="input_cont">
-					<div class="left_text">开始营业时间</div>
-					<picker class="picker" mode="time" :value="startTime" start="00:00" end="24:00" @change="startOpenTimeChange">
-						<view class="center_text">{{startTime}}</view>
-					</picker>
-				</div>
-				<div class="input_cont">
-					<div class="left_text">结束营业时间</div>
-					<picker class="picker" mode="time" :value="endTime" start="00:00" end="24:00" @change="endOpenTimeChange">
-						<view class="center_text">{{endTime}}</view>
-					</picker>
-				</div>
-
-				<view class="input_cont">
-					<view class="left_text">联系电话</view>
-					<input type="number" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请填写手机号" />
-				</view>
+				
 				<view class="input_cont">
 					<view class="left_text">门店分类</view>
 					<view class="center_text" @click="showCategoryPicker">{{shopInfo.category}}</view>
 					<image src="../../static/shop/xiala@2x.png" mode="" class="next_icon"></image>
 				</view>
 
-				<view class="input_cont" @click="searchAddress">
-					<view class="left_text">门店地址</view>
-					<view class="center_text">{{shopInfo.address}}</view>
-					<image src="../../static/shop/shouhuodizhi@2x.png" mode="" class="address_icon"></image>
-				</view>
-
 			</view>
 		</view>
-		<!-- 门店照片 -->
-		<view class="basic_msg_text" style="margin-top: 20upx;">店铺信息</view>
+		<view class="basic_msg_text" style="margin-top: 20upx;">上游供货商信息</view>
+
 		<view class="store_imgs">
 			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
-				<view class="left_title">店铺头像</view>
+				<view class="left_title">桶</view>
+				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				<view class="right_explain">供货商信息 ＋ 资质</view>
+			</view>
+			
+			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+				<view class="left_title">标签</view>
+				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				<view class="right_explain">供货商信息 ＋ 资质</view>
+			</view>
+			
+			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+				<view class="left_title">桶盖</view>
+				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				<view class="right_explain">供货商信息 ＋ 资质</view>
+			</view>
+			
+			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+				<view class="left_title">包装袋</view>
+				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+				<view class="right_explain">供货商信息 ＋ 资质</view>
+			</view>
+		</view>
+
+		<!-- 门店照片 -->
+		<view class="basic_msg_text" style="margin-top: 20upx;">资质信息</view>
+		<view class="store_imgs">
+			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+				<view class="left_title">品牌头像</view>
 				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 
-				<view class="right_explain">一张真实的门店照可提升店铺 形象</view>
+				<!-- <view class="right_explain">一张真实的门店照可提升店铺 形象</view> -->
 			</view>
 			<view class="uploading_img_item" @click="upLoadBusinessLicence" style="border: none;">
 				<view class="left_title">营业执照</view>
@@ -73,16 +82,7 @@
 				<image v-else-if="shopInfo.business_license_image" :src="shopInfo.business_license_image" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 
-				<view class="right_explain">简洁干净的店内照可以让客户 放心点单</view>
-			</view>
-			<view class="uploading_img_item" @click="upLoadServiceLicence" style="border: none;">
-				<view class="left_title">餐饮服务许可证</view>
-				<image v-if="shopInfo.license" :src="shopInfo.license.catering_service_license_image" mode="" class="add_img"></image>
-				<image v-else-if="shopInfo.catering_service_license_image" :src="shopInfo.catering_service_license_image" mode=""
-				 class="add_img"></image>
-				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
-
-				<view class="right_explain">上传店铺logo,提升进店概率（ 支持JPG，JPEG，PNG格式， 大小不超过500K）</view>
+				<!-- <view class="right_explain">简洁干净的店内照可以让客户 放心点单</view> -->
 			</view>
 		</view>
 		<wzp-picker ref="wzpPicker" :mode="mode" :pickerList="pickerList" :defaultIndex="defaultIndex" :equalModeId="equalModeId"
@@ -157,16 +157,15 @@
 					}
 				});
 			},
-			
+
 			// 更新店铺 
 			async shopUpdate() {
 				const params = this.shopInfo;
 				let res;
-				if(params.id){
+				if (params.id) {
 					res = await api.shopUpdate(params);
-				}
-				else{
-					if(this.shopInfo.phone.length!=11){
+				} else {
+					if (this.shopInfo.phone.length != 11) {
 						uni.showToast({
 							title: '请输入合法的手机号码',
 							mask: false,
@@ -174,7 +173,7 @@
 						});
 						return;
 					}
-					if(this.shopInfo.category === '请选择'){
+					if (this.shopInfo.category === '请选择') {
 						uni.showToast({
 							title: '请选择店铺分类',
 							mask: false,
@@ -183,7 +182,7 @@
 						return;
 					}
 					res = await api.createShop(params);
-					if(res.status === 0){
+					if (res.status === 0) {
 						uni.showToast({
 							title: res.message,
 							mask: false,
@@ -192,7 +191,7 @@
 						return;
 					}
 					uni.redirectTo({
-						url:"/pages/shop/enterFlowPath?phone="+params.phone
+						url: "/pages/shop/enterFlowPath?phone=" + params.phone
 					})
 				}
 				if (res.status === 1) {
@@ -290,7 +289,7 @@
 	}
 
 	.left_text {
-		width: 215upx;
+		width: 240upx;
 		text-align: left;
 		color: #333333;
 		font-size: 28upx;
