@@ -1,6 +1,18 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页,
 		{
+			"path": "pages/selectmode/selectmode",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏
+					}
+				}
+			}
+		},
+		{
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "首页"
@@ -22,7 +34,7 @@
 				"navigationBarTitleText": "搜索地址"
 			}
 		},
-		
+
 		{
 			"path": "pages/shop/shopcreate",
 			"style": {
@@ -38,13 +50,13 @@
 		{
 			"path": "pages/shop/storeApply",
 			"style": {
-				"navigationBarTitleText": "水站信息"
+				"navigationBarTitleText": "水站信息备案"
 			}
 		},
 		{
 			"path": "pages/shop/factoryApply",
 			"style": {
-				"navigationBarTitleText": "水厂信息"
+				"navigationBarTitleText": "水厂信息备案"
 			}
 		},
 		{
@@ -59,19 +71,7 @@
 				}
 			}
 		}
-        ,{
-            "path" : "pages/selectmode/selectmode",
-            "style" : {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent" //透明渐变导航栏
-					}
-				}
-			}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#FFFFFF",
