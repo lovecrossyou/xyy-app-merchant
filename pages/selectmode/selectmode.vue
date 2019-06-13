@@ -1,7 +1,7 @@
 <template>
 	<view class="main">
 		<view class="header_bg">
-			<view class="main_text">包装水行业备案小程序</view>
+			<view class="main_text">包装水行业备案</view>
 		</view>
 
 		<view class="item" @click="doCreateFactory">
