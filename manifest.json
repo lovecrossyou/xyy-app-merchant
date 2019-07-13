@@ -1,5 +1,5 @@
 {
-    "name" : "包装水行业备案",
+    "name" : "服务网点备案查询",
     "appid" : "__UNI__E9B40C0",
     "description" : "商户管理",
     "versionName" : "1.0.0",
@@ -56,7 +56,7 @@
             },
             "icons" : {
                 "ios" : {
-                    "appstore" : "/Users/wangq/Desktop/kuaima/logo/xyy-client.png",
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",
@@ -91,11 +91,11 @@
             "splashscreen" : {
                 "ios" : {
                     "iphone" : {
-                        "retina55" : "/Users/wangq/Desktop/kuaima/引导页/商家版/1242-2208/1242-2208.png",
-                        "retina47" : "/Users/wangq/Desktop/kuaima/引导页/商家版/750-1334/750-1334.png",
-                        "retina40" : "/Users/wangq/Desktop/kuaima/引导页/商家版/640-1136/640-1136.png",
-                        "iphonex" : "/Users/wangq/Desktop/kuaima/引导页/商家版/1125-2436/1125-2436.png",
-                        "portrait-896h@2x" : "/Users/wangq/Desktop/kuaima/引导页/商家版/828-1792/828-1792.png"
+                        "retina55" : "",
+                        "retina47" : "",
+                        "retina40" : "",
+                        "iphonex" : "",
+                        "portrait-896h@2x" : ""
                     }
                 }
             }
@@ -106,7 +106,7 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wxe64e399abf97e8e8",
+        "appid" : "wxc5bd65b9c8ca7670",
         "setting" : {
             "urlCheck" : false,
             "es6" : false
