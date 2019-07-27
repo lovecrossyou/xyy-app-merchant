@@ -13,14 +13,14 @@
 			}
 		},
 		{
-			"path": "pages/home/home",
-			"style": {
-				"navigationBarTitleText": "首页"
-			}
-		}, {
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏
+					}
+				}
 			}
 		}, {
 			"path": "pages/reg/reg",
