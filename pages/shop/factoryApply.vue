@@ -17,7 +17,12 @@
 				
 				<view class="input_cont">
 					<view class="left_text">品牌(代加工/自主)</view>
-					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请输入品牌名称" />
+					<input type="text" v-model="shopInfo.brand" :value="shopInfo.brand" placeholder="请输入品牌名称" />
+				</view>
+				
+				<view class="input_cont">
+					<view class="left_text">联系电话</view>
+					<input type="text" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请输入联系电话" />
 				</view>
 
 				<!-- 水厂简介 -->
