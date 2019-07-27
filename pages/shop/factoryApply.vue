@@ -22,7 +22,7 @@
 				
 				<view class="input_cont">
 					<view class="left_text">联系电话</view>
-					<input type="text" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请输入联系电话" />
+					<input type="number" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请输入联系电话" />
 				</view>
 
 				<!-- 水厂简介 -->
