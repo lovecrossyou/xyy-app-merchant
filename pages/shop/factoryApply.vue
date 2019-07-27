@@ -40,32 +40,34 @@
 			</view>
 		</view>
 		<view class="basic_msg_text" style="margin-top: 20upx;">上游供货商信息</view>
+		<!-- 桶 标签 桶盖 包装袋 -->
+		<!-- Bucket Label  Bung Package-->
 
 		<view class="store_imgs">
-			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+			<view class="uploading_img_item" @click="upLoadBucketImagePath" style="border: none;">
 				<view class="left_title">桶</view>
-				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-if="shopInfo.image_bucket_path.length!=0" :src="shopInfo.image_bucket_path" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 				<view class="right_explain">供货商信息 ＋ 资质</view>
 			</view>
 			
-			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+			<view class="uploading_img_item" @click="upLoadLabelImagePath" style="border: none;">
 				<view class="left_title">标签</view>
-				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-if="shopInfo.image_label_path.length!=0" :src="shopInfo.image_label_path" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 				<view class="right_explain">供货商信息 ＋ 资质</view>
 			</view>
 			
-			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+			<view class="uploading_img_item" @click="upLoadBungImagePath" style="border: none;">
 				<view class="left_title">桶盖</view>
-				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-if="shopInfo.image_bung_path.length!=0" :src="shopInfo.image_bung_path" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 				<view class="right_explain">供货商信息 ＋ 资质</view>
 			</view>
 			
-			<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
+			<view class="uploading_img_item" @click="upLoadPackageImagePath" style="border: none;">
 				<view class="left_title">包装袋</view>
-				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+				<image v-if="shopInfo.image_package_path.length!=0" :src="shopInfo.image_package_path" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 				<view class="right_explain">供货商信息 ＋ 资质</view>
 			</view>
@@ -121,6 +123,51 @@
 			this.categoryList();
 		},
 		methods: {
+			upLoadPackageImagePath(){
+				let that = this;
+				uni.chooseImage({
+					success: chooseImageRes => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						api.uploader(tempFilePaths[0], res => {
+							that.shopInfo.image_package_path = res.image_path;
+						})
+					}
+				});
+			},
+			upLoadLabelImagePath(){
+				let that = this;
+				uni.chooseImage({
+					success: chooseImageRes => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						api.uploader(tempFilePaths[0], res => {
+							that.shopInfo.image_label_path = res.image_path;
+						})
+					}
+				});
+			},
+			upLoadBungImagePath(){
+				let that = this;
+				uni.chooseImage({
+					success: chooseImageRes => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						api.uploader(tempFilePaths[0], res => {
+							that.shopInfo.image_bung_path = res.image_path;
+						})
+					}
+				});
+			},
+			upLoadBucketImagePath(){
+				let that = this;
+				uni.chooseImage({
+					success: chooseImageRes => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						api.uploader(tempFilePaths[0], res => {
+							that.shopInfo.image_bucket_path = res.image_path;
+						})
+					}
+				});
+			},
+			// 营业执照
 			upLoadBusinessLicence() {
 				let that = this;
 				uni.chooseImage({

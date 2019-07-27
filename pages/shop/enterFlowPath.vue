@@ -6,7 +6,7 @@
 		<!-- <view class="message_text">初始 账户： {{phone}}</view>
 		<view class="message_text">初始 密码： {{pwd}}</view> -->
 
-		<button type="primary" class="submit_btn" @click="goLogin">去登录</button>
+		<button type="primary" class="submit_btn" @click="goLogin">确定</button>
 
 	</view>
 </template>
@@ -24,6 +24,7 @@
 		},
 		methods:{
 			goLogin(){
+				return;
 				uni.redirectTo({
 					url:'/pages/login/register?phone='+this.phone
 				})
