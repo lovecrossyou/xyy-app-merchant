@@ -8,8 +8,12 @@
 			水厂备案录入
 		</view>
 
-		<view class="item" @click="doCreateShop">
+		<view class="item" @click="doWaterShop">
 			水站备案录入
+		</view>
+		
+		<view class="item" @click="doCreateShop">
+			社区店备案录入
 		</view>
 	</view>
 </template>
@@ -26,13 +30,18 @@
 			doCreateShop() {
 				uni.navigateTo({
 					url: "/pages/shop/storeApply"
-				})
+				});
 			},
 			doCreateFactory() {
 				uni.navigateTo({
 					url: "/pages/shop/factoryApply"
-				})
+				});
 			},
+			doWaterShop(){
+				uni.navigateTo({
+					url: "/pages/shop/waterShopApply"
+				});
+			}
 		}
 	}
 </script>

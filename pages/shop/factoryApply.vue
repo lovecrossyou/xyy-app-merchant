@@ -31,11 +31,11 @@
 					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请输入店铺简介" />
 				</view>
 				
-				<view class="input_cont">
+				<!-- <view class="input_cont">
 					<view class="left_text">门店分类</view>
 					<view class="center_text" @click="showCategoryPicker">{{shopInfo.category}}</view>
 					<image src="../../static/shop/xiala@2x.png" mode="" class="next_icon"></image>
-				</view>
+				</view> -->
 
 			</view>
 		</view>
@@ -94,7 +94,7 @@
 		</view>
 		<wzp-picker ref="wzpPicker" :mode="mode" :pickerList="pickerList" :defaultIndex="defaultIndex" :equalModeId="equalModeId"
 		 @onConfirm="onConfirm"></wzp-picker>
-		<button type="primary" class="submit_btn" @click="shopUpdate">提交</button>
+		<button type="primary" class="submit_btn" @click="factoryUpdate">提交</button>
 	</view>
 </template>
 
@@ -211,11 +211,11 @@
 			},
 
 			// 更新店铺 
-			async shopUpdate() {
+			async factoryUpdate() {
 				const params = this.shopInfo;
 				let res;
 				if (params.id) {
-					res = await api.shopUpdate(params);
+					res = await api.factoryUpdate(params);
 				} else {
 					if (this.shopInfo.phone.length != 11) {
 						uni.showToast({
@@ -225,15 +225,7 @@
 						});
 						return;
 					}
-					if (this.shopInfo.category === '请选择') {
-						uni.showToast({
-							title: '请选择店铺分类',
-							mask: false,
-							duration: 1500
-						});
-						return;
-					}
-					res = await api.createShop(params);
+					res = await api.createFactory(params);
 					if (res.status === 0) {
 						uni.showToast({
 							title: res.message,
@@ -242,9 +234,6 @@
 						});
 						return;
 					}
-					uni.redirectTo({
-						url: "/pages/shop/enterFlowPath?phone=" + params.phone
-					})
 				}
 				if (res.status === 1) {
 					uni.showToast({
@@ -252,6 +241,9 @@
 						mask: false,
 						duration: 1500
 					});
+					uni.redirectTo({
+						url: "/pages/shop/enterFlowPath?phone=" + params.phone
+					})
 				}
 			},
 			startOpenTimeChange: function(e) {

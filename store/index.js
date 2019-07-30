@@ -38,14 +38,19 @@ const store = new Vuex.Store({
 			"startTime": "09:00",
 			"endTime": "21:00",
 			"image_path": "",
-			"image_label_path":"",
-			"image_bucket_path":"",
-			"image_bung_path":"",
-			"image_package_path":"",
+			"image_label_path": "",
+			"image_bucket_path": "",
+			"image_bung_path": "",
+			"image_package_path": "",
 			"business_license_image": "",
 			"catering_service_license_image": "",
 			"activities": [],
-			"category": "请选择"
+			"category": "请选择",
+			"leader_identity_card": {
+				"positive_side": "",
+				"negative_side": ""
+			},
+			"brand_sale_protocol_image":""
 		},
 		clientInfo: null
 	},
@@ -81,7 +86,7 @@ const store = new Vuex.Store({
 		async sendSms({
 			commit,
 			state
-		},data){
+		}, data) {
 			await api.sendSms(data);
 		},
 		async appLogin({
@@ -99,7 +104,7 @@ const store = new Vuex.Store({
 				const clientInfo = state.clientInfo;
 				if (clientInfo) {
 					await api.pushRegiste({
-						client_info:clientInfo
+						client_info: clientInfo
 					});
 				}
 			}

@@ -50,7 +50,7 @@
 		{
 			"path": "pages/shop/storeApply",
 			"style": {
-				"navigationBarTitleText": "水站信息备案"
+				"navigationBarTitleText": "社区店信息备案"
 			}
 		},
 		{
@@ -71,7 +71,13 @@
 				}
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/shop/waterShopApply",
+            "style" : {
+				"navigationBarTitleText":"水站备案"
+			}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#FFFFFF",

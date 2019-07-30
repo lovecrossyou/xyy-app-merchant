@@ -5,13 +5,13 @@
 			<view class="basic_msg_text">基本信息</view>
 			<view style="width: 100%;padding:0 30upx;box-sizing: border-box;">
 				<view class="input_cont">
-					<view class="left_text">社区店名称</view>
-					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请输入社区店名称" />
+					<view class="left_text">水站名称</view>
+					<input type="text" v-model="shopInfo.name" :value="shopInfo.name" placeholder="请输入水站名称" />
 				</view>
 				<!-- 水站简介 -->
 				<view class="input_cont">
-					<view class="left_text">社区店简介</view>
-					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请输入社区店简介" />
+					<view class="left_text">水站简介</view>
+					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请输入水站简介" />
 				</view>
 
 				<view class="input_cont">
@@ -25,16 +25,16 @@
 				</view> -->
 
 				<view class="input_cont" @click="searchAddress">
-					<view class="left_text">社区店地址</view>
+					<view class="left_text">水站地址</view>
 					<view class="center_text">{{shopInfo.address}}</view>
 					<image src="../../static/shop/shouhuodizhi@2x.png" mode="" class="address_icon"></image>
 				</view>
 
 				<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
-					<view class="left_title">社区店头像</view>
+					<view class="left_title">水站头像</view>
 					<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
 					<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
-					<!-- <view class="right_explain">一张真实的门店照可提升社区店 形象</view> -->
+					<!-- <view class="right_explain">一张真实的门店照可提升水站 形象</view> -->
 				</view>
 			</view>
 		</view>
@@ -47,7 +47,7 @@
 				<image v-if="shopInfo.leader_identity_card.positive_side.length!=0" :src="shopInfo.leader_identity_card.positive_side" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 
-				<!-- <view class="right_explain">一张真实的门店照可提升社区店 形象</view> -->
+				<!-- <view class="right_explain">一张真实的门店照可提升水站 形象</view> -->
 			</view>
 			<view class="uploading_img_item" @click="upLoadLeader_identity_card_negative_side" style="border: none;">
 				<view class="left_title">身份证反面</view>
@@ -61,13 +61,13 @@
 
 
 		<!-- 门店照片 -->
-		<view class="basic_msg_text" style="margin-top: 20upx;">社区店资质</view>
+		<view class="basic_msg_text" style="margin-top: 20upx;">水站资质</view>
 		<view class="store_imgs">
 			<view class="uploading_img_item" @click="upLoadBrand_sale_protocol_image" style="border: none;">
 				<view class="left_title">品牌销售协议</view>
 				<image v-if="shopInfo.brand_sale_protocol_image.length!=0" :src="shopInfo.brand_sale_protocol_image" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
-				<!-- <view class="right_explain">一张真实的门店照可提升社区店 形象</view> -->
+				<!-- <view class="right_explain">一张真实的门店照可提升水站 形象</view> -->
 			</view>
 
 			<view class="uploading_img_item" @click="upLoadBusinessLicence" style="border: none;">
@@ -184,10 +184,10 @@
 					}
 				});
 			},
-			// 更新社区店 
+			// 更新水站 
 			async shopUpdate() {
 				const params = this.shopInfo;
-				params.category = '商店超市/便利店';
+				params.category = '商店超市/水站';
 				let res;
 				if (params.id) {
 					res = await api.shopUpdate(params);
@@ -200,14 +200,6 @@
 						});
 						return;
 					}
-					// if (this.shopInfo.category === '请选择') {
-					// 	uni.showToast({
-					// 		title: '请选择社区店分类',
-					// 		mask: false,
-					// 		duration: 1500
-					// 	});
-					// 	return;
-					// }
 					res = await api.createShop(params);
 					if (res.status === 0) {
 						uni.showToast({

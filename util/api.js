@@ -38,6 +38,9 @@ const api = {
 
 	// 更新店铺信息 
 	shopUpdate: data => request.post("/merchant/updateshop", data, 'POST'),
+	
+	createFactory: data => request.post('/factory/addfactory',data,'POST'),
+	factoryUpdate: data => request.post('/factory/updatefactory',data,'POST'),
 
 	// 登录
 	login: data => request.post("/merchant/login", data, 'POST'),
