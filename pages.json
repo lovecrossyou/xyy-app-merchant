@@ -77,6 +77,10 @@
 				"navigationBarTitleText":"水站备案"
 			}
         }
+        ,{
+            "path" : "pages/searchMap/searchMap",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

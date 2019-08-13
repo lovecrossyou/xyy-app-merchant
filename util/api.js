@@ -70,6 +70,10 @@ const api = {
 
 	//地址搜索
 	searchNearby:data=> request.get('/v1/pois?type=search&keyword='+data.keywords),
+	
+	// 经纬度查询 v2/pois/
+	searchPois:(la,lo)=> request.get('/v2/pois/latitude='+la+',longitude'+lo),
+	
 	//上传
 	uploader: (file, cb) => {
 		uni.uploadFile({

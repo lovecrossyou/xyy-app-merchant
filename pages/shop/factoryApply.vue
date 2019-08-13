@@ -256,8 +256,11 @@
 			},
 			searchAddress() {
 				uni.navigateTo({
-					url: '/pages/address/searchAddress'
+					url:"/pages/searchMap/searchMap"
 				})
+				// uni.navigateTo({
+				// 	url: '/pages/address/searchAddress'
+				// })
 			},
 			// 双列联动初始化
 			showCategoryPicker() {
