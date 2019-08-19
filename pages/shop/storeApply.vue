@@ -13,6 +13,11 @@
 					<view class="left_text">社区店简介</view>
 					<input type="text" v-model="shopInfo.promotion_info" :value="shopInfo.promotion_info" placeholder="请输入社区店简介" />
 				</view>
+				
+				<view class="input_cont">
+					<view class="left_text">负责人</view>
+					<input type="text" v-model="shopInfo.leader" :value="shopInfo.leader" placeholder="请输入负责人" />
+				</view>
 
 				<view class="input_cont">
 					<view class="left_text">联系电话</view>

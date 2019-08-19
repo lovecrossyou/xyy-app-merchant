@@ -21,6 +21,11 @@
 				</view>
 				
 				<view class="input_cont">
+					<view class="left_text">负责人</view>
+					<input type="text" v-model="shopInfo.leader" :value="shopInfo.leader" placeholder="请输入负责人" />
+				</view>
+				
+				<view class="input_cont">
 					<view class="left_text">联系电话</view>
 					<input type="number" v-model="shopInfo.phone" :value="shopInfo.phone" placeholder="请输入联系电话" />
 				</view>
@@ -255,12 +260,12 @@
 				this.shopInfo.endTime = e.target.value;
 			},
 			searchAddress() {
-				uni.navigateTo({
-					url:"/pages/searchMap/searchMap"
-				})
 				// uni.navigateTo({
-				// 	url: '/pages/address/searchAddress'
+				// 	url:"/pages/searchMap/searchMap"
 				// })
+				uni.navigateTo({
+					url: '/pages/address/searchAddress'
+				})
 			},
 			// 双列联动初始化
 			showCategoryPicker() {

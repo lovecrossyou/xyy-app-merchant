@@ -32,6 +32,7 @@ const store = new Vuex.Store({
 			"longitude": 116.35073,
 			"description": "",
 			"phone": '',
+			"leader":'',
 			"promotion_info": "欢迎光临",
 			"float_delivery_fee": '',
 			"float_minimum_order_amount": '',
