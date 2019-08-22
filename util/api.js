@@ -1,10 +1,12 @@
 import request from './request'
 import Fly from 'flyio/dist/npm/wx'
 import {baseURL} from './request.js'
-const uploadBaseUrl = "http://47.94.169.143:8004"
+const uploadBaseUrl = "http://127.0.0.1:7001"
+// const uploadBaseUrl = "http://47.94.169.143:8004"
 const searchBaseUrl = "http://47.94.169.143:8004"
 const api = {
-
+	checkShop: code => request.get("/shopping/find/"+code),
+	checkFactory: code => request.get("/factory/find/"+code),
 	requestCartClient: (params) => request.post("client/shop/cartClient", params),
 	deliveryAddressList: (params) => request.post("client/deliveryAddress/list", params),
 	deliveryAddressCreate: (params) => request.post("client/deliveryAddress/create", params),

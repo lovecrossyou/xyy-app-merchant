@@ -4,21 +4,24 @@
 			<view class="main_text">包装水行业备案</view>
 		</view>
 
-		<view class="item" @click="doCreateFactory">
+		<button @getuserinfo="getUserInfoForFactory" open-type="getUserInfo" class="item">
 			水厂备案录入
-		</view>
+		</button>
 
-		<view class="item" @click="doWaterShop">
+		<button @getuserinfo="getUserInfoForWaterStore" open-type="getUserInfo" class="item">
 			水站备案录入
-		</view>
-		
-		<view class="item" @click="doCreateShop">
+		</button>
+
+		<button @getuserinfo="getUserInfoForMarket" open-type="getUserInfo" class="item">
 			社区店备案录入
-		</view>
+		</button>
 	</view>
 </template>
 
 <script>
+	import {mapMutations} from 'vuex';
+	import api from '@/util/api.js'
+	
 	export default {
 		data() {
 			return {
@@ -26,7 +29,65 @@
 			}
 		},
 		methods: {
-			// 开店
+			...mapMutations(['appendCode','setShopInfo']),
+			async checkFactory(code){
+				const factory = await api.checkFactory(code);
+				if(factory){
+					// 已经录入
+					this.setShopInfo(factory);
+				}
+				this.doCreateFactory();
+			},
+			async checkShop(code){
+				const shop = await api.checkShop(code);
+				if(shop){
+					// 已经录入
+					this.setShopInfo(shop);
+				}
+				this.doCreateShop();
+			},
+			async checkWaterShop(code){
+				const shop = await api.checkShop(code);
+				if(shop){
+					// 已经录入
+					this.setShopInfo(shop);
+				}
+				this.doWaterShop();
+			},
+			getUserInfoForFactory(e) {
+				let that = this;
+				uni.login({
+					provider: 'weixin',
+					success: function(loginRes) {
+						const {code} = loginRes;
+						that.appendCode(code);
+						that.checkFactory(code);
+					}
+				});
+			},
+			getUserInfoForWaterStore(e) {
+				let that = this;
+				uni.login({
+					provider: 'weixin',
+					success: function(loginRes) {
+						const {code} = loginRes;
+						that.appendCode(code);
+						that.checkWaterShop(code)
+					}
+				});
+			},
+			getUserInfoForMarket(e) {
+				let that = this;
+				uni.login({
+					provider: 'weixin',
+					success: function(loginRes) {
+						const {code} = loginRes;
+						that.appendCode(code);
+						that.checkShop(code)
+					}
+				});
+			},
+			// 开店  
 			doCreateShop() {
 				uni.navigateTo({
 					url: "/pages/shop/storeApply"
@@ -37,7 +98,7 @@
 					url: "/pages/shop/factoryApply"
 				});
 			},
-			doWaterShop(){
+			doWaterShop() {
 				uni.navigateTo({
 					url: "/pages/shop/waterShopApply"
 				});

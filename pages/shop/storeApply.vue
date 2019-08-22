@@ -84,15 +84,15 @@
 				<!-- <view class="right_explain">简洁干净的店内照可以让客户 放心点单</view> -->
 			</view>
 		</view>
-		<wzp-picker ref="wzpPicker" :mode="mode" :pickerList="pickerList" :defaultIndex="defaultIndex" :equalModeId="equalModeId"
-		 @onConfirm="onConfirm"></wzp-picker>
+		
 		<button type="primary" class="submit_btn" @click="shopUpdate">提交</button>
 	</view>
 </template>
 
 <script>
 	import {
-		mapState
+		mapState,
+		mapMutations
 	} from 'vuex'
 	import wzpPicker from "../../components/wzp-picker/wzpPicker.vue";
 	import cityData from "../../common/city.data.js";
@@ -115,6 +115,7 @@
 			this.categoryList();
 		},
 		methods: {
+			...mapMutations(['resetShopInfo']),
 			upLoadBusinessLicence() {
 				let that = this;
 				uni.chooseImage({
@@ -205,30 +206,22 @@
 						});
 						return;
 					}
-					// if (this.shopInfo.category === '请选择') {
-					// 	uni.showToast({
-					// 		title: '请选择社区店分类',
-					// 		mask: false,
-					// 		duration: 1500
-					// 	});
-					// 	return;
-					// }
 					res = await api.createShop(params);
-					if (res.status === 0) {
-						uni.showToast({
-							title: res.message,
-							mask: false,
-							duration: 1500
-						});
-						return;
-					}
-					uni.redirectTo({
-						url: "/pages/shop/enterFlowPath?phone=" + params.phone
-					})
 				}
 				if (res.status === 1) {
 					uni.showToast({
 						title: res.success,
+						mask: false,
+						duration: 1500
+					});
+					uni.redirectTo({
+						url: "/pages/shop/enterFlowPath?phone=" + params.phone
+					})
+					this.resetShopInfo();
+				}
+				else{
+					uni.showToast({
+						title: res.message,
 						mask: false,
 						duration: 1500
 					});

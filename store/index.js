@@ -32,7 +32,7 @@ const store = new Vuex.Store({
 			"longitude": 116.35073,
 			"description": "",
 			"phone": '',
-			"leader":'',
+			"leader": '',
 			"promotion_info": "欢迎光临",
 			"float_delivery_fee": '',
 			"float_minimum_order_amount": '',
@@ -51,7 +51,7 @@ const store = new Vuex.Store({
 				"positive_side": "",
 				"negative_side": ""
 			},
-			"brand_sale_protocol_image":""
+			"brand_sale_protocol_image": ""
 		},
 		clientInfo: null
 	},
@@ -73,6 +73,13 @@ const store = new Vuex.Store({
 		},
 		saveClientInfo(state, data) {
 			state.clientInfo = data;
+		},
+		appendCode(state, code) {
+			state.shopInfo.code = code;
+		},
+		resetShopInfo(state){
+			const shopInfo = state.shopInfo;
+			Object.keys(shopInfo).forEach(key => shopInfo[key] = '');
 		}
 	},
 	actions: {

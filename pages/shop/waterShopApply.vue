@@ -84,15 +84,15 @@
 				<!-- <view class="right_explain">简洁干净的店内照可以让客户 放心点单</view> -->
 			</view>
 		</view>
-		<wzp-picker ref="wzpPicker" :mode="mode" :pickerList="pickerList" :defaultIndex="defaultIndex" :equalModeId="equalModeId"
-		 @onConfirm="onConfirm"></wzp-picker>
+		
 		<button type="primary" class="submit_btn" @click="shopUpdate">提交</button>
 	</view>
 </template>
 
 <script>
 	import {
-		mapState
+		mapState,
+		mapMutations
 	} from 'vuex'
 	import wzpPicker from "../../components/wzp-picker/wzpPicker.vue";
 	import cityData from "../../common/city.data.js";
@@ -111,10 +111,8 @@
 				addressDetail: '',
 			};
 		},
-		onLoad(opt) {
-			this.categoryList();
-		},
 		methods: {
+			...mapMutations(['resetShopInfo']),
 			upLoadBusinessLicence() {
 				let that = this;
 				uni.chooseImage({
@@ -224,6 +222,8 @@
 						mask: false,
 						duration: 1500
 					});
+					this.resetShopInfo();
+					
 				}
 			},
 			startOpenTimeChange: function(e) {

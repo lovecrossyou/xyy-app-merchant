@@ -85,34 +85,29 @@
 				<view class="left_title">品牌头像</view>
 				<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
-
-				<!-- <view class="right_explain">一张真实的门店照可提升店铺 形象</view> -->
 			</view>
 			<view class="uploading_img_item" @click="upLoadBusinessLicence" style="border: none;">
 				<view class="left_title">营业执照</view>
 				<image v-if="shopInfo.license" :src="shopInfo.license.business_license_image" mode="" class="add_img"></image>
 				<image v-else-if="shopInfo.business_license_image" :src="shopInfo.business_license_image" mode="" class="add_img"></image>
 				<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
-
-				<!-- <view class="right_explain">简洁干净的店内照可以让客户 放心点单</view> -->
 			</view>
 		</view>
-		<wzp-picker ref="wzpPicker" :mode="mode" :pickerList="pickerList" :defaultIndex="defaultIndex" :equalModeId="equalModeId"
-		 @onConfirm="onConfirm"></wzp-picker>
 		<button type="primary" class="submit_btn" @click="factoryUpdate">提交</button>
 	</view>
 </template>
 
 <script>
 	import {
-		mapState
+		mapState,
+		mapMutations
 	} from 'vuex'
 	import wzpPicker from "../../components/wzp-picker/wzpPicker.vue";
 	import cityData from "../../common/city.data.js";
 	import province from '../../common/province.js';
 	import api from '@/util/api.js'
 	export default {
-		computed: mapState(['shopInfo']),
+		computed: mapState(['shopInfo','resetShopInfo']),
 		data() {
 			return {
 				startTime: '09:00',
@@ -123,9 +118,6 @@
 				defaultIndex: [],
 				addressDetail: '',
 			};
-		},
-		onLoad(opt) {
-			this.categoryList();
 		},
 		methods: {
 			upLoadPackageImagePath(){
@@ -231,14 +223,6 @@
 						return;
 					}
 					res = await api.createFactory(params);
-					if (res.status === 0) {
-						uni.showToast({
-							title: res.message,
-							mask: false,
-							duration: 1500
-						});
-						return;
-					}
 				}
 				if (res.status === 1) {
 					uni.showToast({
@@ -249,6 +233,14 @@
 					uni.redirectTo({
 						url: "/pages/shop/enterFlowPath?phone=" + params.phone
 					})
+					this.resetShopInfo();
+				}
+				else{
+					uni.showToast({
+						title: res.message,
+						mask: false,
+						duration: 1500
+					});
 				}
 			},
 			startOpenTimeChange: function(e) {
@@ -277,22 +269,6 @@
 			onConfirm(e) {
 				const pickerValue = this.pickerList[e[0]].label + "/" + this.pickerList[e[0]].children[e[1]].label;
 				this.shopInfo.category = pickerValue;
-			},
-			async categoryList() {
-				const res = await api.getCategory();
-				let list = [];
-				res.forEach(c => {
-					let node = {};
-					node.label = c.name;
-					node.children = c.sub_categories.map(sub => {
-						return {
-							label: sub.name,
-							value: sub.id
-						}
-					});
-					list.push(node);
-				});
-				this.pickerList = list;
 			}
 		},
 		onBackPress() {
